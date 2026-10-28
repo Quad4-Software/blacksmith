@@ -86,7 +86,7 @@ services:
       - internal
     labels:
       io.containers.autoupdate: registry
-      com.centurylinklabs.watchtower.enable: "true"
+      wud.watch: "true"
     read_only: true
     cap_drop:
       - ALL
@@ -178,16 +178,29 @@ services:
     labels:
       io.containers.autoupdate: registry
 
+  # What's Up Docker: watches for new image tags, pulls them and
+  # recreates watched containers via the docker trigger. Works
+  # against the rootless podman socket. For quadlet deployments use
+  # podman auto-update instead (see contrib/quadlets/).
   updater:
-    image: containrrr/watchtower:latest
+    image: docker.io/getwud/wud:9.6.0
     restart: unless-stopped
     profiles:
       - updater
+    environment:
+      WUD_WATCHER_LOCAL_SOCKET: /var/run/docker.sock
+      WUD_WATCHER_LOCAL_CRON: ${UPDATE_CRON:-0 3 * * *}
+      WUD_TRIGGER_DOCKER_LOCAL_AUTO: "true"
+      WUD_TRIGGER_DOCKER_LOCAL_PRUNE: "true"
+      WUD_LOG_LEVEL: ${WUD_LOG_LEVEL:-info}
     volumes:
       # Point at the rootless podman socket, or leave default for docker.
       - ${CONTAINER_SOCKET:-/run/user/1000/podman/podman.sock}:/var/run/docker.sock:ro
-    command: --label-enable --cleanup --interval ${UPDATE_INTERVAL:-86400}
     networks:
       - internal
     labels:
-      com.centurylinklabs.watchtower.enable: "true"
+      wud.watch: "false"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true

@@ -23,7 +23,7 @@ deployments.
   stage `cgr.dev/chainguard/git`, nonroot uid 65532, read-only rootfs
   ready.
 - **Auto-update.** Podman `auto-update` via quadlet labels, or an
-  external watchtower container for compose deployments.
+  external What's Up Docker container for compose deployments.
 - **Encrypted backups.** Restic sidecar to rest-server or S3.
 - **WAF front.** CrowdSec + Coraza (OWASP CRS) in front of the app.
 
@@ -56,7 +56,7 @@ Then open http://localhost:3000 to finish the installer.
 - `blacksmith` - the forge
 - `postgres` - optional (`--profile db`)
 - `backup` - encrypted restic (`--profile backup`)
-- `updater` - watchtower auto-update (`--profile updater`)
+- `updater` - wud auto-update (`--profile updater`)
 
     cp contrib/proxy/prod.env.example .env   # fill it in
     podman compose -f compose.prod.yaml \

@@ -55,7 +55,7 @@ services:
   blacksmith:
     labels:
       io.containers.autoupdate: registry
-      com.centurylinklabs.watchtower.enable: "true"
+      wud.watch: "true"
       traefik.enable: "true"
       traefik.http.routers.blacksmith.rule: Host(`${BLACKSMITH_DOMAIN:-localhost}`)
       traefik.http.routers.blacksmith.entrypoints: web
