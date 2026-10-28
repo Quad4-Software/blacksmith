@@ -14,12 +14,12 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestForgejo_PreMigrationSanityChecks(t *testing.T) {
+func TestBlacksmith_PreMigrationSanityChecks(t *testing.T) {
 	require.NoError(t, unittest.PrepareTestDatabase())
 	ctx := db.DefaultContext
 	e := db.GetEngine(ctx)
 
-	require.NoError(t, PreMigrationSanityChecks(e, ForgejoV4DatabaseVersion, configFixture(t, "")))
+	require.NoError(t, PreMigrationSanityChecks(e, BlacksmithV4DatabaseVersion, configFixture(t, "")))
 }
 
 func configFixture(t *testing.T, content string) setting.ConfigProvider {

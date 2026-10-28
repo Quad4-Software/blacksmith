@@ -21,5 +21,10 @@ func Version(ctx *context.APIContext) {
 	// responses:
 	//   "200":
 	//     "$ref": "#/responses/ServerVersion"
+	doer := ctx.Doer()
+	if doer == nil || !doer.IsAdmin {
+		ctx.Status(http.StatusNotFound)
+		return
+	}
 	ctx.JSON(http.StatusOK, &structs.ServerVersion{Version: setting.AppVer})
 }

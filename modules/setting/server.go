@@ -1,5 +1,5 @@
 // Copyright 2023 The Gitea Authors. All rights reserved.
-// Copyright 2024 The Forgejo Authors.
+// Copyright 2024 The Blacksmith Authors.
 // SPDX-License-Identifier: MIT
 
 package setting
@@ -144,7 +144,7 @@ func generateDisplayName() string {
 
 func loadServerFrom(rootCfg ConfigProvider) {
 	sec := rootCfg.Section("server")
-	AppName = rootCfg.Section("").Key("APP_NAME").MustString("Forgejo: Beyond coding. We Forge.")
+	AppName = rootCfg.Section("").Key("APP_NAME").MustString("Blacksmith")
 	AppSlogan = rootCfg.Section("").Key("APP_SLOGAN").MustString("")
 	AppDisplayNameFormat = rootCfg.Section("").Key("APP_DISPLAY_NAME_FORMAT").MustString("{APP_NAME}: {APP_SLOGAN}")
 	AppDisplayName = generateDisplayName()
@@ -152,7 +152,7 @@ func loadServerFrom(rootCfg ConfigProvider) {
 	HTTPAddr = sec.Key("HTTP_ADDR").MustString("0.0.0.0")
 	HTTPPort = sec.Key("HTTP_PORT").MustString("3000")
 
-	InternalListenerPath = sec.Key("INTERNAL_LISTENER_PATH").MustString("run/forgejo.sock")
+	InternalListenerPath = sec.Key("INTERNAL_LISTENER_PATH").MustString("run/blacksmith.sock")
 	if !filepath.IsAbs(InternalListenerPath) {
 		InternalListenerPath = filepath.Join(AppWorkPath, InternalListenerPath)
 	}

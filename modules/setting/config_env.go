@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	EnvConfigKeyPrefixGitea = "^(FORGEJO|GITEA)__"
+	EnvConfigKeyPrefixGitea = "^(BLACKSMITH|FORGEJO|GITEA)__"
 	EnvConfigKeySuffixFile  = "__FILE"
 )
 

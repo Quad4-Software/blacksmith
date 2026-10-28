@@ -1,116 +1,73 @@
-FROM --platform=$BUILDPLATFORM data.forgejo.org/oci/xx AS xx
-
-FROM --platform=$BUILDPLATFORM data.forgejo.org/oci/golang:1.27-alpine3.24 AS build-env
-
-ARG GOPROXY
-ENV GOPROXY=${GOPROXY:-https://proxy.golang.org,direct}
-
-ARG RELEASE_VERSION
-ARG TAGS="sqlite sqlite_unlock_notify"
-ENV TAGS="bindata timetzdata $TAGS"
-ARG CGO_EXTRA_CFLAGS
-
-# it's set to local by default in the base image
-# we want to use auto to let go choose the right toolchain
-ENV GOTOOLCHAIN=auto
-
+# syntax=docker/dockerfile:1
 #
-# Transparently cross compile for the target platform
+# Blacksmith - rootless, distroless image built on Chainguard free images.
 #
-COPY --from=xx / /
-ARG TARGETPLATFORM
-RUN apk --no-cache add clang lld
-RUN xx-apk --no-cache add gcc musl-dev
-ENV CGO_ENABLED=1
-RUN xx-go --wrap
+#   podman build -t blacksmith .
 #
-# for go generate and binfmt to find
-# without it the generate phase will fail with
-# #19 25.04 modules/public/public_bindata.go:8: running "go": exit status 1
-# #19 25.39 aarch64-binfmt-P: Could not open '/lib/ld-musl-aarch64.so.1': No such file or directory
-# why exactly is it needed? where is binfmt involved?
-#
-RUN cp /*-alpine-linux-musl*/lib/ld-musl-*.so.1 /lib || true
+# The final image is cgr.dev/chainguard/git (dash shell, git, git-lfs,
+# openssh client, nonroot uid 65532). No package manager, no root.
 
-RUN apk --no-cache add build-base git nodejs npm
-
-COPY . ${GOPATH}/src/forgejo.org
-WORKDIR ${GOPATH}/src/forgejo.org
-
-RUN make clean-no-bindata
+FROM cgr.dev/chainguard/node:latest-dev AS frontend
+USER root
+RUN apk add --no-cache make git bash
+WORKDIR /src
+COPY . .
 RUN make frontend
-RUN go build contrib/environment-to-ini/environment-to-ini.go && xx-verify environment-to-ini
-RUN LDFLAGS="-buildid=" make FORGEJO_GENERATE_SKIP_HASH=true RELEASE_VERSION=$RELEASE_VERSION GOFLAGS="-trimpath" go-check generate-backend static-executable && xx-verify gitea
 
-# Copy local files
-COPY docker/root /tmp/local
+FROM cgr.dev/chainguard/go:latest-dev AS backend
+USER root
+RUN apk add --no-cache make bash gcc glibc-dev sqlite-dev dumb-init
+WORKDIR /src
+COPY . .
+COPY --from=frontend /src/public ./public
 
-# Set permissions
-RUN chmod 755 /tmp/local/usr/bin/entrypoint \
-              /tmp/local/usr/local/bin/gitea \
-              /tmp/local/etc/s6/gitea/* \
-              /tmp/local/etc/s6/openssh/* \
-              /tmp/local/etc/s6/.s6-svscan/* \
-              /go/src/forgejo.org/gitea \
-              /go/src/forgejo.org/environment-to-ini
-RUN chmod 644 /go/src/forgejo.org/contrib/autocompletion/bash_autocomplete
-
-FROM data.forgejo.org/oci/alpine:3.24
 ARG RELEASE_VERSION
-LABEL maintainer="contact@forgejo.org" \
-      org.opencontainers.image.authors="Forgejo" \
-      org.opencontainers.image.url="https://forgejo.org" \
-      org.opencontainers.image.documentation="https://forgejo.org/download/#container-image" \
-      org.opencontainers.image.source="https://codeberg.org/forgejo/forgejo" \
-      org.opencontainers.image.version="${RELEASE_VERSION}" \
-      org.opencontainers.image.vendor="Forgejo" \
+ARG TAGS="bindata timetzdata sqlite sqlite_unlock_notify"
+ENV TAGS=${TAGS}
+
+RUN make FORGEJO_GENERATE_SKIP_HASH=true RELEASE_VERSION="${RELEASE_VERSION}" generate-backend \
+ && CGO_ENABLED=1 go build \
+      -tags "${TAGS}" \
+      -ldflags "-s -w -X main.ReleaseVersion=${RELEASE_VERSION}" \
+      -o blacksmith . \
+ && go build -o environment-to-ini contrib/environment-to-ini/environment-to-ini.go \
+ && mkdir -p /tmp/rootfs/usr/local/bin /tmp/rootfs/usr/bin /tmp/rootfs/app \
+ && install -d -m 0700 -o 65532 -g 65532 /tmp/rootfs/var/lib/blacksmith /tmp/rootfs/var/lib/blacksmith/git /tmp/rootfs/tmp/blacksmith \
+ && install -m 0755 blacksmith /tmp/rootfs/app/blacksmith \
+ && install -m 0755 environment-to-ini /tmp/rootfs/usr/local/bin/environment-to-ini \
+ && install -m 0755 /usr/bin/dumb-init /tmp/rootfs/usr/bin/dumb-init \
+ && install -m 0755 docker/blacksmith/entrypoint.sh /tmp/rootfs/usr/local/bin/blacksmith-entrypoint.sh \
+ && install -m 0755 docker/blacksmith/setup.sh /tmp/rootfs/usr/local/bin/blacksmith-setup.sh \
+ && ln -s /app/blacksmith /tmp/rootfs/usr/local/bin/blacksmith
+
+FROM cgr.dev/chainguard/git:latest
+ARG RELEASE_VERSION
+
+LABEL org.opencontainers.image.title="Blacksmith" \
+      org.opencontainers.image.description="Blacksmith is a self-hosted software forge. Git hosting, code review and CI, hardened for rootless Podman." \
+      org.opencontainers.image.url="https://quad4.io" \
+      org.opencontainers.image.source="https://github.com/Quad4-Software/blacksmith" \
+      org.opencontainers.image.vendor="Quad4" \
       org.opencontainers.image.licenses="GPL-3.0-or-later" \
-      org.opencontainers.image.title="Forgejo. Beyond coding. We forge." \
-      org.opencontainers.image.description="Forgejo is a self-hosted lightweight software forge. Easy to install and low maintenance, it just does the job."
+      org.opencontainers.image.version="${RELEASE_VERSION}" \
+      io.containers.autoupdate="registry"
 
-EXPOSE 22 3000
+EXPOSE 2222 3000
 
-RUN apk --no-cache add \
-    bash \
-    ca-certificates \
-    curl \
-    gettext \
-    git \
-    linux-pam \
-    openssh \
-    s6 \
-    sqlite \
-    su-exec \
-    gnupg \
-    && rm -rf /var/cache/apk/*
+COPY --from=backend /tmp/rootfs /
 
-RUN addgroup \
-    -S -g 1000 \
-    git && \
-  adduser \
-    -S -H -D \
-    -h /data/git \
-    -s /bin/bash \
-    -u 1000 \
-    -G git \
-    git && \
-  echo "git:*" | chpasswd -e
+USER 65532:65532
 
-RUN mkdir \
-  -p /run/forgejo && \
-  chown git:git /run/forgejo
-
+ENV BLACKSMITH_WORK_DIR=/var/lib/blacksmith
+ENV BLACKSMITH_CUSTOM=/var/lib/blacksmith/custom
+ENV BLACKSMITH_TEMP=/tmp/blacksmith
+ENV TMPDIR=/tmp/blacksmith
+ENV BLACKSMITH_APP_INI=${BLACKSMITH_CUSTOM}/conf/app.ini
+ENV HOME=/var/lib/blacksmith/git
 ENV USER=git
-ENV GITEA_CUSTOM=/data/gitea
 
-VOLUME ["/data"]
+VOLUME ["/var/lib/blacksmith"]
+WORKDIR /var/lib/blacksmith
 
-ENTRYPOINT ["/usr/bin/entrypoint"]
-CMD ["/usr/bin/s6-svscan", "/etc/s6"]
-
-COPY --from=build-env /tmp/local /
-RUN cd /usr/local/bin ; ln -s gitea forgejo
-COPY --from=build-env /go/src/forgejo.org/gitea /app/gitea/gitea
-RUN ln -s /app/gitea/gitea /app/gitea/forgejo-cli
-COPY --from=build-env /go/src/forgejo.org/environment-to-ini /usr/local/bin/environment-to-ini
-COPY --from=build-env /go/src/forgejo.org/contrib/autocompletion/bash_autocomplete /etc/profile.d/gitea_bash_autocomplete.sh
+ENTRYPOINT ["/usr/bin/dumb-init", "--", "/usr/local/bin/blacksmith-entrypoint.sh"]
+CMD []

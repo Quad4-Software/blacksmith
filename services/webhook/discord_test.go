@@ -655,8 +655,8 @@ var escapedMarkdownTests = map[string]struct {
 		expected: "\\| Table \\| Example \\|\n\\|-\\|-\\|\n\\| Lorem \\| Ipsum \\|",
 	},
 	"Escape link": {
-		input:    "[Link to Forgejo](https://forgejo.org/)",
-		expected: "\\[Link to Forgejo\\]\\(https://forgejo.org/\\)",
+		input:    "[Link to Blacksmith](https://forgejo.org/)",
+		expected: "\\[Link to Blacksmith\\]\\(https://forgejo.org/\\)",
 	},
 	"Escape Alt text for an image": {
 		input:    "![Alt text for an image](https://forgejo.org/_astro/mascot-dark.1omhhgvT_Zm0N2n.webp)",

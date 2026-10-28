@@ -61,7 +61,7 @@ ifeq ($(HAS_GO), yes)
 endif
 
 GOFLAGS := -v
-EXECUTABLE ?= gitea
+EXECUTABLE ?= blacksmith
 
 ifeq ($(shell sed --version 2>/dev/null | grep -q GNU && echo gnu),gnu)
 	SED_INPLACE := sed -i

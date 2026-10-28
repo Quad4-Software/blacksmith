@@ -1,4 +1,4 @@
-// Copyright 2023 The Forgejo Authors. All rights reserved.
+// Copyright 2023 The Blacksmith Authors. All rights reserved.
 // SPDX-License-Identifier: MIT
 
 package forgefed
@@ -17,14 +17,14 @@ type (
 )
 
 const (
-	ForgejoSourceType    SoftwareNameType = "forgejo"
+	BlacksmithSourceType    SoftwareNameType = "forgejo"
 	GiteaSourceType      SoftwareNameType = "gitea"
 	MastodonSourceType   SoftwareNameType = "mastodon"
 	GoToSocialSourceType SoftwareNameType = "gotosocial"
 )
 
 var KnownSourceTypes = []any{
-	ForgejoSourceType, GiteaSourceType, MastodonSourceType, GoToSocialSourceType,
+	BlacksmithSourceType, GiteaSourceType, MastodonSourceType, GoToSocialSourceType,
 }
 
 // ------------------------------------------------ NodeInfoWellKnown ------------------------------------------------

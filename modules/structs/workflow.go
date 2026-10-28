@@ -1,4 +1,4 @@
-// Copyright The Forgejo Authors.
+// Copyright The Blacksmith Authors.
 // SPDX-License-Identifier: MIT
 
 package structs

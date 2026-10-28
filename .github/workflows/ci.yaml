@@ -1,0 +1,112 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+permissions: {}
+
+env:
+  REGISTRY: ghcr.io
+  OWNER: quad4-software
+
+jobs:
+
+  build:
+    name: go build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: setup go
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: go.mod
+          cache: false
+
+      - name: build
+        run: go build ./...
+
+  images:
+    name: image / ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: blacksmith
+            dockerfile: Dockerfile
+          - name: blacksmith-proxy
+            dockerfile: contrib/proxy/Dockerfile
+          - name: blacksmith-backup
+            dockerfile: contrib/backup/Dockerfile
+    steps:
+      - name: checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: setup buildx
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+
+      - name: login to ghcr
+        if: github.event_name == 'push'
+        uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: image tags
+        id: tags
+        env:
+          REF_NAME: ${{ github.ref_name }}
+          SHA: ${{ github.sha }}
+          NAME: ${{ matrix.name }}
+        run: |
+          tags="${{ env.REGISTRY }}/${{ env.OWNER }}/${NAME}:sha-${SHA::7}"
+          if [ "${REF_NAME}" = "main" ]; then
+            tags="${tags},${{ env.REGISTRY }}/${{ env.OWNER }}/${NAME}:latest"
+          fi
+          case "${REF_NAME}" in
+            v*) tags="${tags},${{ env.REGISTRY }}/${{ env.OWNER }}/${NAME}:${REF_NAME#v},${{ env.REGISTRY }}/${{ env.OWNER }}/${NAME}:latest" ;;
+          esac
+          echo "tags=${tags}" >> "$GITHUB_OUTPUT"
+
+      - name: build (and push)
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          # zstd-compressed image layers published to ghcr
+          outputs: type=image,"name=${{ steps.tags.outputs.tags }}",push=${{ github.event_name == 'push' }},compression=zstd,compression-level=19,force-compression=true
+          cache-from: type=gha,scope=${{ matrix.name }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.name }}
+          provenance: false
+
+  zizmor:
+    name: zizmor
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: run zizmor
+        uses: zizmorcore/zizmor-action@53290badfa369cb0bf7ad16342cb62c2fa47ac7b # v0.8.0
+        with:
+          persona: auditor

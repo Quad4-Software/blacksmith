@@ -110,7 +110,7 @@ func TestExpandTemplateVars(t *testing.T) {
 }
 
 func TestTransformers(t *testing.T) {
-	input := "Foo_Forgejo-BAR"
+	input := "Foo_Blacksmith-BAR"
 
 	tests := []struct {
 		name     string
@@ -118,8 +118,8 @@ func TestTransformers(t *testing.T) {
 	}{
 		{"SNAKE", "foo_forgejo_bar"},
 		{"KEBAB", "foo-forgejo-bar"},
-		{"CAMEL", "fooForgejoBar"},
-		{"PASCAL", "FooForgejoBar"},
+		{"CAMEL", "fooBlacksmithBar"},
+		{"PASCAL", "FooBlacksmithBar"},
 		{"LOWER", "foo_forgejo-bar"},
 		{"UPPER", "FOO_FORGEJO-BAR"},
 		{"TITLE", "Foo_forgejo-Bar"},

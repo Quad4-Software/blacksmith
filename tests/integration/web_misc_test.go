@@ -1,4 +1,4 @@
-// Copyright 2026 The Forgejo Authors. All rights reserved.
+// Copyright 2026 The Blacksmith Authors. All rights reserved.
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 package integration
@@ -80,7 +80,7 @@ func TestManifestJsonCustomFile(t *testing.T) {
 }
 
 func TestBaseTemplateTitle(t *testing.T) {
-	siteTitleText := "Forgejo: Beyond coding. We Forge."
+	siteTitleText := "Blacksmith: Beyond coding. We Forge."
 	defer tests.PrepareTestEnv(t)()
 
 	for _, testCase := range []struct {

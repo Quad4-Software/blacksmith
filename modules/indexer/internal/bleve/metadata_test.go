@@ -1,4 +1,4 @@
-// Copyright 2024 The Forgejo Authors. All rights reserved.
+// Copyright 2024 The Blacksmith Authors. All rights reserved.
 // SPDX-License-Identifier: MIT
 
 // Copied and modified from https://github.com/ethantkoenig/rupture (MIT License)

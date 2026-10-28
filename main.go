@@ -33,17 +33,20 @@ var (
 	ReleaseVersion = ""
 )
 
-var ForgejoVersion = "1.0.0"
+var BlacksmithVersion = "1.0.0"
 
 func init() {
 	setting.AppVer = Version
-	setting.ForgejoVersion = ForgejoVersion
+	setting.BlacksmithVersion = BlacksmithVersion
 	setting.AppBuiltWith = formatBuiltWith()
 	setting.AppStartTime = time.Now().UTC()
 }
 
 func forgejoEnv() {
 	for _, k := range []string{"CUSTOM", "WORK_DIR"} {
+		if v, ok := os.LookupEnv("BLACKSMITH_" + k); ok {
+			os.Setenv("GITEA_"+k, v)
+		}
 		if v, ok := os.LookupEnv("FORGEJO_" + k); ok {
 			os.Setenv("GITEA_"+k, v)
 		}

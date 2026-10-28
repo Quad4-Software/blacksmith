@@ -11,9 +11,9 @@ import (
 )
 
 // tplSwagger swagger page template
-const tplForgejoSwagger base.TplName = "swagger/forgejo-ui"
+const tplBlacksmithSwagger base.TplName = "swagger/forgejo-ui"
 
-func SwaggerForgejo(ctx *context.Context) {
+func SwaggerBlacksmith(ctx *context.Context) {
 	ctx.Data["APIVersion"] = "v1"
-	ctx.HTML(http.StatusOK, tplForgejoSwagger)
+	ctx.HTML(http.StatusOK, tplBlacksmithSwagger)
 }

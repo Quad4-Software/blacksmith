@@ -1,4 +1,4 @@
-// Copyright 2026 The Forgejo Authors
+// Copyright 2026 The Blacksmith Authors
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 package integration
@@ -60,7 +60,7 @@ func testFooterContent(t *testing.T, session *TestSession, url string, expectPow
 	page := NewHTMLParser(t, session.MakeRequest(t, NewRequest(t, "GET", url), http.StatusOK).Body)
 	// AssertElement will only pass if there's just one such element
 	footerLeft := page.Find("footer .left-links").Text()
-	assert.Equal(t, expectPoweredBy, strings.Contains(footerLeft, "Powered by Forgejo"))
+	assert.Equal(t, expectPoweredBy, strings.Contains(footerLeft, "Powered by Blacksmith"))
 	assert.Equal(t, expectVersion, strings.Contains(footerLeft, "Version"))
 	page.AssertElement(t, `footer .left-links a[href="/admin/config"]`, expectVersionLink)
 }

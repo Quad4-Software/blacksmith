@@ -1,4 +1,4 @@
-// Copyright The Forgejo Authors.
+// Copyright The Blacksmith Authors.
 // SPDX-License-Identifier: MIT
 
 package integration
@@ -12,7 +12,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestAPIForgejoRoot(t *testing.T) {
+func TestAPIBlacksmithRoot(t *testing.T) {
 	defer tests.PrepareTestEnv(t)()
 
 	req := NewRequest(t, "GET", "/api/forgejo/v1")

@@ -91,10 +91,10 @@ var UI = struct {
 	MaxDisplayFileSize:  8388608,
 	FontPreviewEnabled:  true,
 	FontPreviewPangram:  "The quick brown fox jumps over the lazy dog",
-	DefaultTheme:        `forgejo-auto`,
-	Themes:              []string{`forgejo-auto`, `forgejo-light`, `forgejo-dark`, `gitea-auto`, `gitea-light`, `gitea-dark`, `forgejo-auto-deuteranopia-protanopia`, `forgejo-light-deuteranopia-protanopia`, `forgejo-dark-deuteranopia-protanopia`, `forgejo-auto-tritanopia`, `forgejo-light-tritanopia`, `forgejo-dark-tritanopia`},
+	DefaultTheme:        `blacksmith-auto`,
+	Themes:              []string{`blacksmith-auto`, `blacksmith-void`, `blacksmith-paper`, `forgejo-auto`, `forgejo-light`, `forgejo-dark`, `gitea-auto`, `gitea-light`, `gitea-dark`, `forgejo-auto-deuteranopia-protanopia`, `forgejo-light-deuteranopia-protanopia`, `forgejo-dark-deuteranopia-protanopia`, `forgejo-auto-tritanopia`, `forgejo-light-tritanopia`, `forgejo-dark-tritanopia`},
 	Reactions:           []string{`+1`, `-1`, `laugh`, `hooray`, `confused`, `heart`, `rocket`, `eyes`},
-	CustomEmojis:        []string{`git`, `gitea`, `codeberg`, `gitlab`, `github`, `gogs`, `forgejo`},
+	CustomEmojis:        []string{`git`, `gitea`, `codeberg`, `gitlab`, `github`, `gogs`, `blacksmith`},
 	ExploreDefaultSort:  "recentupdate",
 
 	AmbiguousUnicodeDetection: true,
@@ -148,8 +148,8 @@ var UI = struct {
 		Description string
 		Keywords    string
 	}{
-		Author:      "Forgejo – Beyond coding. We forge.",
-		Description: "Forgejo is a self-hosted lightweight software forge. Easy to install and low maintenance, it just does the job.",
+		Author:      "Blacksmith – Beyond coding. We forge.",
+		Description: "Blacksmith is a self-hosted lightweight software forge. Easy to install and low maintenance, it just does the job.",
 		Keywords:    "git,forge,forgejo",
 	},
 }

@@ -1,0 +1,46 @@
+# Blacksmith rootless quadlet.
+#
+# Install:
+#   mkdir -p ~/.config/containers/systemd
+#   cp contrib/quadlets/blacksmith.container ~/.config/containers/systemd/
+#   systemctl --user daemon-reload
+#   systemctl --user start blacksmith
+#
+# Auto-update:
+#   The AutoUpdate=registry directive below plus the podman-auto-update
+#   timer pulls new image tags and recreates the container.
+#     systemctl --user enable --now podman-auto-update.timer
+#   Trigger manually any time with:
+#     podman auto-update
+
+[Unit]
+Description=Blacksmith software forge
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+Image=blacksmith:latest
+ContainerName=blacksmith
+AutoUpdate=registry
+
+PublishPort=2222:2222
+PublishPort=3000:3000
+
+Volume=%h/blacksmith/data:/var/lib/blacksmith:Z
+Tmpfs=/tmp/blacksmith:U=65532,G=65532
+
+Environment=USER=git
+Environment=ROOT_URL=https://localhost:3000/
+Environment=SSH_DOMAIN=localhost
+Environment=BLACKSMITH__service__DISABLE_REGISTRATION=true
+
+ReadOnly=true
+NoNewPrivileges=true
+DropCapability=ALL
+
+[Service]
+Restart=always
+TimeoutStartSec=120
+
+[Install]
+WantedBy=default.target

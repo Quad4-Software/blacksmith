@@ -9,16 +9,20 @@ import (
 	"forgejo.org/modules/setting"
 )
 
-type Forgejo struct{}
+type Blacksmith struct{}
 
-var _ ServerInterface = &Forgejo{}
+var _ ServerInterface = &Blacksmith{}
 
-func NewForgejo() *Forgejo {
-	return &Forgejo{}
+func NewBlacksmith() *Blacksmith {
+	return &Blacksmith{}
 }
 
-func (f *Forgejo) GetVersion(w http.ResponseWriter, r *http.Request) {
+func (f *Blacksmith) GetVersion(w http.ResponseWriter, r *http.Request) {
+	if r.Header.Get("Authorization") == "" {
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(http.StatusOK)
-	_ = json.NewEncoder(w).Encode(Version{&setting.ForgejoVersion})
+	_ = json.NewEncoder(w).Encode(Version{&setting.BlacksmithVersion})
 }

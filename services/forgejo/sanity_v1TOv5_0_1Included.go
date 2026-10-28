@@ -28,14 +28,14 @@ var v1TOv5_0_1IncludedStorageSections = []struct {
 
 func v1TOv5_0_1Included(e db.Engine, dbVersion int64, cfg setting.ConfigProvider) error {
 	//
-	// When upgrading from Forgejo > v5 or Gitea > v1.20, no sanity check is necessary
+	// When upgrading from Blacksmith > v5 or Gitea > v1.20, no sanity check is necessary
 	//
-	if dbVersion > ForgejoV5DatabaseVersion {
+	if dbVersion > BlacksmithV5DatabaseVersion {
 		return nil
 	}
 
 	//
-	// When upgrading from a Forgejo point version >= v5.0.1, no sanity
+	// When upgrading from a Blacksmith point version >= v5.0.1, no sanity
 	// check is necessary
 	//
 	// When upgrading from a Gitea >= v1.20 the sanitiy checks will

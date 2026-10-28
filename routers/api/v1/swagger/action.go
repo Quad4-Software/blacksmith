@@ -77,7 +77,7 @@ type swaggerActionRunner struct {
 	Body api.ActionRunner `json:"body"`
 }
 
-// ActionRunnerList is a list of Forgejo Action runners
+// ActionRunnerList is a list of Blacksmith Action runners
 // swagger:response ActionRunnerList
 type swaggerActionRunnerListResponse struct {
 	// in:body

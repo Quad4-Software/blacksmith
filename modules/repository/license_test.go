@@ -1,5 +1,5 @@
 // Copyright 2023 The Gitea Authors. All rights reserved.
-// Copyright 2025 The Forgejo Authors. All rights reserved.
+// Copyright 2025 The Blacksmith Authors. All rights reserved.
 // SPDX-License-Identifier: MIT
 
 package repository
@@ -186,7 +186,7 @@ Copyright (C) 2023 by Gitea teabot@gitea.io
 			name: "BSD-4-Clause",
 			args: args{
 				name:   "BSD-4-Clause",
-				values: &LicenseValues{Year: "2025", Owner: "Forgejo", Email: "hello@forgejo.org", Repo: "forgejo"},
+				values: &LicenseValues{Year: "2025", Owner: "Blacksmith", Email: "hello@forgejo.org", Repo: "forgejo"},
 				origin: `
 Copyright (c) <year> <owner>. All rights reserved.
 
@@ -198,13 +198,13 @@ Copyright (c) <year> <owner>. All rights reserved.
 `,
 			},
 			want: `
-Copyright (c) 2025 Forgejo. All rights reserved.
+Copyright (c) 2025 Blacksmith. All rights reserved.
 
-... includes software developed by Forgejo.
+... includes software developed by Blacksmith.
 
 ... Neither the name of the copyright holder nor
 
-... PROVIDED BY Forgejo "AS IS" ... NO EVENT SHALL Forgejo BE LIABLE ...
+... PROVIDED BY Blacksmith "AS IS" ... NO EVENT SHALL Blacksmith BE LIABLE ...
 `,
 		},
 	}

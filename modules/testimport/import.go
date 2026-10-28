@@ -1,4 +1,4 @@
-// Copyright 2026 The Forgejo Authors
+// Copyright 2026 The Blacksmith Authors
 // SPDX-License-Identifier: MIT
 
 package testimport

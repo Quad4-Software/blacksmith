@@ -1,4 +1,4 @@
-// Copyright 2025 The Forgejo Authors. All rights reserved.
+// Copyright 2025 The Blacksmith Authors. All rights reserved.
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 package integration
@@ -21,11 +21,11 @@ func TestThemeChange(t *testing.T) {
 	user := loginUser(t, "user2")
 
 	// Verify default theme
-	testSelectedTheme(t, user, "forgejo-auto", "Forgejo (follow system theme)", "")
+	testSelectedTheme(t, user, "forgejo-auto", "Blacksmith (follow system theme)", "")
 
 	// Change theme to forgejo-dark and verify it works fine
 	testChangeTheme(t, user, "forgejo-dark")
-	testSelectedTheme(t, user, "forgejo-dark", "Forgejo dark", "")
+	testSelectedTheme(t, user, "forgejo-dark", "Blacksmith dark", "")
 
 	// Change theme to gitea-dark and also verify that it's name is not translated
 	testChangeTheme(t, user, "gitea-dark")
@@ -46,7 +46,7 @@ func TestUserHasNonExistentTheme(t *testing.T) {
 	user := loginUser(t, "user40")
 
 	// Verify that the UI falls back to the default theme
-	testSelectedTheme(t, user, "forgejo-auto", "Forgejo (follow system theme)", "")
+	testSelectedTheme(t, user, "forgejo-auto", "Blacksmith (follow system theme)", "")
 }
 
 // testSelectedTheme checks that the expected theme is used in html[data-theme]

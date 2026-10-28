@@ -1,4 +1,4 @@
-// Copyright 2023 The Forgejo Authors
+// Copyright 2023 The Blacksmith Authors
 // SPDX-License-Identifier: MIT
 
 package migrations
@@ -8,13 +8,13 @@ import (
 )
 
 func init() {
-	RegisterDownloaderFactory(&ForgejoDownloaderFactory{})
+	RegisterDownloaderFactory(&BlacksmithDownloaderFactory{})
 }
 
-type ForgejoDownloaderFactory struct {
+type BlacksmithDownloaderFactory struct {
 	GiteaDownloaderFactory
 }
 
-func (f *ForgejoDownloaderFactory) GitServiceType() structs.GitServiceType {
-	return structs.ForgejoService
+func (f *BlacksmithDownloaderFactory) GitServiceType() structs.GitServiceType {
+	return structs.BlacksmithService
 }

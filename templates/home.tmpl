@@ -1,16 +1,16 @@
 {{template "base/head" .}}
-<div role="main" aria-label="{{if .IsSigned}}{{ctx.Locale.Tr "dashboard"}}{{else}}{{ctx.Locale.Tr "home"}}{{end}}" class="page-content home">
-	<div class="tw-mb-8 tw-px-8">
-		<div class="center">
-			<img class="logo" width="220" height="220" src="{{AssetUrlPrefix}}/img/logo.svg" alt="{{ctx.Locale.Tr "logo"}}">
-			<div class="hero">
-				<h1 class="ui icon header title">
-					{{AppDisplayName}}
-				</h1>
-				<h2>{{ctx.Locale.Tr "startpage.app_desc"}}</h2>
-			</div>
+<div role="main" aria-label="{{if .IsSigned}}{{ctx.Locale.Tr "dashboard"}}{{else}}{{ctx.Locale.Tr "home"}}{{end}}" class="page-content home blacksmith-landing">
+	<div class="blacksmith-hero">
+		<img class="mark" width="96" height="96" src="{{AssetUrlPrefix}}/img/logo.svg" alt="{{ctx.Locale.Tr "logo"}}">
+		<div class="wordmark">Blacksmith</div>
+		<p class="tagline">{{ctx.Locale.Tr "startpage.app_desc"}}</p>
+		<div class="actions">
+			<a class="ui primary button" href="{{AppSubUrl}}/user/login">{{ctx.Locale.Tr "sign_in"}}</a>
+			{{if .ShowRegistrationButton}}
+				<a class="ui basic button" href="{{AppSubUrl}}/user/sign_up">{{ctx.Locale.Tr "register"}}</a>
+			{{end}}
 		</div>
 	</div>
-	{{template "home_forgejo" .}}
+	{{template "home_blacksmith" .}}
 </div>
 {{template "base/footer" .}}

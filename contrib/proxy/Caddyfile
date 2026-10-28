@@ -1,0 +1,54 @@
+{
+	http_port 8080
+	https_port 8443
+	auto_https off
+}
+
+# Set BLACKSMITH_DOMAIN to the public hostname.
+{$BLACKSMITH_DOMAIN:localhost} {
+
+	# JSON access log, shared with the crowdsec container for parsing.
+	log {
+		output file /var/log/caddy/access.log
+		format json
+	}
+
+	# CrowdSec bouncer: enforce LAPI decisions and forward to the
+	# CrowdSec AppSec engine (Coraza + OWASP CRS) for WAF inspection.
+	crowdsec {
+		api_url http://crowdsec:8080
+		api_key {$CROWDSEC_BOUNCER_KEY}
+		appsec_url http://crowdsec:7422
+	}
+
+	# Hard-block AI scrapers, scanners and other hostile agents at the
+	# edge. robots.txt on the app asks nicely; this enforces it.
+	@bots header_regexp ua User-Agent "(?i)(GPTBot|ChatGPT-User|OAI-SearchBot|ClaudeBot|Claude-Web|anthropic-ai|Claude-User|Claude-SearchBot|CCBot|Google-Extended|GoogleOther|Applebot-Extended|meta-externalagent|meta-externalfetcher|FacebookBot|Amazonbot|Bytespider|PetalBot|SemrushBot|AhrefsBot|MJ12bot|DotBot|DataForSeoBot|BLEXBot|Screaming Frog|masscan|zgrab|zmap|nuclei|nikto|sqlmap|acunetix|nessus|openvas|wpscan|DirBuster|gobuster|feroxbuster|wfuzz|hydra|ZAP|Burp|netsparker|w3af|arachni|scrapy|python-requests|aiohttp|okhttp|libwww-perl|curl/|wget/|HTTrack|WebCopier|WebStripper|Teleport|Offline Explorer|SiteSnagger|Teleport Pro|MistralAI-User|PerplexityBot|Perplexity-User|cohere-ai|Diffbot|ImagesiftBot|img2dataset|AwarioBot|YouBot|Timpibot|PanguBot|Kangaroo Bot|LinerBot|ISSCyberRiskCrawler|factset_spyderbot|FriendlyCrawler|FirecrawlAgent|DuckAssistBot|CrawlSpace|Cotoyogi|iaskspider|VelenPublicWebCrawler|Webzio-Extended|Sidetrade|TikTokSpider|SemrushBot-OCOB|SemrushBot-SWA|omgilibot|omgili|Dataprovider|InfoTiger|Seekport|Meltwater|Turnitin|peer39|Brightbot|SerpstatBot|Sogou|Exabot|Baiduspider|YandexBot|SeznamBot|archive\.org_bot)"
+	respond @bots 403 {
+		close
+	}
+
+	# Never serve dotfiles or well-known probe targets.
+	@dotfiles path */.* /.git/* /.env /*.sql /*.bak /*.old /*.swp
+	respond @dotfiles 404
+
+	@probe path /wp-* /wp-admin/* /wp-login* /wp-content/* /xmlrpc.php /phpmyadmin/* /pma/* /.git/* /.svn/* /cgi-bin/* /vendor/phpunit/* /boaform/* /hudson /manager/html /actuator/* /console/* /jmx-console/* /solr/* /HNAP1 /etc/passwd /proc/* /windows/* /winnt/*
+	respond @probe 404
+
+	encode zstd gzip
+
+	header {
+		-Server
+		-Powered-By
+		-X-Powered-By
+		Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; frame-ancestors 'none'"
+		Referrer-Policy "same-origin"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+	}
+
+	reverse_proxy blacksmith:3000 {
+		header_up X-Real-IP {remote_host}
+	}
+}

@@ -1,0 +1,193 @@
+# Blacksmith production stack - rootless Podman or Docker.
+#
+#   podman compose -f compose.prod.yaml --env-file .env up -d
+#   docker compose -f compose.prod.yaml --env-file .env up -d
+#
+# Layout:
+#   edge      public-facing network, only the proxy sits on it
+#   internal  application network, no published ports
+#
+# Copy contrib/proxy/prod.env.example to .env and fill it in.
+
+name: blacksmith
+
+networks:
+  edge:
+  internal:
+    internal: false
+
+volumes:
+  blacksmith-data:
+  postgres-data:
+  crowdsec-config:
+  crowdsec-data:
+  caddy-data:
+  caddy-logs:
+
+services:
+
+  # Default edge proxy: Caddy + Coraza + CrowdSec bouncer.
+  # Enable with --profile caddy. For Traefik instead, use
+  # compose.traefik.yaml with --profile traefik.
+  proxy:
+    profiles:
+      - caddy
+    build:
+      context: .
+      dockerfile: contrib/proxy/Dockerfile
+    image: blacksmith-proxy:latest
+    restart: unless-stopped
+    depends_on:
+      - blacksmith
+      - crowdsec
+    environment:
+      BLACKSMITH_DOMAIN: ${BLACKSMITH_DOMAIN:-localhost}
+      CROWDSEC_BOUNCER_KEY: ${CROWDSEC_BOUNCER_KEY:?set CROWDSEC_BOUNCER_KEY}
+    ports:
+      - "${HTTP_PORT:-80}:8080"
+      - "${HTTPS_PORT:-443}:8443"
+    volumes:
+      - caddy-data:/data
+      - caddy-logs:/var/log/caddy
+    networks:
+      - edge
+      - internal
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+  blacksmith:
+    build: .
+    image: blacksmith:latest
+    restart: unless-stopped
+    user: "65532:65532"
+    environment:
+      USER: git
+      DOMAIN: ${BLACKSMITH_DOMAIN:-localhost}
+      SSH_DOMAIN: ${SSH_DOMAIN:-${BLACKSMITH_DOMAIN:-localhost}}
+      ROOT_URL: ${ROOT_URL:-https://${BLACKSMITH_DOMAIN:-localhost}/}
+      BLACKSMITH__database__DB_TYPE: ${DB_TYPE:-sqlite3}
+      BLACKSMITH__database__HOST: ${DB_HOST:-}
+      BLACKSMITH__database__NAME: ${DB_NAME:-blacksmith}
+      BLACKSMITH__database__USER: ${DB_USER:-blacksmith}
+      BLACKSMITH__database__PASSWD: ${DB_PASSWD:-}
+      BLACKSMITH__service__DISABLE_REGISTRATION: ${DISABLE_REGISTRATION:-true}
+      BLACKSMITH__security__INSTALL_LOCK: ${INSTALL_LOCK:-false}
+      BLACKSMITH__server__SSH_PORT: "22"
+      BLACKSMITH__server__SSH_LISTEN_PORT: "2222"
+    ports:
+      - "${SSH_PORT:-2222}:2222"
+    volumes:
+      - blacksmith-data:/var/lib/blacksmith
+    tmpfs:
+      - /tmp/blacksmith:uid=65532,gid=65532
+    networks:
+      - internal
+    labels:
+      io.containers.autoupdate: registry
+      com.centurylinklabs.watchtower.enable: "true"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+  postgres:
+    image: cgr.dev/chainguard/postgres:latest
+    restart: unless-stopped
+    profiles:
+      - db
+    environment:
+      POSTGRES_DB: ${DB_NAME:-blacksmith}
+      POSTGRES_USER: ${DB_USER:-blacksmith}
+      POSTGRES_PASSWORD: ${DB_PASSWD:?set DB_PASSWD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - internal
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+  crowdsec:
+    image: crowdsecurity/crowdsec:latest
+    restart: unless-stopped
+    depends_on:
+      - proxy
+    environment:
+      COLLECTIONS: >-
+        crowdsecurity/caddy
+        crowdsecurity/linux
+        crowdsecurity/base-http-scenarios
+        crowdsecurity/http-crawl-non_statics
+        crowdsecurity/http-probing
+        crowdsecurity/http-sensitive-files
+        crowdsecurity/http-backdoors-attempts
+        crowdsecurity/http-bad-user-agent
+        crowdsecurity/appsec-virtual-patching
+        crowdsecurity/appsec-generic-rules
+        crowdsecurity/appsec-crs
+      BOUNCER_KEY_blacksmith: ${CROWDSEC_BOUNCER_KEY:?set CROWDSEC_BOUNCER_KEY}
+      DISABLE_LOCAL_API: "false"
+    volumes:
+      - ./contrib/crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml:ro
+      - crowdsec-config:/etc/crowdsec
+      - crowdsec-data:/var/lib/crowdsec/data
+      - caddy-logs:/var/log/caddy:ro
+    networks:
+      - internal
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+  backup:
+    build:
+      context: .
+      dockerfile: contrib/backup/Dockerfile
+    image: blacksmith-backup:latest
+    restart: unless-stopped
+    profiles:
+      - backup
+    user: "65532:65532"
+    environment:
+      RESTIC_REPOSITORY: ${RESTIC_REPOSITORY:?set RESTIC_REPOSITORY}
+      RESTIC_PASSWORD: ${RESTIC_PASSWORD:?set RESTIC_PASSWORD}
+      RESTIC_COMPRESSION: ${RESTIC_COMPRESSION:-max}
+      RESTIC_FORGET_ARGS: ${RESTIC_FORGET_ARGS:---keep-daily 7 --keep-weekly 4 --keep-monthly 6}
+      BACKUP_INTERVAL: ${BACKUP_INTERVAL:-86400}
+      DB_TYPE: ${DB_TYPE:-sqlite3}
+      DB_HOST: ${DB_HOST:-postgres}
+      DB_NAME: ${DB_NAME:-blacksmith}
+      DB_USER: ${DB_USER:-blacksmith}
+      DB_PASSWD: ${DB_PASSWD:-}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION:-}
+    volumes:
+      - blacksmith-data:/data/blacksmith:ro
+      - postgres-data:/data/postgres:ro
+    networks:
+      - internal
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      io.containers.autoupdate: registry
+
+  updater:
+    image: containrrr/watchtower:latest
+    restart: unless-stopped
+    profiles:
+      - updater
+    volumes:
+      # Point at the rootless podman socket, or leave default for docker.
+      - ${CONTAINER_SOCKET:-/run/user/1000/podman/podman.sock}:/var/run/docker.sock:ro
+    command: --label-enable --cleanup --interval ${UPDATE_INTERVAL:-86400}
+    networks:
+      - internal
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"

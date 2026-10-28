@@ -133,6 +133,14 @@ func InitWorkPathAndCfgProvider(getEnvFn func(name string) string, args ArgWorkP
 			}
 		}
 
+		envWorkPath = getEnvFn("BLACKSMITH_WORK_DIR")
+		if envWorkPath != "" {
+			tmpWorkPath.Set(envWorkPath)
+			if !filepath.IsAbs(tmpWorkPath.Value) {
+				log.Fatal("BLACKSMITH_WORK_DIR (work path) must be absolute path")
+			}
+		}
+
 		envCustomPath := getEnvFn("GITEA_CUSTOM")
 		if envCustomPath != "" {
 			tmpCustomPath.Set(envCustomPath)
@@ -146,6 +154,14 @@ func InitWorkPathAndCfgProvider(getEnvFn func(name string) string, args ArgWorkP
 			tmpCustomPath.Set(envCustomPath)
 			if !filepath.IsAbs(tmpCustomPath.Value) {
 				log.Fatal("FORGEJO_CUSTOM (custom path) must be absolute path")
+			}
+		}
+
+		envCustomPath = getEnvFn("BLACKSMITH_CUSTOM")
+		if envCustomPath != "" {
+			tmpCustomPath.Set(envCustomPath)
+			if !filepath.IsAbs(tmpCustomPath.Value) {
+				log.Fatal("BLACKSMITH_CUSTOM (custom path) must be absolute path")
 			}
 		}
 	}

@@ -1,0 +1,76 @@
+# Traefik variant of the production proxy.
+#
+#   podman compose -f compose.prod.yaml -f compose.traefik.yaml \
+#       --env-file .env --profile traefik up -d
+#
+# Replaces the Caddy proxy with Traefik + the CrowdSec bouncer
+# plugin (LAPI decisions + AppSec/Coraza forwarding). The CrowdSec
+# acquisition file still reads the shared JSON access log; when
+# using this profile swap the caddy collection for traefik:
+#   COLLECTIONS: ... crowdsecurity/traefik
+#
+# Traefik talks to the container runtime over the podman/docker
+# socket. Rootless podman:
+#   systemctl --user enable --now podman.socket
+
+services:
+
+  traefik:
+    profiles:
+      - traefik
+    image: docker.io/library/traefik:v3.7.16
+    restart: unless-stopped
+    depends_on:
+      - blacksmith
+      - crowdsec
+    command:
+      - --entrypoints.web.address=:8080
+      - --entrypoints.websecure.address=:8443
+      - --providers.docker=true
+      - --providers.docker.endpoint=unix:///var/run/docker.sock
+      - --providers.docker.exposedByDefault=false
+      - --providers.docker.network=blacksmith_internal
+      - --experimental.plugins.crowdsec-bouncer.modulename=github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin
+      - --experimental.plugins.crowdsec-bouncer.version=v1.8.1
+      - --accesslog=true
+      - --accesslog.filepath=/var/log/caddy/access.log
+      - --accesslog.format=json
+      - --log.level=WARN
+      - --api.dashboard=false
+      - --ping=true
+    ports:
+      - "${HTTP_PORT:-80}:8080"
+      - "${HTTPS_PORT:-443}:8443"
+    volumes:
+      - ${CONTAINER_SOCKET:-/run/user/1000/podman/podman.sock}:/var/run/docker.sock:ro
+      - caddy-logs:/var/log/caddy
+    networks:
+      - edge
+      - internal
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+  blacksmith:
+    labels:
+      io.containers.autoupdate: registry
+      com.centurylinklabs.watchtower.enable: "true"
+      traefik.enable: "true"
+      traefik.http.routers.blacksmith.rule: Host(`${BLACKSMITH_DOMAIN:-localhost}`)
+      traefik.http.routers.blacksmith.entrypoints: web
+      traefik.http.services.blacksmith.loadbalancer.server.port: "3000"
+      traefik.http.middlewares.blacksmith-crowdsec.plugin.crowdsec-bouncer.enabled: "true"
+      traefik.http.middlewares.blacksmith-crowdsec.plugin.crowdsec-bouncer.crowdsecMode: appsec
+      traefik.http.middlewares.blacksmith-crowdsec.plugin.crowdsec-bouncer.crowdsecLapiScheme: http
+      traefik.http.middlewares.blacksmith-crowdsec.plugin.crowdsec-bouncer.crowdsecLapiHost: crowdsec:8080
+      traefik.http.middlewares.blacksmith-crowdsec.plugin.crowdsec-bouncer.crowdsecLapiKey: ${CROWDSEC_BOUNCER_KEY}
+      traefik.http.middlewares.blacksmith-crowdsec.plugin.crowdsec-bouncer.crowdsecAppsecEnabled: "true"
+      traefik.http.middlewares.blacksmith-crowdsec.plugin.crowdsec-bouncer.crowdsecAppsecHost: crowdsec:7422
+      traefik.http.middlewares.blacksmith-crowdsec.plugin.crowdsec-bouncer.httpTimeoutSeconds: "10"
+      traefik.http.middlewares.blacksmith-security.headers.stsSeconds: "31536000"
+      traefik.http.middlewares.blacksmith-security.headers.stsIncludeSubdomains: "true"
+      traefik.http.middlewares.blacksmith-security.headers.contentTypeNosniff: "true"
+      traefik.http.middlewares.blacksmith-security.headers.frameDeny: "true"
+      traefik.http.middlewares.blacksmith-security.headers.referrerPolicy: "same-origin"
+      traefik.http.routers.blacksmith.middlewares: blacksmith-crowdsec,blacksmith-security

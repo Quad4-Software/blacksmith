@@ -1,46 +1,89 @@
 <div align="center">
-    <img src="./assets/logo.svg" alt="" width="192" align="center" />
-    <h1 align="center">Welcome to Forgejo</h1>
+    <img src="./public/assets/img/logo.svg" alt="" width="128" align="center" />
+    <h1 align="center">Blacksmith</h1>
+    <p align="center">A self-hosted software forge, hardened.</p>
 </div>
 
-Hi there! Tired of big platforms playing monopoly?
-Providing Git hosting for your project, friends, company or community?
-**Forgejo** (/for'd&#865;ʒe.jo/ inspired by forĝejo – the Esperanto word for *forge*) has you covered with its intuitive interface,
-light and easy hosting and a lot of built-in functionality.
+Blacksmith is a hard fork of [Forgejo](https://forgejo.org) (itself a
+soft fork of Gitea): Git hosting, code review, issues, packages and
+built-in CI/CD - rebranded and rebuilt for rootless, container-first
+deployments.
 
-Forgejo was [created in 2022](https://forgejo.org/2022-12-15-hello-forgejo/)
-because we think that the project should be owned by an independent community.
-If you second that, then Forgejo is for you!
-Our promise: **Independent Free/Libre Software forever!**
+## What is different
 
-## What does Forgejo offer?
+- **Quad4 void theme.** Near-black canvas, hairline borders, monochrome
+  accents. `blacksmith-void`, `blacksmith-paper` and `blacksmith-auto`
+  themes, void by default.
+- **Hidden version.** The build version is only visible to admin users.
+  The footer, `/api/v1/version`, `/api/forgejo/v1/version` and NodeInfo
+  all hide it from anonymous users.
+- **Hostile-agent blocking.** AI scrapers, scanners and crawlers are
+  disallowed in `robots.txt` and hard-blocked at the edge.
+- **Rootless distroless image.** Multi-stage Chainguard build, final
+  stage `cgr.dev/chainguard/git`, nonroot uid 65532, read-only rootfs
+  ready.
+- **Auto-update.** Podman `auto-update` via quadlet labels, or an
+  external watchtower container for compose deployments.
+- **Encrypted backups.** Restic sidecar to rest-server or S3.
+- **WAF front.** CrowdSec + Coraza (OWASP CRS) in front of the app.
 
-If you like any of the following, Forgejo is literally meant for you:
+## Build
 
-- Lightweight: Forgejo can easily be hosted on nearly **every machine**.
-  Running on a Raspberry? Small cloud instance? No problem!
-- Project management: Besides Git hosting, Forgejo offers issues,
-  pull requests, wikis, kanban boards and much more to **coordinate with your team**.
-- Publishing: Have something to share? Use **releases** to host your software for download,
-  or use the **package registry** to publish it for docker, npm and many other package managers.
-- Customizable: Want to change your look? Change some settings?
-  There are many **config switches** to make Forgejo work exactly like you want.
-- Powerful: Organizations & team permissions, CI integration, Code Search, LDAP, OAuth and much more.
-  If you have **advanced needs**, Forgejo has you covered.
-- Privacy: From update checker to default settings: Forgejo is built to be **privacy first** for you and your crew.
-- Federation: (WIP) We are actively working to connect software forges with each other through **ActivityPub**,
-  and create a collaborative network of personal instances.
+    podman build -t blacksmith .
 
-## Learn more
+Requires go 1.2x and node 22+ for a local build:
 
-Dive into the [documentation](https://forgejo.org/docs/latest/), subscribe to releases and blog post on [our website](https://forgejo.org), <a href="https://floss.social/@forgejo" rel="me">find us on the Fediverse</a> or hop into [our Matrix room](https://matrix.to/#/#forgejo-chat:matrix.org) if you have any questions or want to get involved.
+    make frontend
+    make backend
 
-## License
+## Run
 
-Forgejo is distributed under the terms of the [GPL version 3.0](LICENSE) or any later version.
+Single container (rootless podman):
 
-The agreement for this license [was documented in June 2023](https://codeberg.org/forgejo/governance/pulls/24) and implemented during the development of Forgejo v9.0. All Forgejo versions before v9.0 are distributed under the MIT license.
+    podman run -d --name blacksmith \
+        -p 3000:3000 -p 2222:2222 \
+        -v blacksmith-data:/var/lib/blacksmith \
+        blacksmith
 
-## Get involved
+Then open http://localhost:3000 to finish the installer.
 
-If you are interested in making Forgejo better, either by reporting a bug or by changing the governance, please [take a look at the contribution guide](CONTRIBUTING.md).
+## Production
+
+`compose.prod.yaml` ships the full stack:
+
+- `proxy` - Caddy + Coraza WAF plugin + CrowdSec bouncer
+- `crowdsec` - intrusion detection, AppSec engine (Coraza + CRS)
+- `blacksmith` - the forge
+- `postgres` - optional (`--profile db`)
+- `backup` - encrypted restic (`--profile backup`)
+- `updater` - watchtower auto-update (`--profile updater`)
+
+    cp contrib/proxy/prod.env.example .env   # fill it in
+    podman compose -f compose.prod.yaml \
+        --profile db --profile backup --profile updater \
+        --env-file .env up -d
+
+For rootless podman + systemd, install `contrib/quadlets/blacksmith.container`
+into `~/.config/containers/systemd/` and enable
+`podman-auto-update.timer`.
+
+## Layout
+
+| path | contents |
+| --- | --- |
+| `Dockerfile` | rootless multi-stage chainguard build |
+| `compose.prod.yaml` | production stack |
+| `contrib/proxy/` | caddy + coraza + crowdsec-bouncer build and Caddyfile |
+| `contrib/crowdsec/` | acquisition + appsec config |
+| `contrib/backup/` | encrypted restic sidecar |
+| `contrib/quadlets/` | podman systemd units with autoupdate |
+| `docker/blacksmith/` | container entrypoint scripts |
+
+## Upstream
+
+Blacksmith tracks Forgejo upstream. API and `GITEA__*` / `FORGEJO__*`
+environment compatibility is retained; `BLACKSMITH__*` works
+everywhere those do.
+
+Fork of Forgejo, which is a fork of Gitea, which is a fork of Gogs.
+GPL-3.0-or-later.

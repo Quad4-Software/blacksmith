@@ -1,4 +1,4 @@
-// Copyright 2024 The Forgejo Authors
+// Copyright 2024 The Blacksmith Authors
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 package integration

@@ -1,0 +1,44 @@
+/* No-JS support.
+ * The body keeps the no-js class when JavaScript is not available
+ * (web_src/js/index.js removes it on load). Everything here makes
+ * the site degrade cleanly: dead-end controls are hidden instead
+ * of failing silently. Server-rendered pages, forms, popover
+ * dropdowns (command/commandfor) and navigation keep working. */
+
+/* Banner shown only without JS. */
+.no-js-notice {
+  padding: 6px 16px;
+  font-size: 13px;
+  text-align: center;
+  color: var(--color-text-light-2);
+  background: var(--color-nav-bg);
+  border-bottom: 1px solid var(--color-secondary);
+}
+
+/* Copy-to-clipboard buttons do nothing without JS. */
+body.no-js [data-clipboard-text],
+body.no-js [data-clipboard-target],
+body.no-js [data-clipboard-text-type] {
+  display: none;
+}
+
+/* Modal triggers silently fail without JS; hide them so users
+   are not presented with dead controls. */
+body.no-js .show-modal,
+body.no-js [data-modal],
+body.no-js .delete-button {
+  display: none;
+}
+
+/* JS-only toggles and helpers. */
+body.no-js .js-only,
+body.no-js [data-update-button-file],
+body.no-js .toggle-visible {
+  display: none;
+}
+
+/* Fomantic dropdown menus are inert without JS; hide the menu
+   panels but keep triggers so layout stays stable. */
+body.no-js .ui.dropdown > .menu {
+  display: none !important;
+}

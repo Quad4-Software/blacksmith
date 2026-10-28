@@ -1,4 +1,4 @@
-// Copyright 2025 The Forgejo Authors. All rights reserved.
+// Copyright 2025 The Blacksmith Authors. All rights reserved.
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 package forgejo_migrations
@@ -12,14 +12,14 @@ import (
 func init() {
 	registerMigration(&Migration{
 		Description: "add forgejo_migration table",
-		Upgrade:     addForgejoMigration,
+		Upgrade:     addBlacksmithMigration,
 	})
 }
 
-func addForgejoMigration(x *xorm.Engine) error {
-	type ForgejoMigration struct {
+func addBlacksmithMigration(x *xorm.Engine) error {
+	type BlacksmithMigration struct {
 		ID          string             `xorm:"pk"`
 		CreatedUnix timeutil.TimeStamp `xorm:"created"`
 	}
-	return x.Sync(new(ForgejoMigration)) // nosemgrep:xorm-sync-missing-ignore-drop-indices
+	return x.Sync(new(BlacksmithMigration)) // nosemgrep:xorm-sync-missing-ignore-drop-indices
 }

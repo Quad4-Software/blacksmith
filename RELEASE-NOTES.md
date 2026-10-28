@@ -1,34 +1,34 @@
 # Release Notes
 
-A minor or major Forgejo release is published every [three months](https://forgejo.org/docs/latest/developer/release/#release-cycle), with more patch releases in between depending on the severity of the bug and security fixes it contains.
+A minor or major Blacksmith release is published every [three months](https://forgejo.org/docs/latest/developer/release/#release-cycle), with more patch releases in between depending on the severity of the bug and security fixes it contains.
 
 A [patch or minor release](https://semver.org/spec/v2.0.0.html) (e.g. upgrading from v7.0.0 to v7.0.1 or v7.1.0) does not require manual intervention. But [major releases](https://semver.org/spec/v2.0.0.html#spec-item-8) where the first version number changes (e.g. upgrading from v1.21 to v7.0) contain breaking changes and the release notes explain how to deal with them.
 
-The release notes of each release [are available in the release-notes-published directory of this repository](https://codeberg.org/forgejo/forgejo/src/branch/forgejo/release-notes-published), starting with [Forgejo 7.0.7](release-notes-published/7.0.7.md) and [Forgejo 8.0.1](release-notes-published/8.0.1.md).
+The release notes of each release [are available in the release-notes-published directory of this repository](https://codeberg.org/forgejo/forgejo/src/branch/forgejo/release-notes-published), starting with [Blacksmith 7.0.7](release-notes-published/7.0.7.md) and [Blacksmith 8.0.1](release-notes-published/8.0.1.md).
 
 ## 9.0.2
 
-See the [Forgejo 9.0.2 release notes](release-notes-published/9.0.2.md).
+See the [Blacksmith 9.0.2 release notes](release-notes-published/9.0.2.md).
 
 ## 9.0.1
 
-See the [Forgejo 9.0.1 release notes](release-notes-published/9.0.1.md).
+See the [Blacksmith 9.0.1 release notes](release-notes-published/9.0.1.md).
 
 ## 9.0.0
 
-See the [Forgejo 9.0.0 release notes](release-notes-published/9.0.0.md).
+See the [Blacksmith 9.0.0 release notes](release-notes-published/9.0.0.md).
 
 ## 8.0.3
 
-See the [Forgejo 8.0.3 release notes](release-notes-published/8.0.3.md).
+See the [Blacksmith 8.0.3 release notes](release-notes-published/8.0.3.md).
 
 ## 8.0.2
 
-See the [Forgejo 8.0.2 release notes](release-notes-published/8.0.2.md).
+See the [Blacksmith 8.0.2 release notes](release-notes-published/8.0.2.md).
 
 ## 8.0.1
 
-See the [Forgejo 8.0.1 release notes](release-notes-published/8.0.1.md).
+See the [Blacksmith 8.0.1 release notes](release-notes-published/8.0.1.md).
 
 ## 8.0.0
 
@@ -56,7 +56,7 @@ A [companion blog post](https://forgejo.org/2024-07-release-v8-0/) provides addi
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/3642): <!--number 3642 --><!--number--><!--description Allow navigating to the organization dashboard from the organization view-->allow navigating to the organization dashboard from the organization view.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/3434): <!--number 3434 --><!--number--><!--description When PDFs are displayed in the repository, the [full height of the screen](https://codeberg.org/forgejo/forgejo/pulls/3434) is now used instead of a predefined fixed height-->when PDFs are displayed in the repository, the full height of the screen is now used instead of a predefined fixed height.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/3337): <!--number 3337 --><!--number--><!--description Added support for grouping of log-lines inside steps between the special `::group::{title}` and `::endgroup::` workflow commands. A runner of v3.4.2 or later is needed.-->added support for grouping of log-lines inside steps between the special `::group::{title}` and `::endgroup::` workflow commands. A runner of v3.4.2 or later is needed.<!--description-->
-  - [PR](https://codeberg.org/forgejo/forgejo/pulls/3285): <!--number 3285 --><!--number--><!--description The default for `[repository].USE_COMPAT_SSH_URI` has been changed to `true`. With this change, Forgejo defaults to using the same URL style for SSH clone URLs as for HTTPS ones, instead of the former scp-style.-->the default for `[repository].USE_COMPAT_SSH_URI` has been changed to `true`. With this change, Forgejo defaults to using the same URL style for SSH clone URLs as for HTTPS ones, instead of the former scp-style.<!--description-->
+  - [PR](https://codeberg.org/forgejo/forgejo/pulls/3285): <!--number 3285 --><!--number--><!--description The default for `[repository].USE_COMPAT_SSH_URI` has been changed to `true`. With this change, Blacksmith defaults to using the same URL style for SSH clone URLs as for HTTPS ones, instead of the former scp-style.-->the default for `[repository].USE_COMPAT_SSH_URI` has been changed to `true`. With this change, Blacksmith defaults to using the same URL style for SSH clone URLs as for HTTPS ones, instead of the former scp-style.<!--description-->
 - **Features & Enhancements**
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/4283) ([backported from](https://codeberg.org/forgejo/forgejo/pulls/4266)): <!--number 4283 --><!--number--><!--description - add support for LFS server implementations which have batch API responses in an older/deprecated schema-->add support for LFS server implementations which have batch API responses in an older/deprecated schema.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/4262): <!--number 4262 --><!--number--><!--description Introduced branch/tag dropdown in code search page if using git-grep.-->introduce a branch/tag dropdown in the code search page if using git-grep.<!--description-->
@@ -74,14 +74,14 @@ A [companion blog post](https://forgejo.org/2024-07-release-v8-0/) provides addi
     - feat: add [Reviewed-on and Reviewed-by variables](https://codeberg.org/forgejo/forgejo/commit/4ddd9af50fbfcfb2ebf629697a803b3bce56c4af) to the merge template.
     - feat(perf): [add the `[ui.csv].MAX_ROWS` setting](https://codeberg.org/forgejo/forgejo/commit/433b6c6910f8699dc41787ef8f5148b122b4677e) to avoid displaying a large number of lines (defaults to 2500).
     - feat: [add a setting to override or add headers of all outgoing emails](https://codeberg.org/forgejo/forgejo/commit/1d4bff4f65d5e4a3969871ef91d3612daf272b45), for instance `Reply-To` or `In-Reply-To`.<!--description-->
-  - [PR](https://codeberg.org/forgejo/forgejo/pulls/4027): <!--number 4027 --><!--number--><!--description - Gitea/Forgejo webhook payload include additional fields (`html_url`, `additions`, `deletions`, `review_comments`...) for better compatibility with [OpenProject](https://www.openproject.org/), ported from [gitea#28435](https://github.com/go-gitea/gitea/pull/28435).-->the Gitea/Forgejo webhook payload includes additional fields (`html_url`, `additions`, `deletions`, `review_comments`...) for better compatibility with [OpenProject](https://www.openproject.org/).<!--description-->
-  - [PR](https://codeberg.org/forgejo/forgejo/pulls/4026): <!--number 4026 --><!--number--><!--description - when an OAuth grant request submitted to a Forgejo user is denied, the server from which the request originates is not notified that it has been denied-->when an OAuth grant request submitted to a Forgejo user is denied, the server from which the request originates is notified that it has been denied.<!--description-->
+  - [PR](https://codeberg.org/forgejo/forgejo/pulls/4027): <!--number 4027 --><!--number--><!--description - Gitea/Blacksmith webhook payload include additional fields (`html_url`, `additions`, `deletions`, `review_comments`...) for better compatibility with [OpenProject](https://www.openproject.org/), ported from [gitea#28435](https://github.com/go-gitea/gitea/pull/28435).-->the Gitea/Blacksmith webhook payload includes additional fields (`html_url`, `additions`, `deletions`, `review_comments`...) for better compatibility with [OpenProject](https://www.openproject.org/).<!--description-->
+  - [PR](https://codeberg.org/forgejo/forgejo/pulls/4026): <!--number 4026 --><!--number--><!--description - when an OAuth grant request submitted to a Blacksmith user is denied, the server from which the request originates is not notified that it has been denied-->when an OAuth grant request submitted to a Blacksmith user is denied, the server from which the request originates is notified that it has been denied.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/3989): <!--number 3989 --><!--number--><!--description multine placeholder-->
     - feat: API endpoints that return a repository now [also include the topics](https://codeberg.org/forgejo/forgejo/commit/ee2247d77c0b13b0b45df704d7589b541db03899).
     - feat: display an error when an issue comment is [edited simultaneously by two users](https://codeberg.org/forgejo/forgejo/commit/ca0921a95aa9a37d8820538458c15fd0a3b0c97c) instead of silently overriding one of them.
     - feat: add [support for a credentials chain for minio](https://codeberg.org/forgejo/forgejo/commit/73706ae26d138684ef9da9e1164846a040fd4a7d).
     - feat(perf): improve performances when [retrieving pull requests via the API](https://codeberg.org/forgejo/forgejo/commit/47a2102694c47bc30a2a7c673c328471839ef206).<!--description-->
-  - [PR](https://codeberg.org/forgejo/forgejo/pulls/3934): <!--number 3934 --><!--number--><!--description When installing Forgejo through the built-in installer, open (self-) registration is now disabled by default.-->when installing Forgejo through the built-in installer, open (self-) registration is now disabled by default.<!--description-->
+  - [PR](https://codeberg.org/forgejo/forgejo/pulls/3934): <!--number 3934 --><!--number--><!--description When installing Blacksmith through the built-in installer, open (self-) registration is now disabled by default.-->when installing Blacksmith through the built-in installer, open (self-) registration is now disabled by default.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/3917): <!--number 3917 --><!--number--><!--description support [setting the default attribute of the issue template dropdown field](https://codeberg.org/forgejo/forgejo/commit/df15abd07264138fd07e003d0cf056f7da514b8f)-->support [setting the default attribute of the issue template dropdown field](https://codeberg.org/forgejo/forgejo/commit/df15abd07264138fd07e003d0cf056f7da514b8f)<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/3886): <!--number 3886 --><!--number--><!--description For federated-star we introduce a new repository setting to define following repositories. That is a workaround till we find a better way to express repository federation.-->For federated-star we introduce a new repository setting to define following repositories. That is a workaround till we find a better way to express repository federation.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/3847): <!--number 3847 --><!--number--><!--description Basic wiki content search using git-grep. The search results include the first ten matched files. Only the first three matches per file are displayed.-->Basic wiki content search using git-grep. The search results include the first ten matched files. Only the first three matches per file are displayed.<!--description-->
@@ -124,10 +124,10 @@ A [companion blog post](https://forgejo.org/2024-07-release-v8-0/) provides addi
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/3654): <!--number 3654 --><!--number--><!--description Code Search for non-default branches and tags when repository indexer is disabled-->support Code Search for non-default branches and tags when the repository indexer is disabled.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/3615): <!--number 3615 --><!--number--><!--description -->add an immutable tarball link to archive download headers for Nix.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/3414): <!--number 3414 --><!--number--><!--description Allow to customize the domain name used as a fallback when synchronizing sources from ldap [`ldap: default domain name`](https://codeberg.org/forgejo/forgejo/pulls/3414)-->allow to customize the domain name used as a fallback when synchronizing sources from ldap default domain name.<!--description-->
-  - [PR](https://codeberg.org/forgejo/forgejo/pulls/3383): <!--number 3383 --><!--number--><!--description The default config for `database.MAX_OPEN_CONNS` changed from 0 (unlimited) to 100 to avoid problems if it exceeds the limit by the database server. If you require high concurrency, try to increase this value for both Forgejo **and your database server**. [`Limit database max connections by default`](https://codeberg.org/forgejo/forgejo/pulls/3383)-->the default config for `database.MAX_OPEN_CONNS` changed from 0 (unlimited) to 100 to avoid problems if it exceeds the limit by the database server. If you require high concurrency, try to increase this value for both Forgejo **and your database server**.<!--description-->
+  - [PR](https://codeberg.org/forgejo/forgejo/pulls/3383): <!--number 3383 --><!--number--><!--description The default config for `database.MAX_OPEN_CONNS` changed from 0 (unlimited) to 100 to avoid problems if it exceeds the limit by the database server. If you require high concurrency, try to increase this value for both Blacksmith **and your database server**. [`Limit database max connections by default`](https://codeberg.org/forgejo/forgejo/pulls/3383)-->the default config for `database.MAX_OPEN_CONNS` changed from 0 (unlimited) to 100 to avoid problems if it exceeds the limit by the database server. If you require high concurrency, try to increase this value for both Blacksmith **and your database server**.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/3366): <!--number 3366 --><!--number--><!--description -->infer the `[email.incoming].PORT` setting from `.USE_TLS`.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/3363): <!--number 3363 --><!--number--><!--description Reverted the rootless container image path in `GITEA_APP_INI` from `/etc/gitea/app.ini` to its default value of `/var/lib/gitea/custom/conf/app.ini`. This allows container users to not have to mount two separate volumes (one for the configuration data and one for the configuration `.ini` file). A warning is issued for users with the legacy configuration on how to update to the new path.-->reverted the rootless container image path in `GITEA_APP_INI` from `/etc/gitea/app.ini` to its default value of `/var/lib/gitea/custom/conf/app.ini`. This allows container users to not have to mount two separate volumes (one for the configuration data and one for the configuration `.ini` file). A warning is issued for users with the legacy configuration on how to update to the new path.<!--description-->
-  - [PR](https://codeberg.org/forgejo/forgejo/pulls/3334): <!--number 3334 --><!--number--><!--description Added support for the `workflow_dispatch` workflow trigger-->added support for the [`workflow_dispatch` trigger](https://forgejo.org/docs/v8.0/user/actions/#onworkflow_dispatch) in Forgejo Actions.<!--description-->
+  - [PR](https://codeberg.org/forgejo/forgejo/pulls/3334): <!--number 3334 --><!--number--><!--description Added support for the `workflow_dispatch` workflow trigger-->added support for the [`workflow_dispatch` trigger](https://forgejo.org/docs/v8.0/user/actions/#onworkflow_dispatch) in Blacksmith Actions.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/3307): <!--number 3307 --><!--number--><!--description Support [Proof Key for Code Exchange (PKCE - RFC7636)](https://www.rfc-editor.org/rfc/rfc7636) for external login using the OpenID Connect authentication source.-->support [Proof Key for Code Exchange (PKCE - RFC7636)](https://www.rfc-editor.org/rfc/rfc7636) for external login using the OpenID Connect authentication source.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/3139): <!--number 3139 --><!--number--><!--description Allow hiding auto generated release archives-->allow hiding auto generated release archives.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/3952): Update of Chroma from v2.13.0: to v2.14.0:
@@ -139,7 +139,7 @@ A [companion blog post](https://forgejo.org/2024-07-release-v8-0/) provides addi
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/4689) ([backported from](https://codeberg.org/forgejo/forgejo/pulls/4687)): <!--number 4689 --><!--number--><!--description -->Fixed: issue state change via the API is not idempotent.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/4547) ([backported from](https://codeberg.org/forgejo/forgejo/pulls/4546)): <!--number 4547 --><!--number--><!--description The milestone section in the sidebar on the issue and pull request page now uses HTMX. If you update the milestone of a issue or pull request it will no longer reload the whole page and instead update the current page with the new information about the milestone update. This should provide a smoother user experience.-->The milestone section in the sidebar on the issue and pull request page now uses HTMX. If you update the milestone of a issue or pull request it will no longer reload the whole page and instead update the current page with the new information about the milestone update. This should provide a smoother user experience.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/4402) ([backported from](https://codeberg.org/forgejo/forgejo/pulls/4382)): <!--number 4402 --><!--number--><!--description -->Fix mobile UI for organisation creation.<!--description-->
-  - [PR](https://codeberg.org/forgejo/forgejo/pulls/4621) ([backported from](https://codeberg.org/forgejo/forgejo/pulls/4618)): <!--number 4621 --><!--number--><!--description -->Fixes: Forgejo Actions does not trigger an edited event when the title of an issue or pull request is changed.<!--description-->
+  - [PR](https://codeberg.org/forgejo/forgejo/pulls/4621) ([backported from](https://codeberg.org/forgejo/forgejo/pulls/4618)): <!--number 4621 --><!--number--><!--description -->Fixes: Blacksmith Actions does not trigger an edited event when the title of an issue or pull request is changed.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/4529) ([backported from](https://codeberg.org/forgejo/forgejo/pulls/4523)): <!--number 4529 --><!--number--><!--description -->Load attachments for `/issues/comments/{id}`.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/4423) ([backported from](https://codeberg.org/forgejo/forgejo/pulls/4375)): <!--number 4423 --><!--number--><!--description the "View command line instructions" link in pull requests and the "Copy content" button in file editor are not accessible-->Fixed: the "View command line instructions" link in pull requests and the "Copy content" button in file editor are not accessible.<!--description-->
   - [PR](https://codeberg.org/forgejo/forgejo/pulls/4380) ([backported from](https://codeberg.org/forgejo/forgejo/pulls/4377)): <!--number 4380 --><!--number--><!--description -->Use correct SHA in `GetCommitPullRequest`<!--description-->
@@ -176,23 +176,23 @@ A [companion blog post](https://forgejo.org/2024-07-release-v8-0/) provides addi
 
 ## 7.0.11
 
-See the [Forgejo 7.0.11 release notes](release-notes-published/7.0.11.md).
+See the [Blacksmith 7.0.11 release notes](release-notes-published/7.0.11.md).
 
 ## 7.0.10
 
-See the [Forgejo 7.0.10 release notes](release-notes-published/7.0.10.md).
+See the [Blacksmith 7.0.10 release notes](release-notes-published/7.0.10.md).
 
 ## 7.0.9
 
-See the [Forgejo 7.0.9 release notes](release-notes-published/7.0.9.md).
+See the [Blacksmith 7.0.9 release notes](release-notes-published/7.0.9.md).
 
 ## 7.0.8
 
-See the [Forgejo 7.0.8 release notes](release-notes-published/7.0.8.md).
+See the [Blacksmith 7.0.8 release notes](release-notes-published/7.0.8.md).
 
 ## 7.0.7
 
-See the [Forgejo 7.0.7 release notes](release-notes-published/7.0.7.md).
+See the [Blacksmith 7.0.7 release notes](release-notes-published/7.0.7.md).
 
 ## 7.0.6
 
@@ -226,16 +226,16 @@ In addition to the following notable bug fixes, you can browse the [full list of
 
 * **regreSSHion**
 
-  Recommended action when running Forgejo from a:
+  Recommended action when running Blacksmith from a:
   * binary - upgrade the OpenSSH server that was installed independently.
-  * root OCI image - upgrade to [Forgejo 7.0.5](https://codeberg.org/forgejo/-/packages/container/forgejo/7.0.5).
+  * root OCI image - upgrade to [Blacksmith 7.0.5](https://codeberg.org/forgejo/-/packages/container/forgejo/7.0.5).
   * rootless OCI image - no upgrade is necessary.
 
-  [CVE-2024-6387](https://nvd.nist.gov/vuln/detail/CVE-2024-6387) also known as [regreSSHion](https://www.qualys.com/regresshion-cve-2024-6387/) is an Unauthenticated Remote Code Execution (RCE) vulnerability in OpenSSH’s server (sshd) on glibc-based Linux systems. It is **strongly recommended** that an OpenSSH server installed independently of Forgejo is upgraded as soon as possible.
+  [CVE-2024-6387](https://nvd.nist.gov/vuln/detail/CVE-2024-6387) also known as [regreSSHion](https://www.qualys.com/regresshion-cve-2024-6387/) is an Unauthenticated Remote Code Execution (RCE) vulnerability in OpenSSH’s server (sshd) on glibc-based Linux systems. It is **strongly recommended** that an OpenSSH server installed independently of Blacksmith is upgraded as soon as possible.
 
-  All Forgejo OCI root images, including [7.0.5](https://codeberg.org/forgejo/-/packages/container/forgejo/7.0.5) contain an OpenSSH server. They are based on https://alpinelinux.org/ which relies on https://musl.libc.org/ and not https://en.wikipedia.org/wiki/Glibc. As a precaution the [Forgejo v7.0.5 root OCI image](https://codeberg.org/forgejo/-/packages/container/forgejo/7.0.5) contains an [updated OpenSSH server](https://pkgs.alpinelinux.org/packages?name=openssh&branch=v3.19) patched for [CVE-2024-6387](https://nvd.nist.gov/vuln/detail/CVE-2024-6387).
+  All Blacksmith OCI root images, including [7.0.5](https://codeberg.org/forgejo/-/packages/container/forgejo/7.0.5) contain an OpenSSH server. They are based on https://alpinelinux.org/ which relies on https://musl.libc.org/ and not https://en.wikipedia.org/wiki/Glibc. As a precaution the [Blacksmith v7.0.5 root OCI image](https://codeberg.org/forgejo/-/packages/container/forgejo/7.0.5) contains an [updated OpenSSH server](https://pkgs.alpinelinux.org/packages?name=openssh&branch=v3.19) patched for [CVE-2024-6387](https://nvd.nist.gov/vuln/detail/CVE-2024-6387).
 
-  The Forgejo OCI rootless images, including [7.0.5](https://codeberg.org/forgejo/-/packages/container/forgejo/7.0.5-rootless), do not contain an OpenSSH server, they rely on the internal Forgejo implementation of the SSH protocol.
+  The Blacksmith OCI rootless images, including [7.0.5](https://codeberg.org/forgejo/-/packages/container/forgejo/7.0.5-rootless), do not contain an OpenSSH server, they rely on the internal Blacksmith implementation of the SSH protocol.
 
 * **Security:**
   * Compiled with Go v1.22.5. Fixed: [CVE-2024-24791](https://nvd.nist.gov/vuln/detail/CVE-2024-24791) - [GO-2024-2963](https://pkg.go.dev/vuln/GO-2024-2963): Denial of service due to improper 100-continue handling in net/http. The net/http HTTP/1.1 client mishandled the case where a server responds to a request with an "Expect: 100-continue" header with a non-informational (200 or higher) status. This mishandling could leave a client connection in an invalid state, where the next request sent on the connection will fail. An attacker sending a request to a net/http/httputil.ReverseProxy proxy can exploit this mishandling to cause a denial of service by sending "Expect: 100-continue" requests which elicit a non-informational response from the backend. Each such request leaves the proxy with an invalid connection, and causes one subsequent request using that connection to fail.
@@ -288,7 +288,7 @@ In addition to the following notable bug fixes, you can browse the [full list of
 
 * Container image upgrades
 
-  In the Forgejo v7.0.3 container images, the Git version was upgraded to [2.43.4](https://pkgs.alpinelinux.org/packages?name=git&branch=v3.19) which includes fixes for [multiple vulnerabilities](https://github.blog/2024-05-14-securing-git-addressing-5-new-vulnerabilities/). However, the vulnerabilities with a high impact can be exploited when Git is used in an environment (or Operating Systems) which is different from the Forgejo OCI image.
+  In the Blacksmith v7.0.3 container images, the Git version was upgraded to [2.43.4](https://pkgs.alpinelinux.org/packages?name=git&branch=v3.19) which includes fixes for [multiple vulnerabilities](https://github.blog/2024-05-14-securing-git-addressing-5-new-vulnerabilities/). However, the vulnerabilities with a high impact can be exploited when Git is used in an environment (or Operating Systems) which is different from the Blacksmith OCI image.
 
 * **Security:**
   * [PR](https://codeberg.org/forgejo/forgejo/pulls/3673). Fixed: [CVE-2024-24788](https://pkg.go.dev/vuln/GO-2024-2824): a malformed DNS message in response to a query can cause the lookup functions to get stuck in an infinite loop.
@@ -305,7 +305,7 @@ In addition to the following notable bug fixes, you can browse the [full list of
   * [PR](https://codeberg.org/forgejo/forgejo/pulls/3753). Fixed: inline emails attachments are not properly handled when commenting on an issue via email.
   * [PR](https://codeberg.org/forgejo/forgejo/pulls/3760). Fixed: the links to .zip and tar.gz on the tag list web UI fail.
   * [PR](https://codeberg.org/forgejo/forgejo/pulls/3767). Fixed: expanding code diff while previewing a pull request before it is created fails.
-  * [PR](https://codeberg.org/forgejo/forgejo/pulls/3772). Fixed: the CLI is not able to migrate Forgejo Actions artifacts.
+  * [PR](https://codeberg.org/forgejo/forgejo/pulls/3772). Fixed: the CLI is not able to migrate Blacksmith Actions artifacts.
   * [PR](https://codeberg.org/forgejo/forgejo/pulls/3772). Fixed: when adopting a repository, the default branch is not taken into account.
   * [PR](https://codeberg.org/forgejo/forgejo/pulls/3772). Fixed: when using reverse proxy authentication, logout will not be taken into account when immediately trying to login afterwards.
   * [PR](https://codeberg.org/forgejo/forgejo/pulls/3788). Fixed: pushing to the master branch of a sha256 repository fails.
@@ -321,14 +321,14 @@ In addition to the following notable bug fixes, you can browse the [full list of
 
   This section is for information only and does not require any action.
 
-  The semantic version of the Forgejo 7.0 releases are:
+  The semantic version of the Blacksmith 7.0 releases are:
 
   * `v7.0.0+gitea-1.22.0`
   * `v7.0.1+gitea-1.22.0`
   * `v7.0.2+gitea-1.22.0`
   * `v7.0.3+gitea-1.21.11`
 
-  Gitea v1.22 is [not published yet](https://github.com/go-gitea/gitea/issues/30731) as of 21 May 2024 and in reality all Forgejo v7.0 releases are compatible with Gitea v1.21.11. Advertising they will be compatible with an unpublished Gitea version was incorrect. The Gitea v1.22 release was anticipated to happen shortly after [Forgejo v7.0 was published on 23 April 2024](https://forgejo.org/2024-04-release-v7-0/) because it was already in the late stages of its release candidate lifecycle. However, around 27 April, [the Gitea release candidates were dropped](https://github.com/go-gitea/gitea/issues/30501) and the release candidates restarted from the Gitea development branch.
+  Gitea v1.22 is [not published yet](https://github.com/go-gitea/gitea/issues/30731) as of 21 May 2024 and in reality all Blacksmith v7.0 releases are compatible with Gitea v1.21.11. Advertising they will be compatible with an unpublished Gitea version was incorrect. The Gitea v1.22 release was anticipated to happen shortly after [Blacksmith v7.0 was published on 23 April 2024](https://forgejo.org/2024-04-release-v7-0/) because it was already in the late stages of its release candidate lifecycle. However, around 27 April, [the Gitea release candidates were dropped](https://github.com/go-gitea/gitea/issues/30501) and the release candidates restarted from the Gitea development branch.
 
 ## 7.0.2
 
@@ -362,7 +362,7 @@ In addition to the following notable bug fixes, you can browse the [full list of
 
 ## 7.0.0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v7.0/forgejo) included in the `Forgejo v7.0.0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v7.0/forgejo) included in the `Blacksmith v7.0.0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -373,7 +373,7 @@ $ git -C forgejo log --oneline --no-merges origin/v1.21/forgejo..origin/v7.0/for
   * Running the [`forgejo doctor check --fix`](https://forgejo.org/docs/v7.0/admin/command-line/#doctor-check) CLI command or setting [`[cron.gc_lfs].ENABLED=true`](https://forgejo.org/docs/v7.0/admin/config-cheat-sheet/#cron---garbage-collect-lfs-pointers-in-repositories-crongc_lfs) (the default is `false`) will corrupt the LFS storage. The workaround is to not run the doctor CLI command and disable the `cron.gc_lfs`. This regression will be [fixed in 7.0.1](https://codeberg.org/forgejo/forgejo/issues/3438).
   * The [`forgejo admin user create`](https://forgejo.org/docs/v7.0/admin/command-line/#admin-user-create) CLI command [requires a password](https://codeberg.org/forgejo/forgejo/commit/b122c6ef8b9254120432aed373cbe075331132ac) change by default when creating the first user and the `--admin` flag is not specified. The `--must-change-password=false` argument must be given to not require a password change. This regression will be [fixed in 7.0.1](https://codeberg.org/forgejo/forgejo/issues/3399).
 * **Breaking changes requiring manual intervention:**
-  * [Forgejo webhooks](https://codeberg.org/forgejo/forgejo/issues/3055) now always send full refs (starting with `refs/`) instead of sending short refs in some cases. This new behavior may require changes when the receiving end assumes a short ref will be received (for instance some versions of Woodpecker CI when receiving webhook payloads when a tag is set).
+  * [Blacksmith webhooks](https://codeberg.org/forgejo/forgejo/issues/3055) now always send full refs (starting with `refs/`) instead of sending short refs in some cases. This new behavior may require changes when the receiving end assumes a short ref will be received (for instance some versions of Woodpecker CI when receiving webhook payloads when a tag is set).
   * [MySQL 8.0 or PostgreSQL 12](https://codeberg.org/forgejo/forgejo/commit/e94f9fcafdcf284561e7fb33f60156a69c4ad6a5) are the minimum supported versions. The database must be migrated before upgrading. The requirements regarding SQLite did not change.
   * The `per_page` parameter is [no longer a synonym for `limit`](https://codeberg.org/forgejo/forgejo/commit/0aab2d38a7d91bc8caff332e452364468ce52d9a) in the [/repos/{owner}/{repo}/releases](https://code.forgejo.org/api/swagger/#/repository/repoListReleases) API endpoint.
   * The date format of the `created` and `last_update` fields of the [`/repos/{owner}/{repo}/push_mirrors`](https://code.forgejo.org/api/swagger/#/repository/repoListPushMirrors) and [/repos/{owner}/{repo}/push_mirrors](https://code.forgejo.org/api/swagger/#/repository/repoAddPushMirror) API endpoint changed [to be timestamps instead of numbers](https://codeberg.org/forgejo/forgejo/commit/0ee7cbf725f45650136be45f8e0f74d395f73b5c).
@@ -389,11 +389,11 @@ $ git -C forgejo log --oneline --no-merges origin/v1.21/forgejo..origin/v7.0/for
     * `auto` is replaced by `gitea-auto`
 * **Breaking changes in the user interface:**
   Note that the modifications related to CSS, templates or assets (images, fonts, etc.) are not documented here.
-  Although they can be extracted and modified, Forgejo does not provide any guarantee that such changes
+  Although they can be extracted and modified, Blacksmith does not provide any guarantee that such changes
   will be portable from one version to another (even a patch version). See also
   [the developer documentation about interface customization](https://forgejo.org/docs/v7.0/developer/customization/).
-  * [Update checker setting might change](https://codeberg.org/forgejo/forgejo/pulls/2925). The documentation was listing it as enabled by default, however, for a while it was disabled unless it was explicitly specified in the config or on the installation page. Instances migrated from Gitea also had it disabled due to different default value. Since then Forgejo got a privacy-friendly DNS-based update checking mechanism which is now being enabled by default unless explicitly specified [in the config](https://forgejo.org/docs/v7.0/admin/config-cheat-sheet/#cron---check-for-new-forgejo-versions-cronupdate_checker).
-  * Language statistics for repositories that use `linguist` attributes in `.gitattributes` *may* show different statistics than previously, because Forgejo recognizes more [linguist attributes](https://forgejo.org/docs/v7.0/user/language-detection/) now.
+  * [Update checker setting might change](https://codeberg.org/forgejo/forgejo/pulls/2925). The documentation was listing it as enabled by default, however, for a while it was disabled unless it was explicitly specified in the config or on the installation page. Instances migrated from Gitea also had it disabled due to different default value. Since then Blacksmith got a privacy-friendly DNS-based update checking mechanism which is now being enabled by default unless explicitly specified [in the config](https://forgejo.org/docs/v7.0/admin/config-cheat-sheet/#cron---check-for-new-forgejo-versions-cronupdate_checker).
+  * Language statistics for repositories that use `linguist` attributes in `.gitattributes` *may* show different statistics than previously, because Blacksmith recognizes more [linguist attributes](https://forgejo.org/docs/v7.0/user/language-detection/) now.
   * It is [no longer possible to replace the default web editor](https://codeberg.org/forgejo/forgejo/pulls/2916) used to write comments or issues and pull requests with the EasyMDE editor. It is however still available as an alternative to edit releases and wiki pages.
   * [The list of all repositories and the `New Issue` button are no longer available in the user dashboard](https://codeberg.org/forgejo/forgejo/commit/beb71f5ef6e8074dc744ac995c15f7b5947a3f2e) for issues and pull requests.
 * **Migration warning**
@@ -420,12 +420,12 @@ $ git -C forgejo log --oneline --no-merges origin/v1.21/forgejo..origin/v7.0/for
   * Render permalinks to files with a line range by an inline preview in all places where markup is allowed ([#2669](https://codeberg.org/forgejo/forgejo/pulls/2669))
   * A user can now optionally set their preferred pronouns ([#1518](https://codeberg.org/forgejo/forgejo/pulls/1518)).
   * [Always enable caches](https://codeberg.org/forgejo/forgejo/commit/e7cb8da2a8310ac167b6f613b283caa3316a7154).
-  * Forgejo now recognizes more [linguist attributes](https://forgejo.org/docs/v7.0/user/language-detection/), making it possible to include documentation in the repository language statistics, for example. ([#2088](https://codeberg.org/forgejo/forgejo/pulls/2088))
+  * Blacksmith now recognizes more [linguist attributes](https://forgejo.org/docs/v7.0/user/language-detection/), making it possible to include documentation in the repository language statistics, for example. ([#2088](https://codeberg.org/forgejo/forgejo/pulls/2088))
   * When displaying the message to open a pull request from a recently pushed branch, the recently pushed branch now links to the appropriate branch. ([#2141](https://codeberg.org/forgejo/forgejo/pulls/2141))
   * Users who signed up, but have not activated their accounts yet, are now able to [change their email before activation](https://codeberg.org/forgejo/forgejo/pulls/1891). ([#1891](https://codeberg.org/forgejo/forgejo/pulls/1891))
   * The "You pushed on branch ...." banner is now displayed for repositories you have a fork of with recently pushed branches too ([#2195](https://codeberg.org/forgejo/forgejo/pulls/2195)), and it will no longer consider branches that share no history with the default branch. ([#2196](https://codeberg.org/forgejo/forgejo/pulls/2196))
-  * Forgejo will now highlight signed tags in a similar way it highlights signed commits. ([#2534](https://codeberg.org/forgejo/forgejo/pulls/2534))
-  * Forgejo gained support for the more recent GitHub-style alert blocks. ([#2348](https://codeberg.org/forgejo/forgejo/pulls/2348))
+  * Blacksmith will now highlight signed tags in a similar way it highlights signed commits. ([#2534](https://codeberg.org/forgejo/forgejo/pulls/2534))
+  * Blacksmith gained support for the more recent GitHub-style alert blocks. ([#2348](https://codeberg.org/forgejo/forgejo/pulls/2348))
     - The older style remains supported too.
   * [[ACTIONS] Add vars context to cron jobs](https://codeberg.org/forgejo/forgejo/pulls/3059)
   * [[ACTIONS] Allow viewing the latest Action Run on the web](https://codeberg.org/forgejo/forgejo/pulls/1900)
@@ -649,7 +649,7 @@ $ git -C forgejo log --oneline --no-merges origin/v1.21/forgejo..origin/v7.0/for
   * [[UI] Fix must-change-password help dialog](https://codeberg.org/forgejo/forgejo/pulls/2676)
   * [[UI] Fix relative links on orgmode](https://codeberg.org/forgejo/forgejo/pulls/2385)
   * [[UI] Fix selector inner radius](https://codeberg.org/forgejo/forgejo/pulls/2860)
-  * [[UI] Fix tone of callout boxes for Forgejo dark](https://codeberg.org/forgejo/forgejo/pulls/3085)
+  * [[UI] Fix tone of callout boxes for Blacksmith dark](https://codeberg.org/forgejo/forgejo/pulls/3085)
   * [[UI] Fix tooltip for 1000+ stars/forks](https://codeberg.org/forgejo/forgejo/pulls/3147)
   * [[UI] include hostname in admin panel URL in new user emails](https://codeberg.org/forgejo/forgejo/pulls/1940)
   * [[UI] Increase contrast of code block](https://codeberg.org/forgejo/forgejo/pulls/2874)
@@ -818,7 +818,7 @@ $ git -C forgejo log --oneline --no-merges origin/v1.21/forgejo..origin/v7.0/for
 
 ## 1.21.11-2
 
-[The complete list of new commits included in the Forgejo v1.21.11-2 release can be reviewed here](https://codeberg.org/forgejo/forgejo/compare/v1.21.11-1...v1.21.11-2), or from the command line with:
+[The complete list of new commits included in the Blacksmith v1.21.11-2 release can be reviewed here](https://codeberg.org/forgejo/forgejo/compare/v1.21.11-1...v1.21.11-2), or from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo
@@ -829,9 +829,9 @@ This stable release contains a **security fix**.
 
 * Recommended Action
 
-  We recommend that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version as soon as possible.
+  We recommend that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version as soon as possible.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
 
   The semantic version was updated to `6.0.13+0-gitea-1.21.10`
 
@@ -840,13 +840,13 @@ This stable release contains a **security fix**.
 
 ## 1.21.11-1
 
-This stable release contains a single bug fix for a regression introduced in v1.21.11-0 by which creating a tag via the API would fail with error 500 on a repository a where Forgejo Actions workflow triggered by tags exists.
+This stable release contains a single bug fix for a regression introduced in v1.21.11-0 by which creating a tag via the API would fail with error 500 on a repository a where Blacksmith Actions workflow triggered by tags exists.
 
 * Recommended Action
 
-  We recommend that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version as soon as possible.
+  We recommend that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version as soon as possible.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
 
   The semantic version was updated to `6.0.12+0-gitea-1.21.10`
 
@@ -856,7 +856,7 @@ This stable release contains a single bug fix for a regression introduced in v1.
 
 ## 1.21.11-0
 
-[The complete list of new commits included in the Forgejo v1.21.11-0 release can be reviewed here](https://codeberg.org/forgejo/forgejo/compare/v1.21.10-0...v1.21.11-0), or from the command line with:
+[The complete list of new commits included in the Blacksmith v1.21.11-0 release can be reviewed here](https://codeberg.org/forgejo/forgejo/compare/v1.21.10-0...v1.21.11-0), or from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo
@@ -867,9 +867,9 @@ This stable release contains bug fixes and **security fixes**.
 
 * Recommended Action
 
-  We strongly recommend that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version as soon as possible.
+  We strongly recommend that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version as soon as possible.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
 
   The semantic version was updated to `6.0.11+0-gitea-1.21.10`
 
@@ -888,7 +888,7 @@ This stable release contains bug fixes and **security fixes**.
 
 ## 1.21.10-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Forgejo v1.21.10-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Blacksmith v1.21.10-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -897,13 +897,13 @@ $ git -C forgejo log --oneline --no-merges v1.21.8-0..v1.21.10-0
 
 This stable release contains bug fixes and a **security fix**.
 
-Note that there is no `Forgejo v1.21.9-0` release. The release numbering of the `Forgejo v1.21` patch series follows the Gitea release numbering. However, the publication of `Gitea v1.21.9` and `Gitea v1.21.10` were a few days apart because of a regression that is not present on Forgejo and there was no need to publish `Forgejo v1.21.9-0`.
+Note that there is no `Blacksmith v1.21.9-0` release. The release numbering of the `Blacksmith v1.21` patch series follows the Gitea release numbering. However, the publication of `Gitea v1.21.9` and `Gitea v1.21.10` were a few days apart because of a regression that is not present on Blacksmith and there was no need to publish `Blacksmith v1.21.9-0`.
 
 * Recommended Action
 
-  We recommend that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version as soon as possible.
+  We recommend that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version as soon as possible.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
 
   The semantic version was updated to `6.0.10+0-gitea-1.21.10`
 
@@ -911,7 +911,7 @@ Note that there is no `Forgejo v1.21.9-0` release. The release numbering of the 
 
   It [includes vulnerability fixes](https://groups.google.com/g/golang-announce/c/YgW0sx8mN3M/m/khALNYGdAAAJ).
 
-  * [CVE-2023-45288](https://pkg.go.dev/vuln/GO-2024-2687) which permits an attacker to cause an HTTP/2 endpoint to read arbitrary amounts of header data, all associated with a request which is going to be rejected. These headers can include Huffman-encoded data which is significantly more expensive for the receiver to decode than for an attacker to send. A Forgejo instance is affected if it is configured to listen to HTTPS instead of doing this via a reverse proxy.
+  * [CVE-2023-45288](https://pkg.go.dev/vuln/GO-2024-2687) which permits an attacker to cause an HTTP/2 endpoint to read arbitrary amounts of header data, all associated with a request which is going to be rejected. These headers can include Huffman-encoded data which is significantly more expensive for the receiver to decode than for an attacker to send. A Blacksmith instance is affected if it is configured to listen to HTTPS instead of doing this via a reverse proxy.
 
 * Bug fixes
 
@@ -928,7 +928,7 @@ Note that there is no `Forgejo v1.21.9-0` release. The release numbering of the 
 
 ## 1.21.8-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Forgejo v1.21.8-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Blacksmith v1.21.8-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -939,9 +939,9 @@ This stable release contains bug fixes.
 
 * Recommended Action
 
-  We recommend that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version.
+  We recommend that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
 
   The semantic version was updated to `6.0.8+0-gitea-1.21.8`
 
@@ -962,7 +962,7 @@ This stable release contains bug fixes.
 
 ## 1.21.7-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Forgejo v1.21.7-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Blacksmith v1.21.7-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -973,9 +973,9 @@ This stable release contains bug fixes and a **security fix**.
 
 * Recommended Action
 
-  We recommend that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version as soon as possible.
+  We recommend that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version as soon as possible.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
 
   The semantic version was updated to `6.0.7+0-gitea-1.21.7`
 
@@ -999,7 +999,7 @@ This stable release contains bug fixes and a **security fix**.
 
 ## 1.21.6-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Forgejo v1.21.6-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Blacksmith v1.21.6-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -1010,15 +1010,15 @@ This stable release contains bug fixes and a **security fix**, as explained in t
 
 * Recommended Action
 
-  We **strongly recommend** that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version as soon as possible.
+  We **strongly recommend** that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version as soon as possible.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
 
   The semantic version was updated to `6.0.6+0-gitea-1.21.6`
 
 * Security fix
 
-  * [Fix XSS vulnerabilities](https://codeberg.org/forgejo/forgejo/pulls/2434). It enabled attackers to inject client-side scripts into web pages displayed to Forgejo visitors.
+  * [Fix XSS vulnerabilities](https://codeberg.org/forgejo/forgejo/pulls/2434). It enabled attackers to inject client-side scripts into web pages displayed to Blacksmith visitors.
 
 * Bug fixes
 
@@ -1031,11 +1031,11 @@ This stable release contains bug fixes and a **security fix**, as explained in t
   * [Fix push to create with capitalize repo name](https://codeberg.org/forgejo/forgejo/commit/8782275c9c66ad6fc7c44503d7df9dae7196aa65).
   * In Markdown [don't try to make the link absolute if the link has a schema that's defined in `[markdown].CUSTOM_URL_SCHEMES`](https://codeberg.org/forgejo/forgejo/commit/6c100083c29fb0ccf0cc52e8767e540a260d9468), because they can't be made absolute.
   * [Fix Ctrl+Enter on submitting review comment](https://codeberg.org/forgejo/forgejo/commit/1c3a31d85112d10fb948d6f0b763191ed6f68e90).
-  * In Git version v2.43.1, the behavior of `GIT_FLUSH` was accidentally flipped. This causes Forgejo to hang on the `check-attr` command, because no output was being flushed. [Workaround this by detecting if Git v2.43.1 is used and set `GIT_FLUSH=0` thus getting the correct behavior](https://codeberg.org/forgejo/forgejo/commit/ff468ab5e426582b068586ce13d5a5348365e783).
+  * In Git version v2.43.1, the behavior of `GIT_FLUSH` was accidentally flipped. This causes Blacksmith to hang on the `check-attr` command, because no output was being flushed. [Workaround this by detecting if Git v2.43.1 is used and set `GIT_FLUSH=0` thus getting the correct behavior](https://codeberg.org/forgejo/forgejo/commit/ff468ab5e426582b068586ce13d5a5348365e783).
   * [When setting `url.host` on a URL object with no port specified (like is the case of default port), the resulting URL's port will not change. Workaround this quirk in the URL standard by explicitly setting port for the http and https protocols](https://codeberg.org/forgejo/forgejo/commit/628e1036cfbcfae442cb6494249fe11410447056).
   * [Fix elasticsearch Request Entity Too Large](https://codeberg.org/forgejo/forgejo/commit/e6f59f6e1489d63d53de0da1de406a7a71a82adb).
   * [Do not send update/delete release notifications when it is in a draft state](https://codeberg.org/forgejo/forgejo/commit/3c54a1dbf62e56d948feb1008512900140033737).
-  * [Do not run Forgejo Actions workflows synchronized events on the same commit as the one used to create a pull request](https://codeberg.org/forgejo/forgejo/commit/ce96379aef6e92cff2e9982031d5248ef8b01947).
+  * [Do not run Blacksmith Actions workflows synchronized events on the same commit as the one used to create a pull request](https://codeberg.org/forgejo/forgejo/commit/ce96379aef6e92cff2e9982031d5248ef8b01947).
   * [Fix a MySQL performance regression introduced in v1.21.4-0](https://codeberg.org/forgejo/forgejo/commit/af98a0a7c6f4cbb5340974958ebe4389e3bf4e9a).
   * [Fix Internal Server Error when resolving comments](https://codeberg.org/forgejo/forgejo/commit/ad67d9ef1a219b21309f811c14e7353cbc4982e3).
   * Packages
@@ -1047,7 +1047,7 @@ This stable release contains bug fixes and a **security fix**, as explained in t
 
 ## 1.21.5-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Forgejo v1.21.5-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Blacksmith v1.21.5-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -1058,9 +1058,9 @@ This stable release includes bug fixes as well as documentation improvements.
 
 * Recommended Action
 
-  We recommend that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version.
+  We recommend that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
 
   The semantic version was updated to `6.0.5+0-gitea-1.21.5`
 
@@ -1068,7 +1068,7 @@ This stable release includes bug fixes as well as documentation improvements.
 
   The most prominent ones are described here, others can be found in the list of commits included in the release as described above.
 
-  * [Upgrade go-git to v5.11.0](https://codeberg.org/forgejo/forgejo/commit/faafccbcc7942b39cbc43f8014a435de4cc30f62). Although go-git is not used by Forgejo in a way that meets the requirements for the  [CVE-2023-49568](https://github.com/advisories/GHSA-mw99-9chc-xw7r) and [DoS](https://github.com/go-git/go-git/security/advisories/GHSA-mw99-9chc-xw7r) vulnerabilities to be possible, it is upgraded to v5.11.0 which mitigates the issue, as a precaution.
+  * [Upgrade go-git to v5.11.0](https://codeberg.org/forgejo/forgejo/commit/faafccbcc7942b39cbc43f8014a435de4cc30f62). Although go-git is not used by Blacksmith in a way that meets the requirements for the  [CVE-2023-49568](https://github.com/advisories/GHSA-mw99-9chc-xw7r) and [DoS](https://github.com/go-git/go-git/security/advisories/GHSA-mw99-9chc-xw7r) vulnerabilities to be possible, it is upgraded to v5.11.0 which mitigates the issue, as a precaution.
   * [Fix markdown relative links rendering](https://codeberg.org/forgejo/forgejo/commit/f8c9ff55b98adfbfbcc24efd178c114006f28336)
   * [Fix NPE in `UsernameSubRoute`](https://codeberg.org/forgejo/forgejo/commit/3c7a955f05ec4c29f3c4f7412c45129b74c33e5c)
   * [Fix duplication when blocking multiple users](https://codeberg.org/forgejo/forgejo/commit/3d3790ef4c6cdbcbe0cf7ec80627596f44701977)
@@ -1089,7 +1089,7 @@ This stable release includes bug fixes as well as documentation improvements.
 
 ## 1.21.4-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Forgejo v1.21.4-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Blacksmith v1.21.4-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -1100,13 +1100,13 @@ This stable release includes security and bug fixes as well as documentation imp
 
 * Recommended Action
 
-  We recommend that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version.
+  We recommend that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version.
 
 * Container image upgrades
 
-  In the Forgejo container images the ssh version was upgraded to [9.3_p2-r1](https://pkgs.alpinelinux.org/packages?name=openssh&branch=v3.18) which includes a fix for [CVE-2023-48795](https://nvd.nist.gov/vuln/detail/CVE-2023-48795).
+  In the Blacksmith container images the ssh version was upgraded to [9.3_p2-r1](https://pkgs.alpinelinux.org/packages?name=openssh&branch=v3.18) which includes a fix for [CVE-2023-48795](https://nvd.nist.gov/vuln/detail/CVE-2023-48795).
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
 
   The semantic version was updated to `6.0.4+0-gitea-1.21.4`
 
@@ -1144,8 +1144,8 @@ This stable release includes security and bug fixes as well as documentation imp
 
 * Documentation
 
-  * The Forgejo Actions [user reference guide](https://forgejo.org/docs/v1.21/user/actions/) includes [event payload examples](https://forgejo.org/docs/v1.21/user/actions/#githubevent) for pull requests and push events. It also covers most of the [jobs](https://forgejo.org/docs/v1.21/user/actions/#jobs) syntax.
-  * The [Forgejo command line page](https://forgejo.org/docs/v1.21/admin/command-line/) was [entirely reworked](https://codeberg.org/forgejo/docs/pulls/340) and updates are now automated.
+  * The Blacksmith Actions [user reference guide](https://forgejo.org/docs/v1.21/user/actions/) includes [event payload examples](https://forgejo.org/docs/v1.21/user/actions/#githubevent) for pull requests and push events. It also covers most of the [jobs](https://forgejo.org/docs/v1.21/user/actions/#jobs) syntax.
+  * The [Blacksmith command line page](https://forgejo.org/docs/v1.21/admin/command-line/) was [entirely reworked](https://codeberg.org/forgejo/docs/pulls/340) and updates are now automated.
 
 * Improvements
 
@@ -1156,7 +1156,7 @@ This stable release includes security and bug fixes as well as documentation imp
 
 ## 1.21.3-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Forgejo v1.21.3-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Blacksmith v1.21.3-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -1167,9 +1167,9 @@ This stable release includes bug fixes. It was built with an updated version of 
 
 * Recommended Action
 
-  We recommend that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version.
+  We recommend that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
 
   The semantic version was updated to `6.0.3+0-gitea-1.21.3`
 
@@ -1193,7 +1193,7 @@ This stable release includes bug fixes. It was built with an updated version of 
 
 ## 1.21.2-1
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Forgejo v1.21.2-1` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Blacksmith v1.21.2-1` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -1204,9 +1204,9 @@ This stable release contains a **security fix**, as explained in the [v1.21.2-1 
 
 * Recommended Action
 
-  We **strongly recommend** that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version as soon as possible.
+  We **strongly recommend** that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version as soon as possible.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
 
   The semantic version was updated to `6.0.2+0-gitea-1.21.2`
 
@@ -1219,26 +1219,26 @@ This stable release contains a **security fix**, as explained in the [v1.21.2-1 
   The most prominent ones are described here, others can be found in the list of commits included in the release as described above.
 
   * The default preferred licenses for the [[repository].PREFERRED_LICENSES](https://forgejo.org/docs/v1.21/admin/config-cheat-sheet/#repository-repository) setting were incorrect and have been [fixed to be `Apache-2.0` and `MIT`](https://codeberg.org/forgejo/forgejo/commit/5258e8f63d649b016d5c5d0e37422723bef26dac).
-  * A failed cron job can [no longer cause the Forgejo instance to shutdown](https://codeberg.org/forgejo/forgejo/commit/026a4bb02d8ac0b0dd90eb8a89c25ae18abca34f).
+  * A failed cron job can [no longer cause the Blacksmith instance to shutdown](https://codeberg.org/forgejo/forgejo/commit/026a4bb02d8ac0b0dd90eb8a89c25ae18abca34f).
   * A pull request merged by a workflow using the [automatic token](https://forgejo.org/docs/v1.21/user/actions/#automatic-token) with the `auto merge` flag [no longer cause an error 500 when displaying the pull request page](https://codeberg.org/forgejo/forgejo/commit/4148fb27dbc337a433b41d6d450d48fad73239cc).
   * [Tentative fix for when the database branch cache is out of sync with the branches found in Git repositories](https://codeberg.org/forgejo/forgejo/commit/14750f3d11c8d065d3f9af31b8b4ee8d28acd0a5). When in doubt it is recommended to click on `Sync missed branches from git data to databases` in the `/admin` dashboard.
 
 ## 1.21.2-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Forgejo v1.21.2-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Blacksmith v1.21.2-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
 $ git -C forgejo log --oneline --no-merges v1.21.1-0..v1.21.2-0
 ```
 
-This stable release includes bug fixes. It was built with Go v1.21.5 that fixes [CVE-2023-39326](https://groups.google.com/g/golang-announce/c/iLGK3x6yuNo) which a malicious HTTP client can exploit to cause a server to automatically read a large amount of data. It allows for memory exhaustion in the situation that HTTP chunked encoding requests can reach Forgejo.
+This stable release includes bug fixes. It was built with Go v1.21.5 that fixes [CVE-2023-39326](https://groups.google.com/g/golang-announce/c/iLGK3x6yuNo) which a malicious HTTP client can exploit to cause a server to automatically read a large amount of data. It allows for memory exhaustion in the situation that HTTP chunked encoding requests can reach Blacksmith.
 
 * Recommended Action
 
-  We recommend that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version.
+  We recommend that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.21/admin/upgrade/) to the latest version.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.21/user/semver/)
 
   The semantic version was updated to `6.0.1+0-gitea-1.21.2`
 
@@ -1250,7 +1250,7 @@ This stable release includes bug fixes. It was built with Go v1.21.5 that fixes 
   * [Avoid conflicts of issue and PR numbers in GitLab migration](https://codeberg.org/forgejo/forgejo/commit/272d0a4c20987e33fa132fc94d996e0c6fdb86d7)
   * [Only pass selected repository IDs to pagination](https://codeberg.org/forgejo/forgejo/commit/2552bb7b6ec51a094c9d800589991b1556fba798)
   * [Add download URL for executable files](https://codeberg.org/forgejo/forgejo/commit/958a20865b897daaa4c26a3ba4b195ba2e854223)
-  * [Fix Forgejo repositories migration to also include issues, prs etc.](https://codeberg.org/forgejo/forgejo/commit/61fc5c514a6b3f99560b0df5e4cdb7df94763984)
+  * [Fix Blacksmith repositories migration to also include issues, prs etc.](https://codeberg.org/forgejo/forgejo/commit/61fc5c514a6b3f99560b0df5e4cdb7df94763984)
   * [Fix template substitution bug preventing notifications to be sent on new user registration](https://codeberg.org/forgejo/forgejo/commit/bc0078a50a6ab341ca4af15ce5d3fd221e6e9e0d)
   * [When searching for issues, require that all terms are matched instead of one of them](https://codeberg.org/forgejo/forgejo/commit/13c0df40de319db2c4c2ec11a9a9dc5cf9eaf681)
   * [Ignore temporary files when calculating the size of a repository](https://codeberg.org/forgejo/forgejo/commit/b17113bb06b57211b9c264b6953a783e7d0bb9a2)
@@ -1265,31 +1265,31 @@ This stable release includes bug fixes. It was built with Go v1.21.5 that fixes 
 
 ## 1.21.1-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Forgejo v1.21.1-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.21/forgejo) included in the `Blacksmith v1.21.1-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
 $ git -C forgejo log --oneline --no-merges origin/v1.20/forgejo..origin/v1.21/forgejo
 ```
 
-- **[Forgejo Semantic Version](https://forgejo.org/docs/v1.21/user/semver/):**
+- **[Blacksmith Semantic Version](https://forgejo.org/docs/v1.21/user/semver/):**
   The semantic version was updated to `6.0.0+0-gitea-1.21.0` because it contains breaking changes.
 
 - **Breaking:**
   Note that the modifications related to CSS, templates or assets (images, fonts, etc.) are not documented here.
-  Although they can be extracted and modified, Forgejo does not provide any guarantee that such changes
+  Although they can be extracted and modified, Blacksmith does not provide any guarantee that such changes
   will be portable from one version to another (even a patch version). A [Q&A discussion is available](https://codeberg.org/forgejo/discussions/issues/84)
   to share tips and tricks. A new section was also added
   [to the developer documentation about interface customization](https://forgejo.org/docs/v1.21/developer/customization/).
   - If you have custom asset files, e.g. custom themes, inside `custom/public/*` (css included), you need to transfer these files to `custom/public/assets/*` for them to be detected. Read more [in the documentation](https://forgejo.org/docs/v1.21/developer/customization/) and the [Q&A discussion dedicated to interface customization](https://codeberg.org/forgejo/discussions/issues/84).
   - Git [branches are stored in the databases](https://codeberg.org/forgejo/forgejo/commit/6e19484f4d3bf372212f2da462110a1a8c10cbf2) to reduce the calls to a git process and improve performances. After upgrading, login as an admin, go to the `/admin` page and click run **Sync missed branches from git data to databases**. If this is not done there will be messages such as `LoadBranches: branch does not exist` in the logs.
-  - [Some Forgejo CLI options have changed](https://codeberg.org/forgejo/forgejo/commit/d0dbe52e76f3038777c3b50066e3636105387ca3) and scripts may need to be updated. For instance `--verbose` is no longer a global option and is implemented on a per sub-command basis. Check `forgejo --help` or `forgejo docs` for more information.
+  - [Some Blacksmith CLI options have changed](https://codeberg.org/forgejo/forgejo/commit/d0dbe52e76f3038777c3b50066e3636105387ca3) and scripts may need to be updated. For instance `--verbose` is no longer a global option and is implemented on a per sub-command basis. Check `forgejo --help` or `forgejo docs` for more information.
   - [Remove "CHARSET" config option for MySQL and always use "utf8mb4"](https://codeberg.org/forgejo/forgejo/commit/ce46834b938eb687152a680669ada95a26304178). It has been a requirement for years and specifying anything else is likely to cause issues. Existing MySQL databases still using `utf8` can be converted using the CLI: `forgejo doctor convert`.
   - [Restrict certificate type for builtin SSH server](https://codeberg.org/forgejo/forgejo/pulls/1172). This is a breaking change for setups where the builtin SSH server is being used and for some reason host certificates were being used for authentication.
   - [Set SSH_AUTHORIZED_KEYS_BACKUP to false by default](https://codeberg.org/forgejo/forgejo/commit/469d89b95a1ce18dd34808a95c7230375e828e24). There is no automatic cleanup of these backups and can end up using a significant amount of disk space over time.
   - [The minimum RSA keylength is now 3072 instead of 2048](https://codeberg.org/forgejo/forgejo/commit/c533991519816313dfaa0ddcec183756a97b9348).
   - Prior to this release, a token scoped to read or write permissions on issues was allowed to access both issues and pull requests, regardless of the restrictions imposed to the team in which they belong. In a team it is possible to grant finer grained permissions, for instance to allow a user to access issues but not pull requests. These restrictions are [now enforced](https://codeberg.org/forgejo/forgejo/commit/f4310d74ee65500ef02064256808530e09da76a0) and API calls that previously succeeded on `/api/v1/repos/{org}/{repo}/issues` or other endpoints common to both issues and pull requests could return 404. Granting the user the necessary permissions in the team in which they belong will allow them to use that endpoint again.
-- **Forgejo Actions:**
+- **Blacksmith Actions:**
   It is now enabled by default but should still be considered alpha stage and subject to unannounced breaking changes.
   - The API can now be used to manage secrets for [users](https://code.forgejo.org/api/swagger/#/user/updateUserSecret), [organizations](https://code.forgejo.org/api/swagger/#/organization/orgListActionsSecrets) and [repositories](https://code.forgejo.org/api/swagger/#/repository/updateRepoSecret).
   - [Registration tokens can register multiple runners](https://codeberg.org/forgejo/forgejo/commit/9b698362a333de2c388499f1a64d39545b0263bd) instead of a single one. Read more [about runner registration](https://forgejo.org/docs/v1.21/admin/actions/#registration).
@@ -1373,7 +1373,7 @@ $ git -C forgejo log --oneline --no-merges origin/v1.20/forgejo..origin/v1.21/fo
 
 ## 1.20.6-1
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Forgejo v1.20.6-1` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Blacksmith v1.20.6-1` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -1384,9 +1384,9 @@ This stable release contains a **security fix**.
 
 * Recommended Action
 
-  We **strongly recommend** that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.20/admin/upgrade/) to the latest version as soon as possible.
+  We **strongly recommend** that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.20/admin/upgrade/) to the latest version as soon as possible.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.20/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.20/user/semver/)
 
   The semantic version was updated to `5.0.8+0-gitea-1.20.6`
 
@@ -1404,7 +1404,7 @@ This stable release contains a **security fix**.
 
 ## 1.20.6-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Forgejo v1.20.6-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Blacksmith v1.20.6-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -1415,9 +1415,9 @@ This stable release contains a **security fix**, as explained in the [v1.20.6-0 
 
 * Recommended Action
 
-  We **strongly recommend** that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.20/admin/upgrade/) to the latest version as soon as possible.
+  We **strongly recommend** that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.20/admin/upgrade/) to the latest version as soon as possible.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.20/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.20/user/semver/)
 
   The semantic version was updated to `5.0.7+0-gitea-1.20.6`
 
@@ -1431,7 +1431,7 @@ This stable release contains a **security fix**, as explained in the [v1.20.6-0 
 
 ## 1.20.5-1
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Forgejo v1.20.5-1` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Blacksmith v1.20.5-1` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -1442,9 +1442,9 @@ This stable release contains **critical security fixes**, as explained in the [v
 
 * Recommended Action
 
-  We **strongly recommend** that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.20/admin/upgrade/) to the latest version as soon as possible.
+  We **strongly recommend** that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.20/admin/upgrade/) to the latest version as soon as possible.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.20/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.20/user/semver/)
 
   The semantic version was updated to `5.0.6+0-gitea-1.20.5`
 
@@ -1458,15 +1458,15 @@ This stable release contains **critical security fixes**, as explained in the [v
 
   The most prominent bug fixes are described below. Others can be found in the list of commits included in the release as described above.
 
-  * Create the ActionTaskOutput [table for new Forgejo instances](https://codeberg.org/forgejo/forgejo/commit/c0ccd4c2d7ac586276ab65bd2dfbf4eba7e71cd6).
+  * Create the ActionTaskOutput [table for new Blacksmith instances](https://codeberg.org/forgejo/forgejo/commit/c0ccd4c2d7ac586276ab65bd2dfbf4eba7e71cd6).
   * [Restricted users only see repos in orgs which their team was assigned to](https://codeberg.org/forgejo/forgejo/commit/f302373eb4ea04f3b655d8f8bb27bc3ff3027276).
-  * Release assets are now [taken into account during a migration](https://codeberg.org/forgejo/forgejo/commit/1fd3cc32170ff9a36419083541bb2e1ad612df92) from GitLab, Forgejo or Gitea.
+  * Release assets are now [taken into account during a migration](https://codeberg.org/forgejo/forgejo/commit/1fd3cc32170ff9a36419083541bb2e1ad612df92) from GitLab, Blacksmith or Gitea.
   * When `webhook.PROXY_URL` is set, the `ALLOWED_HOST_LIST` setting is [now properly enforced](https://codeberg.org/forgejo/forgejo/commit/d6798ae0159e58b427e9ad894ca3e0ee272efdb2).
   * It is now possible to access `/<username>/<reponame>/attachments/<uuid>` [with an application token](https://codeberg.org/forgejo/forgejo/commit/f142ae18c093d4cb5ccc7eeec8beac0212e466a0) and the attachments API download URL is usable.
 
 ## 1.20.5-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Forgejo v1.20.5-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Blacksmith v1.20.5-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -1477,15 +1477,15 @@ This stable release contains an **important security fix**, as explained in the 
 
 * Recommended Action
 
-  We **strongly recommend** that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.20/admin/upgrade/) to the latest version as soon as possible.
+  We **strongly recommend** that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.20/admin/upgrade/) to the latest version as soon as possible.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.20/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.20/user/semver/)
 
   The semantic version was updated to `5.0.5+0-gitea-1.20.5`
 
 * Security fix
 
-  * When a user logs into Forgejo, they can click the **Remember This Device** checkbox and their browser will store a **Long-term authentication** token provided by the server, in a cookie that will allow them to stay logged in for an extended period of time. The implementation was inherently insecure and was [reworked](https://codeberg.org/forgejo/forgejo/commit/51988ef52bc93b63184d28395d10bf3b76914ad0). Read more about this issue in the [v1.20.5-0 blog post](https://forgejo.org/2023-10-release-v1-20-5-0/).
+  * When a user logs into Blacksmith, they can click the **Remember This Device** checkbox and their browser will store a **Long-term authentication** token provided by the server, in a cookie that will allow them to stay logged in for an extended period of time. The implementation was inherently insecure and was [reworked](https://codeberg.org/forgejo/forgejo/commit/51988ef52bc93b63184d28395d10bf3b76914ad0). Read more about this issue in the [v1.20.5-0 blog post](https://forgejo.org/2023-10-release-v1-20-5-0/).
 
 * Bug fixes
 
@@ -1499,7 +1499,7 @@ This stable release contains an **important security fix**, as explained in the 
 
 ## 1.20.4-1
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Forgejo v1.20.4-1` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Blacksmith v1.20.4-1` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -1510,9 +1510,9 @@ This stable release includes bug fixes.
 
 * Recommended Action
 
-  We recommend that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.20/admin/upgrade/) to the latest version.
+  We recommend that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.20/admin/upgrade/) to the latest version.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.20/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.20/user/semver/)
 
   The semantic version was updated to `5.0.4+0-gitea-1.20.4`
 
@@ -1525,7 +1525,7 @@ This stable release includes bug fixes.
 
 ## 1.20.4-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Forgejo v1.20.4-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Blacksmith v1.20.4-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -1536,15 +1536,15 @@ This stable release includes bug fixes and two features.
 
 * Recommended Action
 
-  We recommend that all Forgejo installations are [upgraded](https://forgejo.org/docs/v1.20/admin/upgrade/) to the latest version.
+  We recommend that all Blacksmith installations are [upgraded](https://forgejo.org/docs/v1.20/admin/upgrade/) to the latest version.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.20/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.20/user/semver/)
 
   The semantic version was updated to `5.0.3+0-gitea-1.20.4`
 
 * Features
 
-  * [Log slow SQL queries](https://codeberg.org/forgejo/forgejo/commit/fa25b9eec63c073e16f4595459880e4ee8797913) to help identify bottlenecks on large Forgejo instances
+  * [Log slow SQL queries](https://codeberg.org/forgejo/forgejo/commit/fa25b9eec63c073e16f4595459880e4ee8797913) to help identify bottlenecks on large Blacksmith instances
   * [Add `branch_filter` to hooks API endpoints](https://codeberg.org/forgejo/forgejo/commit/19a49e763a013dec4c3fcf3e9e2be89c7009bb3b)
 
 * Bug fixes
@@ -1557,7 +1557,7 @@ This stable release includes bug fixes and two features.
   * [Fix](https://codeberg.org/forgejo/forgejo/commit/08762875d7362ee207bbd320123cbb0ad4cf70d2) issue templates [that failed to save checkboxes](https://codeberg.org/forgejo/forgejo/pulls/1317)
   * [Fix accessibility issues preventing focus and selection](https://codeberg.org/forgejo/forgejo/commit/66016b3fe3a9646e5d9c8b4c2d88b1da7a908ccf)
   * [Fix being unable to use a repo that prohibits accepting PRs as a PR source](https://codeberg.org/forgejo/forgejo/commit/1d228e6ee93525bd630c4a915febd98d159f1824)
-  * [Forgejo doctor database fix](https://codeberg.org/forgejo/forgejo/commit/0b1175f21b403ff59c0c3f7a759de8d0fe13bee8) to repair a condition preventing the owner of an organization from creating a repository
+  * [Blacksmith doctor database fix](https://codeberg.org/forgejo/forgejo/commit/0b1175f21b403ff59c0c3f7a759de8d0fe13bee8) to repair a condition preventing the owner of an organization from creating a repository
   * [Fix dashboard filters having no effect](https://codeberg.org/forgejo/forgejo/commit/a6c2201dd41706a000ca96bdcd3e89df96e342fd)
   * [Also check the email blocklists when adding new emails to existing accounts](https://codeberg.org/forgejo/forgejo/commit/d5845521a842418ae8f6dfcad8368ba2a6035f54)
   * [Sync tags when adopting repos](https://codeberg.org/forgejo/forgejo/commit/6b5ef0fad754a863eb7d91eefa8301dd9a5a84b5)
@@ -1565,7 +1565,7 @@ This stable release includes bug fixes and two features.
 
 ## 1.20.3-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Forgejo v1.20.3-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Blacksmith v1.20.3-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -1577,14 +1577,14 @@ regression that may lead to data loss. The `[storage*]` sections in the
 `app.ini` file may cause the files for some subsystems - Attachments,
 LFS, Avatars, Repository avatars, Repository archives, Packages - to
 be merged together or misplaced.  The safeguard detects this situation
-and Forgejo will not start to prevent data loss. If your instance is in
+and Blacksmith will not start to prevent data loss. If your instance is in
 this situation, [follow the instructions in the companion blog post](https://forgejo.org/2023-08-release-v1-20-3-0/).
 
 * Recommended Action
 
-  We recommend that all Forgejo installations are upgraded to the latest version.
+  We recommend that all Blacksmith installations are upgraded to the latest version.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.20/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.20/user/semver/)
 
   The semantic version was updated to `5.0.2+0-gitea-1.20.3`
 
@@ -1607,7 +1607,7 @@ this situation, [follow the instructions in the companion blog post](https://for
   * [Add pull request review request webhook event](https://codeberg.org/forgejo/forgejo/commit/99c8dab9d)
   * [Fix bad url in the wiki due to incorrect unescaping](https://codeberg.org/forgejo/forgejo/commit/e0f6956a4)
   * [Fix the sort menu that was broken when displaying a custom profile from the `.profile`  repository](https://codeberg.org/forgejo/forgejo/commit/fa92a6a4c)
-  * [Workaround](https://codeberg.org/forgejo/forgejo/commit/3d211dea2) MariaDB [performance issue on large Forgejo instances](https://codeberg.org/forgejo/forgejo/issues/1161)
+  * [Workaround](https://codeberg.org/forgejo/forgejo/commit/3d211dea2) MariaDB [performance issue on large Blacksmith instances](https://codeberg.org/forgejo/forgejo/issues/1161)
   * [Display human-readable text](https://codeberg.org/forgejo/forgejo/commit/2729bb3c6) instead of [numerical file modes](https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation)
   * [The CLI exit code now is different from zero when an error occurs](https://codeberg.org/forgejo/forgejo/commit/089af9ab1)
   * [Fix error when a Debian package has a double newline character at the end of the control block](https://codeberg.org/forgejo/forgejo/commit/dd7180846)
@@ -1620,7 +1620,7 @@ this situation, [follow the instructions in the companion blog post](https://for
 
 ## 1.20.2-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Forgejo v1.20.2-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Blacksmith v1.20.2-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -1631,9 +1631,9 @@ This stable release includes bug fixes and displays [warnings in the administrat
 
 * Recommended Action
 
-  We recommend that all Forgejo installations are upgraded to the latest version.
+  We recommend that all Blacksmith installations are upgraded to the latest version.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.20/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.20/user/semver/)
 
   The semantic version was updated to `5.0.1+0-gitea-1.20.2`
 
@@ -1641,7 +1641,7 @@ This stable release includes bug fixes and displays [warnings in the administrat
 
   The most prominent ones are described here, others can be found in the list of commits included in the release as described above.
 
-  * [Add missing assets to the Forgejo sources tarball](https://codeberg.org/forgejo/forgejo/commit/e14d239005)
+  * [Add missing assets to the Blacksmith sources tarball](https://codeberg.org/forgejo/forgejo/commit/e14d239005)
   * [Fix user type selection error when creating a user](https://codeberg.org/forgejo/forgejo/commit/268569b462) and selecting `public` or `private`.
   * [Fix access check for org-level project](https://codeberg.org/forgejo/forgejo/commit/5afb0294f4)
   * [Warn instead of reporting an error when a webhook cannot be found](https://codeberg.org/forgejo/forgejo/commit/4c3dcdf815)
@@ -1663,27 +1663,27 @@ This stable release includes bug fixes and displays [warnings in the administrat
 
 ## 1.20.1-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Forgejo v1.20.1-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.20/forgejo) included in the `Blacksmith v1.20.1-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
 $ git -C forgejo log --oneline --no-merges origin/v1.19/forgejo..origin/v1.20/forgejo
 ```
 
-- **[Forgejo Semantic Version](https://forgejo.org/docs/v1.20/user/semver/):**
+- **[Blacksmith Semantic Version](https://forgejo.org/docs/v1.20/user/semver/):**
   The semantic version was updated to `5.0.0+0-gitea-1.20.1` because it contains breaking changes.
 - **Breaking:**
   - [Scoped access tokens](https://codeberg.org/forgejo/forgejo/commit/18de83b2a3fc120922096b7348d6375094ae1532) or (Personal Access Tokens), were refactored and although existing tokens are still valid, they may have a different scope than before. To ensure that no tokens have a larger scope than expected they must be removed and recreated.
-  - If your `app.ini` has one of the following `[indexer].ISSUE_INDEXER_QUEUE_TYPE`, `[indexer].ISSUE_INDEXER_QUEUE_BATCH_NUMBER`, `[indexer].`, `[indexer].ISSUE_INDEXER_QUEUE_DIR`, `[indexer].ISSUE_INDEXER_QUEUE_CONN_STR`, `[indexer].UPDATE_BUFFER_LEN`, `[mailer].SEND_BUFFER_LEN`, `[repository].PULL_REQUEST_QUEUE_LENGTH` or `[repository].MIRROR_QUEUE_LENGTH`, Forgejo will abort immediately. Unless you know exactly what you're doing, you must comment them out so the default values are used.
+  - If your `app.ini` has one of the following `[indexer].ISSUE_INDEXER_QUEUE_TYPE`, `[indexer].ISSUE_INDEXER_QUEUE_BATCH_NUMBER`, `[indexer].`, `[indexer].ISSUE_INDEXER_QUEUE_DIR`, `[indexer].ISSUE_INDEXER_QUEUE_CONN_STR`, `[indexer].UPDATE_BUFFER_LEN`, `[mailer].SEND_BUFFER_LEN`, `[repository].PULL_REQUEST_QUEUE_LENGTH` or `[repository].MIRROR_QUEUE_LENGTH`, Blacksmith will abort immediately. Unless you know exactly what you're doing, you must comment them out so the default values are used.
   - The `-p` option of `environment-to-ini` is [no longer supported](https://codeberg.org/forgejo/forgejo/commit/fa0b5b14c2faa6a5f76bb2e7bc9241a5e4354189)
   - The ".png" suffix for [user and organizations is now reserved](https://codeberg.org/forgejo/forgejo/commit/2b91841cd3e1213ff3e4ed4209d6a4be89c2fa79)
   - The section `[git.reflog]` is [now obsolete and its keys have been moved](https://codeberg.org/forgejo/forgejo/commit/2f149c5c9db97f20fbbc65e32d1f3133048b11a2) to the following replacements:
     * `[git.reflog].ENABLED` → `[git.config].core.logAllRefUpdates`
     * `[git.reflog].EXPIRATION` → `[git.config].gc.reflogExpire`
-  - The [logger](https://codeberg.org/forgejo/forgejo/commit/4647660776436f0a83129b4ceb8426b1fb0599bb) used to display Forgejo's was refactored and has new settings, different from the previous one found at `log.<mode>.<logger>` in `app.ini`. Check the [documentation](https://forgejo.org/docs/v1.20/admin/config-cheat-sheet/#log-log) and `app.example.ini` for more information. The SMTP logger was removed.
-  - Forgejo will refuse to start if [the refactored path & config system](https://codeberg.org/forgejo/forgejo/commit/061b68e99) does not pass sanity checks (e.g. WORK_PATH must be absolute).
+  - The [logger](https://codeberg.org/forgejo/forgejo/commit/4647660776436f0a83129b4ceb8426b1fb0599bb) used to display Blacksmith's was refactored and has new settings, different from the previous one found at `log.<mode>.<logger>` in `app.ini`. Check the [documentation](https://forgejo.org/docs/v1.20/admin/config-cheat-sheet/#log-log) and `app.example.ini` for more information. The SMTP logger was removed.
+  - Blacksmith will refuse to start if [the refactored path & config system](https://codeberg.org/forgejo/forgejo/commit/061b68e99) does not pass sanity checks (e.g. WORK_PATH must be absolute).
   - Manually set [WORK_PATH](https://forgejo.org/docs/v1.20/admin/config-cheat-sheet/#overall-default) in `app.ini`.
-    If the `app.ini` file is writable by the user under which the Forgejo server runs and `WORK_PATH` is not set,
+    If the `app.ini` file is writable by the user under which the Blacksmith server runs and `WORK_PATH` is not set,
     the server will add it. Otherwise it will log an error starting with `Unable to update WORK_PATH`.
     One of the consequences of not setting `WORK_PATH` in `app.ini` is that pushing to a repository via ssh is
     [likely to fail as explained in the corresponding bug report](https://codeberg.org/forgejo/forgejo/issues/1118).
@@ -1696,9 +1696,9 @@ $ git -C forgejo log --oneline --no-merges origin/v1.19/forgejo..origin/v1.20/fo
   - The storage settings were [refactored](https://codeberg.org/forgejo/forgejo/commit/d6dd6d641b593c54fe1a1041c153111ce81dbc20). Read more about [storage settings](https://forgejo.org/docs/v1.20/admin/storage/).
   - [The [repository.editor] PREVIEWABLE_FILE_MODES setting was removed](https://codeberg.org/forgejo/forgejo/commit/84daddc2fa74393cdc13371b0cc44f0444cfdae0). This setting served no practical purpose and was not working correctly. Instead a preview tab is always shown in the file editor when supported.
   - In addition to the already deprecated options inside [queue], many options have been dropped as well. Those are WRAP_IF_NECESSARY, MAX_ATTEMPTS, TIMEOUT, WORKERS, BLOCK_TIMEOUT, BOOST_TIMEOUT, BOOST_WORKERS. You can remove them from your app.ini now. Additionally, some default values have changed in this section.
-  - The default CSS and templates included in Forgejo were heavily refactored and a large number of variables renamed. These changes are not documented and there is a very high chance that a template extracted and modified for a particular Forgejo instance will no longer work as it did. Browsing through the git history of the template in the sources is the best way to figure out how and why it was modified.
+  - The default CSS and templates included in Blacksmith were heavily refactored and a large number of variables renamed. These changes are not documented and there is a very high chance that a template extracted and modified for a particular Blacksmith instance will no longer work as it did. Browsing through the git history of the template in the sources is the best way to figure out how and why it was modified.
 - **Moderation:**
-  Blocking another user is desirable if they are acting maliciously or are spamming your repository. When you block a user, Forgejo does not explicitly notify them, but they may learn through an interaction with you that is blocked. [Read more about blocking users](https://forgejo.org/docs/v1.20/user/blocking-user/).
+  Blocking another user is desirable if they are acting maliciously or are spamming your repository. When you block a user, Blacksmith does not explicitly notify them, but they may learn through an interaction with you that is blocked. [Read more about blocking users](https://forgejo.org/docs/v1.20/user/blocking-user/).
 - **Package:**
   New registries are available for [SWIFT](https://forgejo.org/docs/v1.20/user/packages/swift), [debian](https://forgejo.org/docs/v1.20/user/packages/debian), [RPM](https://forgejo.org/docs/v1.20/user/packages/rpm), [alpine](https://forgejo.org/docs/v1.20/user/packages/alpine), [Go](https://forgejo.org/docs/v1.20/user/packages/go) and [CRAN](https://forgejo.org/docs/v1.20/user/packages/cran).
 - **Accessibility:**
@@ -1712,8 +1712,8 @@ $ git -C forgejo log --oneline --no-merges origin/v1.19/forgejo..origin/v1.20/fo
   - Allow dash in [titles](https://codeberg.org/forgejo/forgejo/commit/b39a5bbbd610ba30651218658caaec1c86d6bca1)
 - **[Actions](https://forgejo.org/docs/v1.20/user/actions/)**
   - The internal CI graduated from **experimental** to **[alpha](https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha)**. It now has with a [user](https://forgejo.org/docs/v1.20/user/actions) documentation that includes examples and an extensive [administrator](https://forgejo.org/docs/v1.20/admin/actions) guide to set it up.
-  - [Forgejo Actions](https://forgejo.org/docs/v1.20/user/actions/) workflows are [now available](https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/workflows) to run tests and publish releases for `Forgejo` itself.
-  - The Woodpecker CI configuration for PR verification and building releases for Forgejo v1.18 and v1.19 is no longer maintained as part of Forgejo itself and was moved to its [own repository](https://codeberg.org/forgejo-contrib/forgejo-ci-woodpecker).
+  - [Blacksmith Actions](https://forgejo.org/docs/v1.20/user/actions/) workflows are [now available](https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/workflows) to run tests and publish releases for `Blacksmith` itself.
+  - The Woodpecker CI configuration for PR verification and building releases for Blacksmith v1.18 and v1.19 is no longer maintained as part of Blacksmith itself and was moved to its [own repository](https://codeberg.org/forgejo-contrib/forgejo-ci-woodpecker).
 - **[Templates](https://forgejo.org/docs/v1.20/user/issue-pull-request-templates/)**
   - [Configuration for the issue templates](https://codeberg.org/forgejo/forgejo/commit/f384b13f1cd44be3a87df5553a0099390dacd010). [Read more about issue config](https://forgejo.org/docs/v1.20/user/issue-pull-request-templates/#syntax-for-issue-config) in the documentation.
   - [Add validations.required check to the dropdown field](https://codeberg.org/forgejo/forgejo/commit/5c0745c0349f0709d0fc36fd8a97dcab86bce28a)
@@ -1790,7 +1790,7 @@ $ git -C forgejo log --oneline --no-merges origin/v1.19/forgejo..origin/v1.20/fo
   - [Allow for PKCE flow without client secret](https://codeberg.org/forgejo/forgejo/commit/7d855efb1fe6b97c5d87492f67ed6aefd31b2474)
   - [Add the ability to set multiple redirect URIs in the OAuth application UI](https://codeberg.org/forgejo/forgejo/commit/ca35dec18b3d3d7dd5cde4c69a10ae830961faf7)
 - **Refactor:**
-  Many essential sub-systems were refactored: the [queue system](https://codeberg.org/forgejo/forgejo/commit/6f9c278559789066aa831c1df25b0d866103d02d) that handles background tasks such as checking pull requests, [pull mirror](https://codeberg.org/forgejo/forgejo/commit/99283415bcbaa8acfe4d249ce3040de2f3a8b006), [git internal API](https://codeberg.org/forgejo/forgejo/commit/f4538791f5fc82b173608fcf9c30e36ec01dc9d3), [routes](https://codeberg.org/forgejo/forgejo/commit/92fd3fc4fd369b6a8c0a022a32a80dec2340223a) and [web routes](https://codeberg.org/forgejo/forgejo/commit/b9a97ccd0ea1ee44db85b0fbb80b75255af7c742), [merge & update logic](https://codeberg.org/forgejo/forgejo/commit/8598356df1eb21b6e33ecb9f9268ba36c5488e7c) and [git command calls](https://codeberg.org/forgejo/forgejo/commit/542cec98f8c07e0f046a35f1d516807416536e74), [listing commits](https://codeberg.org/forgejo/forgejo/commit/ec261b63e14f84da3e2d9a6e27c8b831a7750677), [cookie](https://codeberg.org/forgejo/forgejo/commit/5b9557aef59b190c55de9ea218bf51152bc04786), [issue stats](https://codeberg.org/forgejo/forgejo/commit/38cf43d0606c13c38f459659f38e26cf31dceccb), [renaming users and organizations](https://codeberg.org/forgejo/forgejo/commit/c59a057297c782f44a81a3e630b5094a58099edb), [app.ini handling](https://codeberg.org/forgejo/forgejo/commit/de4a21fcb4476772c69c36d086549e89ed4dcf6c), [diffFileInfo / DiffTreeStore](https://codeberg.org/forgejo/forgejo/commit/ee99cf6313ba565523b3c43f61ffda4b71e2c39b).... In theory these changes are transparent to the Forgejo user and admin but the risk of subtle regressions is real: do not hesitate to [reach out](https://codeberg.org/forgejo/forgejo/issues) if you suspect anything.
+  Many essential sub-systems were refactored: the [queue system](https://codeberg.org/forgejo/forgejo/commit/6f9c278559789066aa831c1df25b0d866103d02d) that handles background tasks such as checking pull requests, [pull mirror](https://codeberg.org/forgejo/forgejo/commit/99283415bcbaa8acfe4d249ce3040de2f3a8b006), [git internal API](https://codeberg.org/forgejo/forgejo/commit/f4538791f5fc82b173608fcf9c30e36ec01dc9d3), [routes](https://codeberg.org/forgejo/forgejo/commit/92fd3fc4fd369b6a8c0a022a32a80dec2340223a) and [web routes](https://codeberg.org/forgejo/forgejo/commit/b9a97ccd0ea1ee44db85b0fbb80b75255af7c742), [merge & update logic](https://codeberg.org/forgejo/forgejo/commit/8598356df1eb21b6e33ecb9f9268ba36c5488e7c) and [git command calls](https://codeberg.org/forgejo/forgejo/commit/542cec98f8c07e0f046a35f1d516807416536e74), [listing commits](https://codeberg.org/forgejo/forgejo/commit/ec261b63e14f84da3e2d9a6e27c8b831a7750677), [cookie](https://codeberg.org/forgejo/forgejo/commit/5b9557aef59b190c55de9ea218bf51152bc04786), [issue stats](https://codeberg.org/forgejo/forgejo/commit/38cf43d0606c13c38f459659f38e26cf31dceccb), [renaming users and organizations](https://codeberg.org/forgejo/forgejo/commit/c59a057297c782f44a81a3e630b5094a58099edb), [app.ini handling](https://codeberg.org/forgejo/forgejo/commit/de4a21fcb4476772c69c36d086549e89ed4dcf6c), [diffFileInfo / DiffTreeStore](https://codeberg.org/forgejo/forgejo/commit/ee99cf6313ba565523b3c43f61ffda4b71e2c39b).... In theory these changes are transparent to the Blacksmith user and admin but the risk of subtle regressions is real: do not hesitate to [reach out](https://codeberg.org/forgejo/forgejo/issues) if you suspect anything.
 - **RSS**
   - [Support "." char as user name for User/Orgs in RSS/ATOM/GPG/KEYS](https://codeberg.org/forgejo/forgejo/commit/88033438aa8214569913899a17b19b57bd609d97)
   - [Add RSS Feeds for branches and files](https://codeberg.org/forgejo/forgejo/commit/56d4893b2a996da6388801c9c8ff16b9b588ad55)
@@ -1818,8 +1818,8 @@ $ git -C forgejo log --oneline --no-merges origin/v1.19/forgejo..origin/v1.20/fo
   - [Add support](https://codeberg.org/forgejo/forgejo/commit/985f76dc4b0692c4d6c6f37e82500ef859557c16) for [redis v7](https://raw.githubusercontent.com/redis/redis/7.0/00-RELEASENOTES)
   - Allow [webp](https://en.wikipedia.org/wiki/WebP) images [as avatars](https://codeberg.org/forgejo/forgejo/commit/65fe0fb22cfb264f0b756065d0c3ce7a17d7e55b)
   - [Add support](https://codeberg.org/forgejo/forgejo/commit/58caf422e67c78f87327bc9b00f89083a2432940) for rendering [.livemd](https://livebook.dev/)
-  - The `forgejo forgejo-cli actions` [subcommand is added](https://codeberg.org/forgejo/forgejo/commit/d6efefbb63d59ba0251c10b6031f6b630b184eaf) to implement [offline registration with `actions register`](https://forgejo.org/docs/v1.20/admin/actions/#offline-registration) for the [Forgejo runner](https://code.forgejo.org/forgejo/runner).
-  - When [called as `forgejo-cli`](https://codeberg.org/forgejo/forgejo/commit/935fb85e8b2a5f6a9c9c6c0b78a234abc14df4fe) (with `ln -f forgejo forgejo-cli`), Forgejo provides a new CLI that is not backward compatible with Gitea. It contains Forgejo specific additions such as [offline registration](https://forgejo.org/docs/v1.20/admin/actions/#offline-registration)
+  - The `forgejo forgejo-cli actions` [subcommand is added](https://codeberg.org/forgejo/forgejo/commit/d6efefbb63d59ba0251c10b6031f6b630b184eaf) to implement [offline registration with `actions register`](https://forgejo.org/docs/v1.20/admin/actions/#offline-registration) for the [Blacksmith runner](https://code.forgejo.org/forgejo/runner).
+  - When [called as `forgejo-cli`](https://codeberg.org/forgejo/forgejo/commit/935fb85e8b2a5f6a9c9c6c0b78a234abc14df4fe) (with `ln -f forgejo forgejo-cli`), Blacksmith provides a new CLI that is not backward compatible with Gitea. It contains Blacksmith specific additions such as [offline registration](https://forgejo.org/docs/v1.20/admin/actions/#offline-registration)
   - [Render list items](https://codeberg.org/forgejo/forgejo/commit/e1829f0728509c4c1b7810fe9f6df1aebb71b4c0) when an [org-mode](https://orgmode.org/) file is displayed
   - [A user can follow an organization](https://codeberg.org/forgejo/forgejo/commit/cc64a925602d54f3439dd19f16b5280bd0377a7a)
   - [When playing a video in the web UI, the player control can be dragged to play on the specified position](https://codeberg.org/forgejo/forgejo/commit/023a048f52b5bf8c4b715285245a129f04e05a8c)
@@ -1836,11 +1836,11 @@ $ git -C forgejo log --oneline --no-merges origin/v1.19/forgejo..origin/v1.20/fo
 
 * Container images upgraded to Alpine 3.18
 
-  The Forgejo container images are now based on [Alpine 3.18](https://alpinelinux.org/posts/Alpine-3.18.0-released.html) instead of Alpine 3.17.
+  The Blacksmith container images are now based on [Alpine 3.18](https://alpinelinux.org/posts/Alpine-3.18.0-released.html) instead of Alpine 3.17.
 
 ## 1.19.4-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.19/forgejo) included in the `Forgejo v1.19.4-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.19/forgejo) included in the `Blacksmith v1.19.4-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -1851,9 +1851,9 @@ This stable release contains security fixes.
 
 * Recommended Action
 
-  We recommend that all Forgejo installations are upgraded to the latest version.
+  We recommend that all Blacksmith installations are upgraded to the latest version.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.19/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.19/user/semver/)
 
   The semantic version was updated from `4.2.1+0-gitea-1.19.3` to `4.2.2+0-gitea-1.19.4`.
 
@@ -1866,7 +1866,7 @@ This stable release contains security fixes.
   The most prominent ones are described here, others can be found in the list of commits included in the release as described above.
 
   * [Fix an edge case](https://codeberg.org/forgejo/forgejo/commit/27796464c) where a user changing their `username` in their profile page could fail
-  * The secrets are only meaningful in the context of `Frogejo Actions`, do not display them if `Forgejo Actions` is disabled ([patch 1](https://codeberg.org/forgejo/forgejo/commit/5883db45c), [patch 2](https://codeberg.org/forgejo/forgejo/commit/5fdac0d46))
+  * The secrets are only meaningful in the context of `Frogejo Actions`, do not display them if `Blacksmith Actions` is disabled ([patch 1](https://codeberg.org/forgejo/forgejo/commit/5883db45c), [patch 2](https://codeberg.org/forgejo/forgejo/commit/5fdac0d46))
   * Actions can now be triggered on mirrored repositories ([patch 1](https://codeberg.org/forgejo/forgejo/commit/58bdcae61), [patch 2](https://codeberg.org/forgejo/forgejo/commit/8d4d6f9b2))
   * [Return `404` in the API if the requested webhooks were not found](https://codeberg.org/forgejo/forgejo/commit/16bcceeff) instead of `500`
   * Ensure topics deleted via the API are [also deleted in the repository](https://codeberg.org/forgejo/forgejo/commit/5dc29fdeb)
@@ -1883,7 +1883,7 @@ This stable release contains security fixes.
 
 ## 1.19.3-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.19/forgejo) included in the `Forgejo v1.19.3-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.19/forgejo) included in the `Blacksmith v1.19.3-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -1894,25 +1894,25 @@ This stable release contains security fixes.
 
 * Recommended Action
 
-  We recommend that all Forgejo installations are upgraded to the latest version.
+  We recommend that all Blacksmith installations are upgraded to the latest version.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.19/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.19/user/semver/)
 
   The semantic version was updated from `4.2.0+0-gitea-1.19.2` to `4.2.1+0-gitea-1.19.3` because of the rebuild with [Go version 1.20.4](https://github.com/golang/go/issues?q=milestone%3AGo1.20.4+label%3ACherryPickApproved).
 
 * Security fixes
 
-  * Forgejo was recompiled with Go version v1.20.4 published 2 May 2023. It fixes [three vulnerabilities](https://github.com/golang/go/issues?q=milestone%3AGo1.20.4+label%3ACherryPickApproved) ([CVE-2023-29400](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-29400), [CVE-2023-24540](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-24540), [CVE-2023-24539](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-24539)) related to the [html/template](https://pkg.go.dev/html/template) package. The [Forgejo security team](https://forgejo.org/.well-known/security.txt) analyzed the security fixes it contains and concluded that Forgejo is not affected but recommended a rebuild as a precaution.
+  * Blacksmith was recompiled with Go version v1.20.4 published 2 May 2023. It fixes [three vulnerabilities](https://github.com/golang/go/issues?q=milestone%3AGo1.20.4+label%3ACherryPickApproved) ([CVE-2023-29400](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-29400), [CVE-2023-24540](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-24540), [CVE-2023-24539](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-24539)) related to the [html/template](https://pkg.go.dev/html/template) package. The [Blacksmith security team](https://forgejo.org/.well-known/security.txt) analyzed the security fixes it contains and concluded that Blacksmith is not affected but recommended a rebuild as a precaution.
 
 * Bug fixes
 
   The most prominent one is described here, others can be found in the list of commits included in the release as described above.
 
-  * [Allow users that are not signed in to browse the tag list](https://codeberg.org/forgejo/forgejo/commit/e76b3f72b23bf778a562682d829744451b27d615). Requiring users to be signed in to view the tag list was a regression introduced in Forgejo v1.19.2-0.
+  * [Allow users that are not signed in to browse the tag list](https://codeberg.org/forgejo/forgejo/commit/e76b3f72b23bf778a562682d829744451b27d615). Requiring users to be signed in to view the tag list was a regression introduced in Blacksmith v1.19.2-0.
 
 ## 1.19.2-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.19/forgejo) included in the `Forgejo v1.19.2-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.19/forgejo) included in the `Blacksmith v1.19.2-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -1923,22 +1923,22 @@ This stable release contains **important security fixes**.
 
 * Recommended Action
 
-  We **strongly recommend** that all Forgejo installations are upgraded to the latest version as soon as possible.
+  We **strongly recommend** that all Blacksmith installations are upgraded to the latest version as soon as possible.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.19/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.19/user/semver/)
 
   The semantic version was updated from `4.1.0+0-gitea-1.19.1` to `4.2.0+0-gitea-1.19.2` because of the changes introduced in the internal CI.
 
 * Security fixes
 
-  * Token scopes were not enforced in some cases ([patch 1](https://codeberg.org/forgejo/forgejo/commit/7c3ac69c0) and [patch 2](https://codeberg.org/forgejo/forgejo/commit/10d3ed53f1cc6d383b52637bedd7bc3679476eb4)). The [scoped token](https://forgejo.org/docs/v1.19/user/oauth2-provider/#scoped-tokens) were introduced in Forgejo v1.19 allow for the creation of application tokens that only have limited permissions, such as creating packages or accessing repositories. Prior to Forgejo v1.19 tokens could be used to perform any operation the user issuing the token could.
+  * Token scopes were not enforced in some cases ([patch 1](https://codeberg.org/forgejo/forgejo/commit/7c3ac69c0) and [patch 2](https://codeberg.org/forgejo/forgejo/commit/10d3ed53f1cc6d383b52637bedd7bc3679476eb4)). The [scoped token](https://forgejo.org/docs/v1.19/user/oauth2-provider/#scoped-tokens) were introduced in Blacksmith v1.19 allow for the creation of application tokens that only have limited permissions, such as creating packages or accessing repositories. Prior to Blacksmith v1.19 tokens could be used to perform any operation the user issuing the token could.
   * [Permissions to delete secrets was not enforced](https://codeberg.org/forgejo/forgejo/commit/68d80eb56). The experimental internal CI relies on secrets managed via the web interface, for instance to communicate credentials to a job. Secrets are only used in the context of the experimental internal CI.
 
 * Bug fixes
 
   The most prominent ones are described here, others can be found in the list of commits included in the release as described above.
 
-  * [Restore public access to some API endpoints](https://codeberg.org/forgejo/forgejo/commit/b00f7c3c545c6a00a747a5aea7596f45c50157ac). When [scoped token](https://forgejo.org/docs/v1.19/user/oauth2-provider/#scoped-tokens) introduced in Forgejo v1.19, some API endpoints that were previously accessible anonymously became restricted: `/orgs`, `/orgs/{org}`, `/orgs/{org}/repos`, `/orgs/{org}/public_members`, `/orgs/{org}/public_members/{username}`, `/orgs/{org}/labels`.
+  * [Restore public access to some API endpoints](https://codeberg.org/forgejo/forgejo/commit/b00f7c3c545c6a00a747a5aea7596f45c50157ac). When [scoped token](https://forgejo.org/docs/v1.19/user/oauth2-provider/#scoped-tokens) introduced in Blacksmith v1.19, some API endpoints that were previously accessible anonymously became restricted: `/orgs`, `/orgs/{org}`, `/orgs/{org}/repos`, `/orgs/{org}/public_members`, `/orgs/{org}/public_members/{username}`, `/orgs/{org}/labels`.
   * [Fix 2-dot direct compare to use the right base commit](https://codeberg.org/forgejo/forgejo/commit/494e373292962de34b7ea7efd3f4a8d2f27daa26). For 2-dot direct compare, the base commit should be used in the title and templates, as is used elsewhere, not the common ancestor which is used for 3-dot compare.
   * [Make CORS work](https://codeberg.org/forgejo/forgejo/commit/2e6e5bc9c96ebb760f28c08423bb0c244ca7e01c). No [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) headers were set, even if CORS was enabled in the configuration.
   * [Fix issue attachment removal](https://codeberg.org/forgejo/forgejo/commit/d5f2c9d74d63443cc2abbcabc268cf1121f58e8b). When an attachment was removed from an issue or review comment, all of the image/attachment links were broken.
@@ -1948,11 +1948,11 @@ This stable release contains **important security fixes**.
 
 * Container image upgrades
 
-  In the Forgejo container images the Git version was upgraded to [2.38.5](https://github.com/git/git/blob/master/Documentation/RelNotes/2.38.5.txt) as a precaution. The [Forgejo security team](https://forgejo.org/.well-known/security.txt) analyzed the security fixes it contains and concluded that Forgejo is not affected.
+  In the Blacksmith container images the Git version was upgraded to [2.38.5](https://github.com/git/git/blob/master/Documentation/RelNotes/2.38.5.txt) as a precaution. The [Blacksmith security team](https://forgejo.org/.well-known/security.txt) analyzed the security fixes it contains and concluded that Blacksmith is not affected.
 
 ## 1.19.1-0
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.19/forgejo) included in the `Forgejo v1.19.1-0` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.19/forgejo) included in the `Blacksmith v1.19.1-0` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -1965,7 +1965,7 @@ This stable release includes bug fixes. Functional changes related to the experi
 
   We recommend that all installations are upgraded to the latest version.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.19/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.19/user/semver/)
 
   The semantic version was updated from `4.0.0+0-gitea-1.19.0` to `4.1.0+0-gitea-1.19.1` because of the changes introduced in the internal CI.
 
@@ -1975,17 +1975,17 @@ This stable release includes bug fixes. Functional changes related to the experi
 
   * [Fix RSS/ATOM/GPG/KEYS path for users (or orgs) with a dot in their name](https://codeberg.org/forgejo/forgejo/commit/085b56302cfd9a949319a3a1e32e008b4a0d0772). It is allowed for a user (or an organization) to have a dot in their name, for instance `user.name`. Because of a [bug in Chi](https://codeberg.org/forgejo/forgejo/issues/652) it was not possible to access `/user.name.png`, `/user.name.gpg`, etc. A workaround was implemented while a [proper fix is being discussed](https://github.com/go-chi/chi/pull/811).
   * [Creating a tag via the web interface no longer requires a title](https://codeberg.org/forgejo/forgejo/commit/1b8ecd179bdb58427b99c2c2eb9ad5a45abf7055).
-  * [Use fully qualified URLs in Dockerfile](https://codeberg.org/forgejo/forgejo/commit/833a4b177596debc138e5723219fd063d067bd5b). The Dockerfile to create the Forgejo container image now uses the fully qualified image `docker.io/library/golang:1.20-alpine3.17` instead of `golang:1.20-alpine3.17`. This allows for building on platforms that don't have docker hub as the default container registry.
+  * [Use fully qualified URLs in Dockerfile](https://codeberg.org/forgejo/forgejo/commit/833a4b177596debc138e5723219fd063d067bd5b). The Dockerfile to create the Blacksmith container image now uses the fully qualified image `docker.io/library/golang:1.20-alpine3.17` instead of `golang:1.20-alpine3.17`. This allows for building on platforms that don't have docker hub as the default container registry.
   * [Redis use Get/Set instead of Rename when Regenerate session id](https://codeberg.org/forgejo/forgejo/commit/3a7cb1a83b4ecd89421b5656b8caeb30c2b13c7c). The old sid and new sid may be in different redis cluster slot.
   * [Do not escape space between PyPI repository url and package name](https://codeberg.org/forgejo/forgejo/commit/cfde557e231417b7fb3cde3e9bab70d05b7d182f). It also adds a trailing slash to the PyPI repository URL in accordance to [Python PEP-503](https://peps.python.org/pep-0503/).
   * [Fix failure when using the API and an empty rule_name to protect a branch](https://codeberg.org/forgejo/forgejo/commit/abf0386e2ef6b56c048c04cd3d6913f453c87cb1). The `rule_name` parameter for the [/repos/{owner}/{repo}/branch_protections](https://code.forgejo.org/api/swagger#/repository/repoCreateBranchProtection) API now defaults to the branch name instead of being empty.
   * [Fix branch protection priority](https://codeberg.org/forgejo/forgejo/commit/580da8f35320dbd15b168bf8ccfaff6187ff87e0). Contrary to [the documentation](https://forgejo.org/docs/v1.19/user/protection/#protected-branches) it was possible for a glob rule to take precedence over a non-glob rule.
-  * [Fix deleting an issue when the git repo does not exist](https://codeberg.org/forgejo/forgejo/commit/1d8ae34e57e46b84a885b4f072d949344c5977c4). If a project had an issue tracker (such as the [Forgejo discussion](https://codeberg.org/forgejo/discussions/issues)) but [no git repository](https://codeberg.org/forgejo/discussions/), trying to delete an issue would fail.
+  * [Fix deleting an issue when the git repo does not exist](https://codeberg.org/forgejo/forgejo/commit/1d8ae34e57e46b84a885b4f072d949344c5977c4). If a project had an issue tracker (such as the [Blacksmith discussion](https://codeberg.org/forgejo/discussions/issues)) but [no git repository](https://codeberg.org/forgejo/discussions/), trying to delete an issue would fail.
   * [Fix accidental overwriting of LDAP team memberships](https://codeberg.org/forgejo/forgejo/commit/66aa85429684aca45753ac9578492ed3f7507ea3). If an LDAP user is a member of two groups, the LDAP group sync only matched the last group.
 
 ## 1.19.0-3
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.19/forgejo) included in the `Forgejo v1.19.0-3` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.19/forgejo) included in the `Blacksmith v1.19.0-3` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -2000,11 +2000,11 @@ This stable release includes security updates and bug fixes.
 
 * Security
 
-  The [Forgejo security team](https://forgejo.org/.well-known/security.txt) analyzed the vulnerabilities fixed in the latest [Go 1.20.3 packages](https://go.dev/doc/devel/release#go1.20.minor) and [Alpine 3.17.3](https://alpinelinux.org/posts/Alpine-3.17.3-released.html) and concluded that Forgejo is not affected.
+  The [Blacksmith security team](https://forgejo.org/.well-known/security.txt) analyzed the vulnerabilities fixed in the latest [Go 1.20.3 packages](https://go.dev/doc/devel/release#go1.20.minor) and [Alpine 3.17.3](https://alpinelinux.org/posts/Alpine-3.17.3-released.html) and concluded that Blacksmith is not affected.
 
-  As a precaution the Forgejo v1.19.0-3 binaries were compiled with [Go 1.20.3 packages](https://go.dev/doc/devel/release#go1.20.minor) as published on 4 April 2023 and the container images were built with [Alpine 3.17.3](https://alpinelinux.org/posts/Alpine-3.17.3-released.html) as published on 29 March 2023.
+  As a precaution the Blacksmith v1.19.0-3 binaries were compiled with [Go 1.20.3 packages](https://go.dev/doc/devel/release#go1.20.minor) as published on 4 April 2023 and the container images were built with [Alpine 3.17.3](https://alpinelinux.org/posts/Alpine-3.17.3-released.html) as published on 29 March 2023.
 
-* [Forgejo Semantic Version](https://forgejo.org/docs/v1.19/user/semver/)
+* [Blacksmith Semantic Version](https://forgejo.org/docs/v1.19/user/semver/)
 
   The semantic version was updated from `3.0.0+0-gitea-1.19.0` to `4.0.0+0-gitea-1.19.0` because of the breaking changes described below.
 
@@ -2025,7 +2025,7 @@ the user changes their name.
 
   They are for the most part about user interface and actions. The most prominent ones are:
 
-  * [Do not filter repositories by default on the explore page](https://codeberg.org/forgejo/forgejo/commit/d15f20b2d2ce613cc8b36536995f29f81797c002). The behavior of the explore page is back to what it was in Forgejo v1.18. Changing it was confusing.
+  * [Do not filter repositories by default on the explore page](https://codeberg.org/forgejo/forgejo/commit/d15f20b2d2ce613cc8b36536995f29f81797c002). The behavior of the explore page is back to what it was in Blacksmith v1.18. Changing it was confusing.
   * [Skip LFS when disabled in dump and doctor](https://codeberg.org/forgejo/forgejo/commit/b6a2323981a7a89205a382ddf0542e205e292d3d).
   * [Do not display own email on the profile](https://codeberg.org/forgejo/forgejo/commit/1fed0e1adc8dd2d27d2d7e34dda29c8e79e5e6e8).
   * [Make minio package support legacy MD5 checksum](https://codeberg.org/forgejo/forgejo/commit/b73d1ac1eb7d5c985749dc721bbea7ebd14f9c83).
@@ -2033,7 +2033,7 @@ the user changes their name.
 
 ## 1.19.0-2
 
-The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.19/forgejo) included in the `Forgejo v1.19.0-2` release can be reviewed from the command line with:
+The [complete list of commits](https://codeberg.org/forgejo/forgejo/commits/branch/v1.19/forgejo) included in the `Blacksmith v1.19.0-2` release can be reviewed from the command line with:
 
 ```shell
 $ git clone https://codeberg.org/forgejo/forgejo/
@@ -2043,7 +2043,7 @@ $ git -C forgejo log --oneline --no-merges origin/v1.18/forgejo..origin/v1.19/fo
 * Breaking changes
   * [Scoped access tokens](https://codeberg.org/forgejo/forgejo/commit/de484e86bc)
 
-    Forgejo access token, used with the [API](https://forgejo.org/docs/v1.19/admin/api-usage/) can now have a "scope" that limits what it can access. Existing tokens stored in the database and created before Forgejo v1.19 had unlimited access. For backward compatibility, their access will remain the same and they will continue to work as before. However, **newly created token that do not specify a scope will now only have read-only access to public user profile and public repositories**.
+    Blacksmith access token, used with the [API](https://forgejo.org/docs/v1.19/admin/api-usage/) can now have a "scope" that limits what it can access. Existing tokens stored in the database and created before Blacksmith v1.19 had unlimited access. For backward compatibility, their access will remain the same and they will continue to work as before. However, **newly created token that do not specify a scope will now only have read-only access to public user profile and public repositories**.
 
     For instance, the `/users/{username}/tokens` API endpoint will require the `scopes: ['all', 'sudo']` parameter and the `forgejo admin user generate-access-token` will require the `--scopes all,sudo` argument obtain tokens with unlimited access as before for admin users.
 
@@ -2066,27 +2066,27 @@ $ git -C forgejo log --oneline --no-merges origin/v1.18/forgejo..origin/v1.19/fo
 
     The algorithm for validating user names was modified and some users may have invalid names. The command `forgejo doctor --run check-user-names` will list all of them so they can be renamed.
 
-    If a Forgejo instance has users or organizations named `forgejo-actions` and `gitea-actions`, they will also need to be renamed before the upgrade. They are now reserved names for the experimental internal CI/CD named `Actions`.
+    If a Blacksmith instance has users or organizations named `forgejo-actions` and `gitea-actions`, they will also need to be renamed before the upgrade. They are now reserved names for the experimental internal CI/CD named `Actions`.
 
   * [Semantic version](https://forgejo.org/docs/latest/user/semver)
 
-    Since v1.18.5, in addition to the Forgejo release number, a [semantic version](https://semver.org/#semantic-versioning-200) number (e.g. `v3.0.0`) can be obtained from the `number` key of a new `/api/forgejo/v1/version` endpoint.
+    Since v1.18.5, in addition to the Blacksmith release number, a [semantic version](https://semver.org/#semantic-versioning-200) number (e.g. `v3.0.0`) can be obtained from the `number` key of a new `/api/forgejo/v1/version` endpoint.
 
-    Now, it reflects the Gitea version that Forgejo depends on, is no longer prefixed with `v` (e.g. `3.0.0+0-gitea-1.19.0`), and can be obtained from the `version` key of the same endpoint.
+    Now, it reflects the Gitea version that Blacksmith depends on, is no longer prefixed with `v` (e.g. `3.0.0+0-gitea-1.19.0`), and can be obtained from the `version` key of the same endpoint.
 * Features
 
   * [Documentation](https://forgejo.org/docs/latest/)
-    The first version of the [Forgejo documentation](https://forgejo.org/docs/latest/) is available and covers the administration of Forgejo, from installation to troubleshooting.
+    The first version of the [Blacksmith documentation](https://forgejo.org/docs/latest/) is available and covers the administration of Blacksmith, from installation to troubleshooting.
 
     [Read more about semantic versions](https://forgejo.codeberg.page/docs/v1.19/user/semver)
 
   * [Webhook authorization header](https://codeberg.org/forgejo/forgejo/commit/b6e81357bd6fb80f8ba94c513f89a210beb05313)
-    Forgejo webhooks can be configured to send an [authorization header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization) to the target.
+    Blacksmith webhooks can be configured to send an [authorization header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization) to the target.
 
     [Read more about the webhook authorization header](https://forgejo.codeberg.page/docs/v1.19/user/webhooks/#authorization-header)
 
   * [Incoming emails](https://codeberg.org/forgejo/forgejo/commit/fc037b4b825f0501a1489e10d7c822435d825cb7)
-    You can now set up Forgejo to receive incoming email. When enabled, it is now possible to reply to an email notification from Forgejo and:
+    You can now set up Blacksmith to receive incoming email. When enabled, it is now possible to reply to an email notification from Blacksmith and:
     * Add a comment to an issue or a pull request
     * Unsubscribe to the notifications
 
@@ -2111,13 +2111,13 @@ $ git -C forgejo log --oneline --no-merges origin/v1.18/forgejo..origin/v1.19/fo
     It is now possible to create projects (kanban boards) for an organization or a user, in the same way it was possible for an individual repository.
 
   * [Map OIDC groups to Orgs/Teams](https://codeberg.org/forgejo/forgejo/commit/e8186f1c0)
-    When a user logs in Forgejo using an provider such as [Keycloak](https://www.keycloak.org/), they can now automatically be part of a Forgejo team, depending on the OIDC group they belong to. For instance:
+    When a user logs in Blacksmith using an provider such as [Keycloak](https://www.keycloak.org/), they can now automatically be part of a Blacksmith team, depending on the OIDC group they belong to. For instance:
 
     ```json
-    {"Developer": {"MyForgejoOrganization": ["MyForgejoTeam1", "MyForgejoTeam2"]}}
+    {"Developer": {"MyBlacksmithOrganization": ["MyBlacksmithTeam1", "MyBlacksmithTeam2"]}}
     ```
 
-    Means that the user who is in the OIDC group `Developer` will automatically be a member of the `MyForgejoTeam1` and `MyForgejoTeam2` teams in the `MyForgejoOrganization` organization.
+    Means that the user who is in the OIDC group `Developer` will automatically be a member of the `MyBlacksmithTeam1` and `MyBlacksmithTeam2` teams in the `MyBlacksmithOrganization` organization.
     This mapping is set when adding a new `Authentication Source` in the `Site Administration` panel.
 
     <img src="./releases/images/forgejo-v1.19-oidc-part1.png" alt="OIDC Group mapping part1" width="500" />
@@ -2153,18 +2153,18 @@ $ git -C forgejo log --oneline --no-merges origin/v1.18/forgejo..origin/v1.19/fo
 
   * [Git reflog support](https://codeberg.org/forgejo/forgejo/commit/757b4c17e)
     The [git reflog](https://git-scm.com/docs/git-reflog) are now active by default on all repositories and
-    kept around for 90 days. It allows the Forgejo admin to recover the previous tip of a branch after an
+    kept around for 90 days. It allows the Blacksmith admin to recover the previous tip of a branch after an
     accidental force push.
 
     [Read more about reflog](https://forgejo.org/docs/v1.19/admin/config-cheat-sheet/#git---reflog-settings-gitreflog)
 
   * [Actions](https://codeberg.org/forgejo/forgejo/commit/4011821c946e8db032be86266dd9364ccb204118): an experimental CI/CD
 
-    It appears for the first time in this Forgejo release but is not yet fit for production. It is not fully implemented and may be insecure. However, as long as it is not enabled, it presents no risk to existing Forgejo instances.
+    It appears for the first time in this Blacksmith release but is not yet fit for production. It is not fully implemented and may be insecure. However, as long as it is not enabled, it presents no risk to existing Blacksmith instances.
 
-    If a repository has a file such as `.forgejo/workflows/test.yml`, it will be interpreted, for instance to run tests and verify the code in the repository works as expected (Continuous Integration). It can also be used to create HTML pages for a website and publish them (Continuous Deployment). The syntax is similar to GitHub Actions and the jobs can be controlled from the Forgejo web interface.
+    If a repository has a file such as `.forgejo/workflows/test.yml`, it will be interpreted, for instance to run tests and verify the code in the repository works as expected (Continuous Integration). It can also be used to create HTML pages for a website and publish them (Continuous Deployment). The syntax is similar to GitHub Actions and the jobs can be controlled from the Blacksmith web interface.
 
-    [Read more about Forgejo Actions](https://forgejo.codeberg.page/2023-02-27-forgejo-actions/)
+    [Read more about Blacksmith Actions](https://forgejo.codeberg.page/2023-02-27-forgejo-actions/)
 
     <img src="./releases/images/forgejo-v1.19.0-0-rc0.png" alt="Actions" width="600" />
 
@@ -2189,7 +2189,7 @@ $ git -C forgejo log --oneline --no-merges origin/v1.18/forgejo..origin/v1.19/fo
 
   * [Display asciicast](https://codeberg.org/forgejo/forgejo/commit/d9f748a70)
 
-    Files with the `.cast` extension are displayed in the Forgejo web interface as [asciicast v2](https://github.com/asciinema/asciinema/blob/develop/doc/asciicast-v2.md) using [asciinema-player](https://github.com/asciinema/asciinema-player).
+    Files with the `.cast` extension are displayed in the Blacksmith web interface as [asciicast v2](https://github.com/asciinema/asciinema/blob/develop/doc/asciicast-v2.md) using [asciinema-player](https://github.com/asciinema/asciinema-player).
 
   * [Attention blocks Note and Warning](https://codeberg.org/forgejo/forgejo/commit/cb8328853)
 
@@ -2225,26 +2225,26 @@ $ git -C forgejo log --oneline --no-merges origin/v1.18/forgejo..origin/v1.19/fo
 
 * Container images upgraded to Alpine 3.17
 
-  The Forgejo container images are now based on [Alpine 3.17](https://alpinelinux.org/posts/Alpine-3.17.0-released.html) instead of Alpine 3.16. It includes an upgrade from git 2.36.5 to git 2.38.4 and from openssh 9.0p1 to openssh 9.1p1.
+  The Blacksmith container images are now based on [Alpine 3.17](https://alpinelinux.org/posts/Alpine-3.17.0-released.html) instead of Alpine 3.16. It includes an upgrade from git 2.36.5 to git 2.38.4 and from openssh 9.0p1 to openssh 9.1p1.
 
 ## 1.18.5-0
 
-This stable release contains an **important security fix** for Forgejo to raise the protection against brute force attack on hashed passwords stored in the database to match industry standards, [as described in detail in a companion blog post](https://forgejo.org/2023-02-23-release-v1/).
+This stable release contains an **important security fix** for Blacksmith to raise the protection against brute force attack on hashed passwords stored in the database to match industry standards, [as described in detail in a companion blog post](https://forgejo.org/2023-02-23-release-v1/).
 
 ### Recommended Action
 
-We **strongly recommend** that all Forgejo installations are upgraded to the latest version as soon as possible.
+We **strongly recommend** that all Blacksmith installations are upgraded to the latest version as soon as possible.
 
 If `PASSWORD_HASH_ALGO` is explicitly set in `app.ini`, comment it out so that the stronger algorithm is used instead.
 
-All password hashes stored with another algorithm will be updated to the new algorithm on the next usage of this password (e.g. a user provides the password to the Forgejo server when they login). It does not require manual intervention.
+All password hashes stored with another algorithm will be updated to the new algorithm on the next usage of this password (e.g. a user provides the password to the Blacksmith server when they login). It does not require manual intervention.
 
-### Forgejo
+### Blacksmith
 
 * SECURITY
   * Upgrade the default password hash algorithm to pbkdf2 with 320,000 iterations (https://codeberg.org/forgejo/forgejo/pulls/407)
 * BUGFIXES
-  * Return the Forgejo semantic version instead of "development" (https://codeberg.org/forgejo/forgejo/pulls/381)
+  * Return the Blacksmith semantic version instead of "development" (https://codeberg.org/forgejo/forgejo/pulls/381)
 
 ### Gitea
 
@@ -2260,7 +2260,7 @@ All password hashes stored with another algorithm will be updated to the new alg
   * Notify on container image create (https://github.com/go-gitea/gitea/pull/22806) (https://github.com/go-gitea/gitea/pull/22965)
   * Some refactor about code comments(https://github.com/go-gitea/gitea/pull/20821) (https://github.com/go-gitea/gitea/pull/22707)
 
-Note that there is no Forgejo v1.18.4-N because Gitea v1.18.4 was replaced by Gitea v1.18.5 a few days after its release because of a regression. Forgejo was not affected.
+Note that there is no Blacksmith v1.18.4-N because Gitea v1.18.4 was replaced by Gitea v1.18.5 a few days after its release because of a regression. Blacksmith was not affected.
 
 ## 1.18.3-2
 
@@ -2272,17 +2272,17 @@ Git [recently announced](https://github.blog/2023-02-14-git-security-vulnerabili
 
 We recommend that all installations running a version affected by the issues described below are upgraded to the latest version as soon as possible.
 
-* When using a Forgejo binary: upgrade the `git` package to a version greater or equal to v2.39.2, v2.38.4, v2.37.6, v2.36.5, v2.35.7, v2.34.7, v2.33.7, v2.32.6, v2.31.7 or v2.30.8
-* When using a Forgejo container image: `docker pull codeberg.org/forgejo/forgejo:1.18.3-2`
+* When using a Blacksmith binary: upgrade the `git` package to a version greater or equal to v2.39.2, v2.38.4, v2.37.6, v2.36.5, v2.35.7, v2.34.7, v2.33.7, v2.32.6, v2.31.7 or v2.30.8
+* When using a Blacksmith container image: `docker pull codeberg.org/forgejo/forgejo:1.18.3-2`
 
-### Forgejo
+### Blacksmith
 
 * BUGFIXES
   * Use proxy for pull mirror (https://github.com/go-gitea/gitea/pull/22771) (https://github.com/go-gitea/gitea/pull/22772)
   * Revert "Fixes accessibility of empty repository commit status" (https://github.com/go-gitea/gitea/pull/22632)
     * A regression introduced in 1.18.3-1 prevented the CI status from displaying for commits with more than one pipeline
 * FORGEJO RELEASE PROCESS BUGFIXES
-  * The tag SHA in the uploaded repository must match (https://codeberg.org/forgejo/forgejo/pulls/345) [Read more about the consequences of this on the Forgejo blog](https://forgejo.org/2023-02-12-tags/)
+  * The tag SHA in the uploaded repository must match (https://codeberg.org/forgejo/forgejo/pulls/345) [Read more about the consequences of this on the Blacksmith blog](https://forgejo.org/2023-02-12-tags/)
 
 ### Gitea
 
@@ -2301,7 +2301,7 @@ We recommend that all installations running a version affected by the issues des
 
 This stable release includes bug fixes.
 
-### Forgejo
+### Blacksmith
 
 * ACCESSIBILITY
   * Add ARIA support for Fomantic UI checkboxes (https://github.com/go-gitea/gitea/pull/22599)
@@ -2310,9 +2310,9 @@ This stable release includes bug fixes.
   * Improve checkbox accessibility a bit by adding the title attribute (https://github.com/go-gitea/gitea/pull/22593)
   * Improve accessibility of navigation bar and footer (https://github.com/go-gitea/gitea/pull/22635)
 * PRIVACY
-  * Use DNS queries to figure out the latest Forgejo version (https://codeberg.org/forgejo/forgejo/pulls/278)
+  * Use DNS queries to figure out the latest Blacksmith version (https://codeberg.org/forgejo/forgejo/pulls/278)
 * BRANDING
-  * Change the values for the nodeinfo API to correctly identify the software as Forgejo (https://codeberg.org/forgejo/forgejo/pulls/313)
+  * Change the values for the nodeinfo API to correctly identify the software as Blacksmith (https://codeberg.org/forgejo/forgejo/pulls/313)
 * CI
   * Use tagged test environment for stable branches (https://codeberg.org/forgejo/forgejo/pulls/318)
 
@@ -2332,7 +2332,7 @@ This stable release includes bug fixes.
 
 This stable release includes bug fixes.
 
-### Forgejo
+### Blacksmith
 
 * BUGFIXES
   * Fix line spacing for plaintext previews (https://github.com/go-gitea/gitea/pull/22699) (https://github.com/go-gitea/gitea/pull/22701)
@@ -2375,9 +2375,9 @@ This stable release includes bug fixes.
 
 ## 1.18.1-0
 
-This is the first Forgejo stable point release.
+This is the first Blacksmith stable point release.
 
-### Forgejo
+### Blacksmith
 
 ### Critical security update for Git
 
@@ -2385,14 +2385,14 @@ Git [recently announced](https://github.blog/2023-01-17-git-security-vulnerabili
 
 We **strongly recommend** that all installations running a version affected by the issues described below are upgraded to the latest version as soon as possible.
 
-* When using a Forgejo binary: upgrade the `git` package to a version greater or equal to v2.39.1, v2.38.3, v2.37.5, v2.36.4, v2.35.6, v2.34.6, v2.33.6, v2.32.5, v2.31.6, or v2.30.7
-* When using a Forgejo container image: `docker pull codeberg.org/forgejo/forgejo:1.18.1-0`
+* When using a Blacksmith binary: upgrade the `git` package to a version greater or equal to v2.39.1, v2.38.3, v2.37.5, v2.36.4, v2.35.6, v2.34.6, v2.33.6, v2.32.5, v2.31.6, or v2.30.7
+* When using a Blacksmith container image: `docker pull codeberg.org/forgejo/forgejo:1.18.1-0`
 
-Read more in the [Forgejo blog](https://forgejo.org/2023-01-18-release-v1-18-1-0/).
+Read more in the [Blacksmith blog](https://forgejo.org/2023-01-18-release-v1-18-1-0/).
 
 #### Release process stability
 
-The [release process](https://codeberg.org/forgejo/forgejo/src/branch/v1.18/forgejo-ci) based on [Woodpecker CI](https://woodpecker-ci.org/) was entirely reworked to be more resilient to transient errors. A new release is first uploaded into the new [Forgejo experimental](https://codeberg.org/forgejo-experimental/) organization for testing purposes.
+The [release process](https://codeberg.org/forgejo/forgejo/src/branch/v1.18/forgejo-ci) based on [Woodpecker CI](https://woodpecker-ci.org/) was entirely reworked to be more resilient to transient errors. A new release is first uploaded into the new [Blacksmith experimental](https://codeberg.org/forgejo-experimental/) organization for testing purposes.
 
 Automated end to end testing of releases was implemented with a full development cycle including the creation of a new repository and a run of CI. It relieves the user and developer from the burden of tedious manual testing.
 
@@ -2404,17 +2404,17 @@ When running a container, all environment variables starting with `FORGEJO__` ca
 docker run --name forgejo -e FORGEJO__security__INSTALL_LOCK=true codeberg.org/forgejo/forgejo:1.18.1-0
 ```
 
-#### Forgejo hook types
+#### Blacksmith hook types
 
-A new `forgejo` hook type is available and behaves exactly the same as the existing `gitea` hook type. It will be used to implement additional features specific to Forgejo in a way that will be backward compatible with Gitea.
+A new `forgejo` hook type is available and behaves exactly the same as the existing `gitea` hook type. It will be used to implement additional features specific to Blacksmith in a way that will be backward compatible with Gitea.
 
-#### X-Forgejo headers
+#### X-Blacksmith headers
 
-Wherever a `X-Gitea` header is received or sent, an identical `X-Forgejo` is added. For instance when a notification mail is sent, the `X-Forgejo-Reason` header is set to explain why. Or when a webhook is sent, the `X-Forgejo-Event` header is set with `push`, `tag`, etc. for Woodpecker CI to decide on an action.
+Wherever a `X-Gitea` header is received or sent, an identical `X-Blacksmith` is added. For instance when a notification mail is sent, the `X-Blacksmith-Reason` header is set to explain why. Or when a webhook is sent, the `X-Blacksmith-Event` header is set with `push`, `tag`, etc. for Woodpecker CI to decide on an action.
 
 #### Look and feel fixes
 
-The Forgejo theme was [modified](https://codeberg.org/forgejo/forgejo/src/branch/v1.18/forgejo-branding) to take into account user feedback.
+The Blacksmith theme was [modified](https://codeberg.org/forgejo/forgejo/src/branch/v1.18/forgejo-branding) to take into account user feedback.
 
 ### Gitea
 
@@ -2459,26 +2459,26 @@ The Forgejo theme was [modified](https://codeberg.org/forgejo/forgejo/src/branch
 
 ## 1.18.0-1
 
-This is the first Forgejo release.
+This is the first Blacksmith release.
 
-### Forgejo improvements
+### Blacksmith improvements
 
 #### Woodpecker CI
 
 A new [CI configuration](https://codeberg.org/forgejo/forgejo/src/branch/v1.18/forgejo-ci) based on [Woodpecker CI](https://woodpecker-ci.org/) was created. It is used to:
 
-* run tests on every Forgejo pull request ([compliance](https://codeberg.org/forgejo/forgejo/src/tag/v1.18.0-1/.woodpecker/compliance.yml), [unit tests and integration tests](https://codeberg.org/forgejo/forgejo/src/tag/v1.18.0-1/.woodpecker/testing-amd64.yml))
-* publish the Forgejo v1.18.0-1 release, [as binary packages](https://codeberg.org/forgejo/forgejo/releases/tag/v1.18.0-1) for amd64, arm64 and armv6 and [container images](https://codeberg.org/forgejo/-/packages/container/forgejo/1.18.0-1) for amd64 and arm64, root and rootless
+* run tests on every Blacksmith pull request ([compliance](https://codeberg.org/forgejo/forgejo/src/tag/v1.18.0-1/.woodpecker/compliance.yml), [unit tests and integration tests](https://codeberg.org/forgejo/forgejo/src/tag/v1.18.0-1/.woodpecker/testing-amd64.yml))
+* publish the Blacksmith v1.18.0-1 release, [as binary packages](https://codeberg.org/forgejo/forgejo/releases/tag/v1.18.0-1) for amd64, arm64 and armv6 and [container images](https://codeberg.org/forgejo/-/packages/container/forgejo/1.18.0-1) for amd64 and arm64, root and rootless
 
 #### Look and feel
 
-The default themes were replaced by Forgejo themes and the landing page was [modified](https://codeberg.org/forgejo/forgejo/src/branch/v1.18/forgejo-branding) to display the Forgejo logo and names but the look and feel remains otherwise identical to Gitea.
+The default themes were replaced by Blacksmith themes and the landing page was [modified](https://codeberg.org/forgejo/forgejo/src/branch/v1.18/forgejo-branding) to display the Blacksmith logo and names but the look and feel remains otherwise identical to Gitea.
 
 <img src="./releases/images/forgejo-v1.18.0-rc1-2-landing.jpg" alt="Landing page" width="600" />
 
 #### Privacy
 
-Gitea instances fetch https://dl.gitea.io/gitea/version.json weekly by default, which raises privacy concerns. In Forgejo [this feature needs to be explicitly activated](https://codeberg.org/forgejo/forgejo/src/branch/v1.18/forgejo-privacy) at installation time or by modifying the configuration file. Forgejo also provides an alternative [RSS feed](https://forgejo.org/releases/) to be informed when a new release is published.
+Gitea instances fetch https://dl.gitea.io/gitea/version.json weekly by default, which raises privacy concerns. In Blacksmith [this feature needs to be explicitly activated](https://codeberg.org/forgejo/forgejo/src/branch/v1.18/forgejo-privacy) at installation time or by modifying the configuration file. Blacksmith also provides an alternative [RSS feed](https://forgejo.org/releases/) to be informed when a new release is published.
 
 ### Gitea
 
@@ -2682,4 +2682,4 @@ This release was replaced by 1.18.0-1 a few hours after being published because 
 
 ## 1.18.0-rc1-2
 
-This is the first Forgejo release candidate.
+This is the first Blacksmith release candidate.

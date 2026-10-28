@@ -1,0 +1,2 @@
+@import "theme-blacksmith-paper.css";
+@import "theme-blacksmith-void.css" (prefers-color-scheme: dark);

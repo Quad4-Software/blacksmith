@@ -14,8 +14,8 @@ type OtherConfig struct {
 }
 
 var Other = OtherConfig{
-	ShowFooterVersion:          true,
-	ShowFooterTemplateLoadTime: true,
+	ShowFooterVersion:          false,
+	ShowFooterTemplateLoadTime: false,
 	ShowFooterPoweredBy:        true,
 	EnableSitemap:              true,
 	EnableFeed:                 true,

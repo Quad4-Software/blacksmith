@@ -1,7 +1,15 @@
-# Forgejo - Docker
+# Blacksmith container image
 
-The Dockerfile can be found in the root of repository. [Dockerfile](https://codeberg.org/forgejo/forgejo/src/branch/forgejo/Dockerfile) & [Dockerfile.rootless](https://codeberg.org/forgejo/forgejo/src/branch/forgejo/Dockerfile.rootless).
+The root `Dockerfile` builds the single official image: rootless
+(uid 65532), distroless on `cgr.dev/chainguard/git`, multi-stage
+with Chainguard node and go build stages.
 
-The Docker image can be found on [Codeberg](https://codeberg.org/forgejo/-/packages/container/forgejo/).
+    podman build -t blacksmith .
+    podman run --rm -p 3000:3000 -p 2222:2222 \
+        -v blacksmith-data:/var/lib/blacksmith blacksmith
 
-Documentation on how you can use the docker image can be found on the [Forgejo documentation website](https://forgejo.org/docs/latest/admin/installation/#installation-with-docker).
+`docker/blacksmith/` holds the POSIX sh entrypoint and setup
+scripts. For production see `compose.prod.yaml` (proxy + CrowdSec
++ AppSec WAF), `contrib/quadlets/` for systemd user units with
+`podman auto-update`, and `contrib/backup/` for encrypted restic
+backups.

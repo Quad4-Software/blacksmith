@@ -1,16 +1,16 @@
-// Copyright 2024 The Forgejo Authors. All rights reserved.
+// Copyright 2024 The Blacksmith Authors. All rights reserved.
 // SPDX-License-Identifier: MIT
 
 package forgejo_migrations_legacy
 
 import "code.forgejo.org/xorm/xorm"
 
-func AddPurposeToForgejoAuthToken(x *xorm.Engine) error {
-	type ForgejoAuthToken struct {
+func AddPurposeToBlacksmithAuthToken(x *xorm.Engine) error {
+	type BlacksmithAuthToken struct {
 		ID      int64  `xorm:"pk autoincr"`
 		Purpose string `xorm:"NOT NULL DEFAULT 'long_term_authorization'"`
 	}
-	if err := x.Sync(new(ForgejoAuthToken)); err != nil {
+	if err := x.Sync(new(BlacksmithAuthToken)); err != nil {
 		return err
 	}
 

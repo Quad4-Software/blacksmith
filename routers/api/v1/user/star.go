@@ -1,6 +1,6 @@
 // Copyright 2016 The Gogs Authors. All rights reserved.
 // Copyright 2020 The Gitea Authors.
-// Copyright 2024 The Forgejo Authors.
+// Copyright 2024 The Blacksmith Authors.
 // SPDX-License-Identifier: MIT
 
 package user

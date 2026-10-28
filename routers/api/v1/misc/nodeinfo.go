@@ -16,11 +16,11 @@ import (
 
 const cacheKeyNodeInfoUsage = "API_NodeInfoUsage"
 
-// NodeInfo returns the NodeInfo for the Forgejo instance to allow for federation
+// NodeInfo returns the NodeInfo for the Blacksmith instance to allow for federation
 func NodeInfo(ctx *context.APIContext) {
 	// swagger:operation GET /nodeinfo miscellaneous getNodeInfo
 	// ---
-	// summary: Returns the nodeinfo of the Forgejo application
+	// summary: Returns the nodeinfo of the Blacksmith application
 	// produces:
 	// - application/json
 	// responses:
@@ -60,13 +60,18 @@ func NodeInfo(ctx *context.APIContext) {
 		}
 	}
 
+	softwareVersion := ""
+	if doer := ctx.Doer(); doer != nil && doer.IsAdmin {
+		softwareVersion = setting.AppVer
+	}
+
 	nodeInfo := &structs.NodeInfo{
 		Version: "2.1",
 		Software: structs.NodeInfoSoftware{
-			Name:       "forgejo",
-			Version:    setting.AppVer,
-			Repository: "https://codeberg.org/forgejo/forgejo.git",
-			Homepage:   "https://forgejo.org/",
+			Name:       "blacksmith",
+			Version:    softwareVersion,
+			Repository: "https://github.com/Quad4-Software/blacksmith.git",
+			Homepage:   "https://quad4.io/",
 		},
 		Protocols: []string{"activitypub"},
 		Services: structs.NodeInfoServices{

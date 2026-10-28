@@ -1132,7 +1132,7 @@ func TestActionsWorkflowDispatch(t *testing.T) {
 			workflowDirectory: ".gitea/workflows",
 		},
 		{
-			name:              "Forgejo",
+			name:              "Blacksmith",
 			workflowID:        "build.yml",
 			workflowDirectory: ".forgejo/workflows",
 		},
