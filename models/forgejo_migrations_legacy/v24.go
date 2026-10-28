@@ -5,12 +5,13 @@ package forgejo_migrations_legacy
 
 import "code.forgejo.org/xorm/xorm"
 
-func AddPurposeToBlacksmithAuthToken(x *xorm.Engine) error {
-	type BlacksmithAuthToken struct {
+func AddPurposeToForgejoAuthToken(x *xorm.Engine) error {
+	type ForgejoAuthToken struct {
 		ID      int64  `xorm:"pk autoincr"`
 		Purpose string `xorm:"NOT NULL DEFAULT 'long_term_authorization'"`
 	}
-	if err := x.Sync(new(BlacksmithAuthToken)); err != nil {
+
+	if err := x.Sync(new(ForgejoAuthToken)); err != nil {
 		return err
 	}
 

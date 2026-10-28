@@ -27,6 +27,8 @@ type BlacksmithVersion struct {
 	Version int64
 }
 
+func (BlacksmithVersion) TableName() string { return "forgejo_version" }
+
 type Migration struct {
 	description string
 	migrate     func(*xorm.Engine) error
@@ -41,7 +43,7 @@ func NewMigration(desc string, fn func(*xorm.Engine) error) *Migration {
 // Add new migrations to the bottom of the list.
 var migrations = []*Migration{
 	// v0 -> v1
-	NewMigration("Create the `forgejo_blocked_user` table", forgejo_v1_20.AddBlacksmithBlockedUser),
+	NewMigration("Create the `forgejo_blocked_user` table", forgejo_v1_20.AddForgejoBlockedUser),
 	// v1 -> v2
 	NewMigration("Create the `forgejo_sem_ver` table", forgejo_v1_20.CreateSemVerTable),
 	// v2 -> v3
@@ -87,7 +89,7 @@ var migrations = []*Migration{
 	// v22 -> v23
 	NewMigration("Add `delete_branch_after_merge` to `auto_merge` table", AddDeleteBranchAfterMergeToAutoMerge),
 	// v23 -> v24
-	NewMigration("Add `purpose` column to `forgejo_auth_token` table", AddPurposeToBlacksmithAuthToken),
+	NewMigration("Add `purpose` column to `forgejo_auth_token` table", AddPurposeToForgejoAuthToken),
 	// v24 -> v25
 	NewMigration("Migrate `secret` column to store keying material", MigrateTwoFactorToKeying),
 	// v25 -> v26

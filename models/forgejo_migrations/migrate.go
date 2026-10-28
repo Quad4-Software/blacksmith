@@ -29,6 +29,8 @@ type BlacksmithMigration struct {
 	CreatedUnix timeutil.TimeStamp `xorm:"created"`
 }
 
+func (BlacksmithMigration) TableName() string { return "forgejo_migration" }
+
 type Migration struct {
 	Description string                   // short plaintext explanation of the migration
 	Upgrade     func(*xorm.Engine) error // perform the migration

@@ -7,9 +7,10 @@ import (
 )
 
 func CreateSemVerTable(x *xorm.Engine) error {
-	type BlacksmithSemVer struct {
+	type ForgejoSemVer struct {
 		Version string
 	}
 
-	return x.Sync(new(BlacksmithSemVer))
+
+	return x.Sync(new(ForgejoSemVer))
 }

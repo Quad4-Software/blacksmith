@@ -12,14 +12,15 @@ import (
 func init() {
 	registerMigration(&Migration{
 		Description: "add login_source_id column to forgejo_auth_token",
-		Upgrade:     addLoginSourceIDToBlacksmithAuthToken,
+		Upgrade:     addLoginSourceIDToForgejoAuthToken,
 	})
 }
 
-func addLoginSourceIDToBlacksmithAuthToken(x *xorm.Engine) error {
-	type BlacksmithAuthToken struct {
+func addLoginSourceIDToForgejoAuthToken(x *xorm.Engine) error {
+	type ForgejoAuthToken struct {
 		LoginSourceID optional.Option[int64] `xorm:"INDEX REFERENCES(login_source, id)"`
 	}
-	_, err := x.SyncWithOptions(xorm.SyncOptions{IgnoreDropIndices: true}, new(BlacksmithAuthToken))
+
+	_, err := x.SyncWithOptions(xorm.SyncOptions{IgnoreDropIndices: true}, new(ForgejoAuthToken))
 	return err
 }

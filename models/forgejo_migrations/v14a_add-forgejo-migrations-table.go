@@ -12,14 +12,15 @@ import (
 func init() {
 	registerMigration(&Migration{
 		Description: "add forgejo_migration table",
-		Upgrade:     addBlacksmithMigration,
+		Upgrade:     addForgejoMigration,
 	})
 }
 
-func addBlacksmithMigration(x *xorm.Engine) error {
-	type BlacksmithMigration struct {
+func addForgejoMigration(x *xorm.Engine) error {
+	type ForgejoMigration struct {
 		ID          string             `xorm:"pk"`
 		CreatedUnix timeutil.TimeStamp `xorm:"created"`
 	}
-	return x.Sync(new(BlacksmithMigration)) // nosemgrep:xorm-sync-missing-ignore-drop-indices
+
+	return x.Sync(new(ForgejoMigration)) // nosemgrep:xorm-sync-missing-ignore-drop-indices
 }

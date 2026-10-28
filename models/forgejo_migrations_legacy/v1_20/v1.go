@@ -9,13 +9,14 @@ import (
 	"code.forgejo.org/xorm/xorm"
 )
 
-func AddBlacksmithBlockedUser(x *xorm.Engine) error {
-	type BlacksmithBlockedUser struct {
+func AddForgejoBlockedUser(x *xorm.Engine) error {
+	type ForgejoBlockedUser struct {
 		ID          int64              `xorm:"pk autoincr"`
 		BlockID     int64              `xorm:"index"`
 		UserID      int64              `xorm:"index"`
 		CreatedUnix timeutil.TimeStamp `xorm:"created"`
 	}
 
-	return x.Sync(new(BlacksmithBlockedUser))
+
+	return x.Sync(new(ForgejoBlockedUser))
 }

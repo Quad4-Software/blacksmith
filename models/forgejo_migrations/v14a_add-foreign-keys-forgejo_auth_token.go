@@ -11,16 +11,17 @@ import (
 func init() {
 	registerMigration(&Migration{
 		Description: "add foreign keys to table forgejo_auth_token",
-		Upgrade:     addForeignKeysBlacksmithAuthToken,
+		Upgrade:     addForeignKeysForgejoAuthToken,
 	})
 }
 
-func addForeignKeysBlacksmithAuthToken(x *xorm.Engine) error {
-	type BlacksmithAuthToken struct {
+func addForeignKeysForgejoAuthToken(x *xorm.Engine) error {
+	type ForgejoAuthToken struct {
 		UID int64 `xorm:"INDEX REFERENCES(user, id)"`
 	}
+
 	return syncForeignKeyWithDelete(x,
-		new(BlacksmithAuthToken),
+		new(ForgejoAuthToken),
 		builder.Expr("NOT EXISTS (SELECT id FROM `user` WHERE `user`.id = forgejo_auth_token.uid)"),
 	)
 }

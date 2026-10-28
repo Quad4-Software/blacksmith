@@ -20,6 +20,12 @@ type BlacksmithSemVer struct {
 	Version string
 }
 
+// TableName keeps the upstream migration table name so existing
+// databases and the legacy migrations keep working.
+func (BlacksmithSemVer) TableName() string {
+	return "forgejo_sem_ver"
+}
+
 func GetVersion(ctx context.Context) (*version.Version, error) {
 	return GetVersionWithEngine(db.GetEngine(ctx))
 }
