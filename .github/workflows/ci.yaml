@@ -61,7 +61,7 @@ jobs:
         uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
 
       - name: login to ghcr
-        if: github.event_name == 'push'
+        if: github.event_name != 'pull_request'
         uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
         with:
           registry: ${{ env.REGISTRY }}
@@ -90,7 +90,7 @@ jobs:
           context: .
           file: ${{ matrix.dockerfile }}
           # zstd-compressed image layers published to ghcr
-          outputs: type=image,"name=${{ steps.tags.outputs.tags }}",push=${{ github.event_name == 'push' }},compression=zstd,compression-level=19,force-compression=true
+          outputs: type=image,"name=${{ steps.tags.outputs.tags }}",push=${{ github.event_name != 'pull_request' }},compression=zstd,compression-level=19,force-compression=true
           cache-from: type=gha,scope=${{ matrix.name }}
           cache-to: type=gha,mode=max,scope=${{ matrix.name }}
           provenance: false
