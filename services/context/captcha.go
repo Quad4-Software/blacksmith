@@ -8,6 +8,7 @@ import (
 	"sync"
 
 	"forgejo.org/modules/base"
+	"forgejo.org/modules/capcap"
 	"forgejo.org/modules/cache"
 	"forgejo.org/modules/hcaptcha"
 	"forgejo.org/modules/log"
@@ -72,6 +73,7 @@ func SetCaptchaData(ctx *Context) {
 	ctx.Data["McaptchaSitekey"] = setting.Service.McaptchaSitekey
 	ctx.Data["McaptchaURL"] = setting.Service.McaptchaURL
 	ctx.Data["CfTurnstileSitekey"] = setting.Service.CfTurnstileSitekey
+	ctx.Data["CapWidgetEndpoint"] = setting.Service.CapURL + setting.Service.CapSitekey + "/"
 }
 
 const (
@@ -81,6 +83,7 @@ const (
 	hCaptchaResponseField    = "h-captcha-response"
 	mCaptchaResponseField    = "m-captcha-response"
 	cfTurnstileResponseField = "cf-turnstile-response"
+	capResponseField         = "cap-token"
 )
 
 // VerifyCaptcha verifies Captcha data
@@ -103,6 +106,8 @@ func VerifyCaptcha(ctx *Context, tpl base.TplName, form any) {
 		valid, err = mcaptcha.Verify(ctx, ctx.Req.Form.Get(mCaptchaResponseField))
 	case setting.CfTurnstile:
 		valid, err = turnstile.Verify(ctx, ctx.Req.Form.Get(cfTurnstileResponseField))
+	case setting.Cap:
+		valid, err = capcap.Verify(ctx, ctx.Req.Form.Get(capResponseField))
 	default:
 		ctx.ServerError("Unknown Captcha Type", fmt.Errorf("unknown Captcha Type: %s", setting.Service.CaptchaType))
 		return

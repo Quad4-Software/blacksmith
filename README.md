@@ -29,21 +29,27 @@ deployments.
 
 ## Build
 
-    podman build -t blacksmith .
+```sh
+podman build -t blacksmith .
+```
 
 Requires go 1.2x and node 22+ for a local build:
 
-    make frontend
-    make backend
+```sh
+make frontend
+make backend
+```
 
 ## Run
 
 Single container (rootless podman):
 
-    podman run -d --name blacksmith \
-        -p 3000:3000 -p 2222:2222 \
-        -v blacksmith-data:/var/lib/blacksmith \
-        blacksmith
+```sh
+podman run -d --name blacksmith \
+    -p 3000:3000 -p 2222:2222 \
+    -v blacksmith-data:/var/lib/blacksmith \
+    blacksmith
+```
 
 Then open http://localhost:3000 to finish the installer.
 
@@ -52,16 +58,37 @@ Then open http://localhost:3000 to finish the installer.
 `compose.prod.yaml` ships the full stack:
 
 - `proxy` - Caddy + Coraza WAF plugin + CrowdSec bouncer
-- `crowdsec` - intrusion detection, AppSec engine (Coraza + CRS)
-- `blacksmith` - the forge
+  (`--profile caddy`), or Traefik via `compose.traefik.yaml`
+  (`--profile traefik`)
+- `crowdsec` - intrusion detection, AppSec engine (Coraza + CRS);
+  smart-HTTP git endpoints are excluded from WAF inspection
+- `blacksmith` - the forge, with Valkey-backed cache, sessions and
+  queues, local Actions storage, and optional Cap captcha
+- `valkey` - cache/session/queue + captcha backend
 - `postgres` - optional (`--profile db`)
+- `cap` - self-hosted trycap.dev captcha (`--profile captcha`)
+- `crow-server`/`crow-agent` - Crow CI (`--profile crow`)
 - `backup` - encrypted restic (`--profile backup`)
 - `updater` - wud auto-update (`--profile updater`)
 
-    cp contrib/proxy/prod.env.example .env   # fill it in
-    podman compose -f compose.prod.yaml \
-        --profile db --profile backup --profile updater \
-        --env-file .env up -d
+```sh
+cp contrib/proxy/prod.env.example .env   # fill it in
+podman compose -f compose.prod.yaml \
+    --env-file .env \
+    --profile caddy --profile db --profile backup --profile updater \
+    up -d
+```
+
+SSH clone is bound to localhost by default (`SSH_BIND`); it only
+accepts authorized keys anyway.
+
+### Crow CI
+
+Enable with `--profile crow`, then create an OAuth2 app in
+Blacksmith (Settings -> Applications) with redirect
+`${CROW_HOST}/authorize` and set `CROW_FORGEJO_CLIENT` /
+`CROW_FORGEJO_SECRET` in `.env`. Users log into Crow with their
+forge account; repos get webhooks automatically.
 
 For rootless podman + systemd, install `contrib/quadlets/blacksmith.container`
 into `~/.config/containers/systemd/` and enable
@@ -77,6 +104,7 @@ into `~/.config/containers/systemd/` and enable
 | `contrib/crowdsec/` | acquisition + appsec config |
 | `contrib/backup/` | encrypted restic sidecar |
 | `contrib/quadlets/` | podman systemd units with autoupdate |
+| `compose.traefik.yaml` | traefik variant of the edge proxy |
 | `docker/blacksmith/` | container entrypoint scripts |
 
 ## Upstream

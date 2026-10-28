@@ -3,7 +3,7 @@ name: ci
 on:
   push:
     branches:
-      - main
+      - master
     tags:
       - "v*"
   pull_request: {}
@@ -78,7 +78,7 @@ jobs:
           NAME: ${{ matrix.name }}
         run: |
           tags="${{ env.REGISTRY }}/${{ env.OWNER }}/${NAME}:sha-${SHA::7}"
-          if [ "${REF_NAME}" = "main" ]; then
+          if [ "${REF_NAME}" = "master" ]; then
             tags="${tags},${{ env.REGISTRY }}/${{ env.OWNER }}/${NAME}:latest"
           fi
           case "${REF_NAME}" in

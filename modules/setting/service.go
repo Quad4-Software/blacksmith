@@ -24,6 +24,7 @@ const (
 	HCaptcha     = "hcaptcha"
 	MCaptcha     = "mcaptcha"
 	CfTurnstile  = "cfturnstile"
+	Cap          = "cap"
 )
 
 // Service settings
@@ -70,6 +71,9 @@ var Service = struct {
 	McaptchaSecret                          string
 	McaptchaSitekey                         string
 	McaptchaURL                             string
+	CapSecret                               string
+	CapSitekey                              string
+	CapURL                                  string
 	DefaultKeepEmailPrivate                 bool
 	DefaultAllowCreateOrganization          bool
 	DefaultUserIsRestricted                 bool
@@ -234,6 +238,9 @@ func loadServiceFrom(rootCfg ConfigProvider) {
 	Service.McaptchaURL = sec.Key("MCAPTCHA_URL").MustString("https://demo.mcaptcha.org/")
 	Service.McaptchaSecret = sec.Key("MCAPTCHA_SECRET").MustString("")
 	Service.McaptchaSitekey = sec.Key("MCAPTCHA_SITEKEY").MustString("")
+	Service.CapURL = sec.Key("CAP_URL").MustString("https://cap.quad4.io/")
+	Service.CapSecret = sec.Key("CAP_SECRET").MustString("")
+	Service.CapSitekey = sec.Key("CAP_SITEKEY").MustString("")
 	Service.DefaultKeepEmailPrivate = sec.Key("DEFAULT_KEEP_EMAIL_PRIVATE").MustBool()
 	Service.DefaultAllowCreateOrganization = sec.Key("DEFAULT_ALLOW_CREATE_ORGANIZATION").MustBool(true)
 	Service.DefaultUserIsRestricted = sec.Key("DEFAULT_USER_IS_RESTRICTED").MustBool(false)

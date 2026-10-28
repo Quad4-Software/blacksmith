@@ -23,6 +23,9 @@ volumes:
   crowdsec-data:
   caddy-data:
   caddy-logs:
+  valkey-data:
+  crow-data:
+  crow-agent-data:
 
 services:
 
@@ -76,8 +79,29 @@ services:
       BLACKSMITH__security__INSTALL_LOCK: ${INSTALL_LOCK:-false}
       BLACKSMITH__server__SSH_PORT: "22"
       BLACKSMITH__server__SSH_LISTEN_PORT: "2222"
+      BLACKSMITH__server__START_SSH_SERVER: "true"
+      # valkey-backed cache, sessions and queues
+      BLACKSMITH__cache__ADAPTER: redis
+      BLACKSMITH__cache__HOST: redis://valkey:6379/0?CACHE=pool
+      BLACKSMITH__session__PROVIDER: redis
+      BLACKSMITH__session__PROVIDER_CONFIG: redis://valkey:6379/1?CACHE=pool
+      BLACKSMITH__queue__TYPE: redis
+      BLACKSMITH__queue__CONN_STR: redis://valkey:6379/2?CACHE=pool
+      # actions on local storage
+      BLACKSMITH__actions__ENABLED: "true"
+      BLACKSMITH__storage.actions__STORAGE_TYPE: local
+      BLACKSMITH__storage.actions__PATH: /var/lib/blacksmith/data/actions
+      # cap captcha (trycap.dev) for registration and login
+      BLACKSMITH__service__ENABLE_CAPTCHA: ${ENABLE_CAPTCHA:-false}
+      BLACKSMITH__service__CAPTCHA_TYPE: ${CAPTCHA_TYPE:-cap}
+      BLACKSMITH__service__CAP_URL: ${CAP_URL:-https://cap.quad4.io/}
+      BLACKSMITH__service__CAP_SITEKEY: ${CAP_SITEKEY:-}
+      BLACKSMITH__service__CAP_SECRET: ${CAP_SECRET:-}
     ports:
-      - "${SSH_PORT:-2222}:2222"
+      # Built-in SSH only accepts authorized keys (no anonymous
+      # access). Bound to localhost by default; set SSH_BIND=0.0.0.0
+      # to expose it publicly.
+      - "${SSH_BIND:-127.0.0.1}:${SSH_PORT:-2222}:2222"
     volumes:
       - blacksmith-data:/var/lib/blacksmith
     tmpfs:
@@ -133,6 +157,7 @@ services:
       DISABLE_LOCAL_API: "false"
     volumes:
       - ./contrib/crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml:ro
+      - ./contrib/crowdsec/appsec-rules:/etc/crowdsec/appsec-rules:ro
       - crowdsec-config:/etc/crowdsec
       - crowdsec-data:/var/lib/crowdsec/data
       - caddy-logs:/var/log/caddy:ro
@@ -177,6 +202,92 @@ services:
       - no-new-privileges:true
     labels:
       io.containers.autoupdate: registry
+
+  valkey:
+    image: docker.io/valkey/valkey:9-alpine
+    restart: unless-stopped
+    command: valkey-server --save 60 1 --loglevel warning --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - valkey-data:/data
+    networks:
+      - internal
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+  # Self-hosted Cap (trycap.dev) proof-of-work captcha. Optional;
+  # point CAP_URL at it (e.g. https://cap.example.com/) after
+  # creating a site key in its dashboard.
+  cap:
+    image: docker.io/tiago2/cap:latest
+    restart: unless-stopped
+    profiles:
+      - captcha
+    environment:
+      ADMIN_KEY: ${CAP_ADMIN_KEY:?set CAP_ADMIN_KEY}
+      REDIS_URL: redis://valkey:6379/3
+    depends_on:
+      - valkey
+    networks:
+      - internal
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+  # Crow CI server + agent. Blacksmith side: create an OAuth2 app
+  # (Settings -> Applications) with redirect
+  # ${CROW_HOST}/authorize, then set CROW_FORGEJO_CLIENT and
+  # CROW_FORGEJO_SECRET in .env. Crow logs in with forge accounts
+  # and receives repo webhooks automatically.
+  crow-server:
+    image: codefloe.com/crowci/crow-server:v6.12
+    restart: unless-stopped
+    profiles:
+      - crow
+    ports:
+      - "${CROW_BIND:-127.0.0.1}:${CROW_PORT:-8000}:8000"
+    volumes:
+      - crow-data:/var/lib/crow
+    environment:
+      CROW_OPEN: "false"
+      CROW_HOST: ${CROW_HOST:-http://localhost:8000}
+      CROW_AGENT_SECRET: ${CROW_AGENT_SECRET:?set CROW_AGENT_SECRET}
+      CROW_FORGEJO: "true"
+      CROW_FORGEJO_URL: ${ROOT_URL:-https://${BLACKSMITH_DOMAIN:-localhost}/}
+      CROW_FORGEJO_CLIENT: ${CROW_FORGEJO_CLIENT:?set CROW_FORGEJO_CLIENT}
+      CROW_FORGEJO_SECRET: ${CROW_FORGEJO_SECRET:?set CROW_FORGEJO_SECRET}
+      CROW_FORGEJO_SKIP_VERIFY: ${CROW_FORGEJO_SKIP_VERIFY:-false}
+    depends_on:
+      - blacksmith
+    networks:
+      - internal
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+  crow-agent:
+    image: codefloe.com/crowci/crow-agent:v6.12
+    restart: unless-stopped
+    profiles:
+      - crow
+    volumes:
+      - ${CONTAINER_SOCKET:-/run/user/1000/podman/podman.sock}:/var/run/docker.sock
+      - crow-agent-data:/etc/crow
+    environment:
+      CROW_SERVER: crow-server:9000
+      CROW_AGENT_SECRET: ${CROW_AGENT_SECRET:?set CROW_AGENT_SECRET}
+      CROW_BACKEND: docker
+      CROW_MAX_WORKFLOWS: ${CROW_MAX_WORKFLOWS:-4}
+      CROW_HOSTNAME: ${CROW_AGENT_HOSTNAME:-blacksmith-crow-agent-1}
+    depends_on:
+      - crow-server
+    networks:
+      - internal
+    security_opt:
+      - no-new-privileges:true
 
   # What's Up Docker: watches for new image tags, pulls them and
   # recreates watched containers via the docker trigger. Works

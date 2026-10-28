@@ -27,4 +27,9 @@
 		<div id="captcha" data-captcha-type="cf-turnstile" data-sitekey="{{.CfTurnstileSitekey}}"></div>
 	</div>
 	<script defer src='https://challenges.cloudflare.com/turnstile/v0/api.js'></script>
+{{else if eq .CaptchaType "cap"}}
+	<div class="inline field tw-text-center">
+		<cap-widget data-cap-api-endpoint="{{.CapWidgetEndpoint}}"></cap-widget>
+	</div>
+	<script defer src='{{AssetUrlPrefix}}/vendor/cap.min.js'></script>
 {{end}}{{end}}
