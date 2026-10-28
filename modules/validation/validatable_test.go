@@ -8,7 +8,6 @@ import (
 
 	"forgejo.org/modules/timeutil"
 
-	ap "github.com/go-ap/activitypub"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -58,25 +57,6 @@ func Test_ValidateNotEmpty_ForTimestamp(t *testing.T) {
 	assert.Empty(t, res, 0)
 }
 
-func Test_ValidateIDExists_ForItem(t *testing.T) {
-	sut := ap.Activity{
-		Object: nil,
-	}
-	res := ValidateIDExists(sut.Object, "dummyField")
-	assert.Len(t, res, 1)
-
-	sut = ap.Activity{
-		Object: ap.IRI(""),
-	}
-	res = ValidateIDExists(sut.Object, "dummyField")
-	assert.Len(t, res, 1)
-
-	sut = ap.Activity{
-		Object: ap.IRI("https://dummy.link/id"),
-	}
-	res = ValidateIDExists(sut.Object, "dummyField")
-	assert.Empty(t, res, 0)
-}
 
 func Test_ValidateMaxLen(t *testing.T) {
 	sut := "0123456789"

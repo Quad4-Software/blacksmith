@@ -268,7 +268,6 @@ func LoadSettings() {
 	initAllLoggers()
 
 	loadDBSetting(CfgProvider)
-	loadFederationFrom(CfgProvider)
 	loadServiceFrom(CfgProvider)
 	loadOAuth2ClientFrom(CfgProvider)
 	loadCacheFrom(CfgProvider)

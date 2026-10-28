@@ -5,7 +5,6 @@
 package swagger
 
 import (
-	ffed "forgejo.org/modules/forgefed"
 	api "forgejo.org/modules/structs"
 	"forgejo.org/services/forms"
 )
@@ -16,11 +15,7 @@ import (
 // parameterBodies
 // swagger:response parameterBodies
 type swaggerParameterBodies struct {
-	// in:body
-	ForgeLike ffed.ForgeLike
 
-	// in:body
-	APRemoteFollowOption api.APRemoteFollowOption `json:"body"`
 
 	// in:body
 	AddCollaboratorOption api.AddCollaboratorOption

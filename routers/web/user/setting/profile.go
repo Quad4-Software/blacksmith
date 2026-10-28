@@ -38,8 +38,6 @@ const (
 	tplSettingsRepositories base.TplName = "user/settings/repos"
 )
 
-var commonPronouns = []string{"he/him", "she/her", "they/them", "it/its", "any pronouns"}
-
 // profileContext sets common context for profile settings template.
 func profileContext(ctx *context.Context) {
 	ctx.Data["Title"] = ctx.Tr("settings.profile")
@@ -47,7 +45,6 @@ func profileContext(ctx *context.Context) {
 	ctx.Data["AllowedUserVisibilityModes"] = setting.Service.AllowedUserVisibilityModesSlice.ToVisibleTypeSlice()
 	ctx.Data["DisableGravatar"] = setting.Config().Picture.DisableGravatar.Value(ctx)
 	ctx.Data["CooldownPeriod"] = setting.Service.UsernameCooldownPeriod
-	ctx.Data["CommonPronouns"] = commonPronouns
 	ctx.Data["MaxAvatarFileSize"] = setting.Avatar.MaxFileSize
 	ctx.Data["MaxAvatarWidth"] = setting.Avatar.MaxWidth
 	ctx.Data["MaxAvatarHeight"] = setting.Avatar.MaxHeight
@@ -106,12 +103,10 @@ func ProfilePost(ctx *context.Context) {
 		FullName:            optional.Some(form.FullName),
 		KeepEmailPrivate:    optional.Some(form.KeepEmailPrivate),
 		Description:         optional.Some(form.Biography),
-		Pronouns:            optional.Some(form.Pronouns),
 		Website:             optional.Some(form.Website),
 		Location:            optional.Some(form.Location),
 		Visibility:          optional.Some(form.Visibility),
 		KeepActivityPrivate: optional.Some(form.KeepActivityPrivate),
-		KeepPronounsPrivate: optional.Some(form.KeepPronounsPrivate),
 	}
 	if err := user_service.UpdateUser(ctx, ctx.Doer, opts); err != nil {
 		ctx.ServerError("UpdateUser", err)

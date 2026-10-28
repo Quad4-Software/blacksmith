@@ -30,6 +30,7 @@ var UI = struct {
 	ShowUserEmail         bool
 	DefaultShowFullName   bool
 	DefaultTheme          string
+	CrowCIURL             string
 	Themes                []string
 	Reactions             []string
 	ReactionsLookup       container.Set[string] `ini:"-"`
@@ -63,8 +64,6 @@ var UI = struct {
 		RepoPagingNum           int
 		NoticePagingNum         int
 		OrgPagingNum            int
-		FederationHostPagingNum int
-		FederationUserPagingNum int
 	} `ini:"ui.admin"`
 	User struct {
 		RepoPagingNum int
@@ -128,15 +127,11 @@ var UI = struct {
 		RepoPagingNum           int
 		NoticePagingNum         int
 		OrgPagingNum            int
-		FederationHostPagingNum int
-		FederationUserPagingNum int
 	}{
 		UserPagingNum:           50,
 		RepoPagingNum:           50,
 		NoticePagingNum:         25,
 		OrgPagingNum:            50,
-		FederationHostPagingNum: 50,
-		FederationUserPagingNum: 50,
 	},
 	User: struct {
 		RepoPagingNum int

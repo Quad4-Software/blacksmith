@@ -456,7 +456,6 @@ func EditUserPost(ctx *context.Context) {
 		FullName:                optional.Some(form.FullName),
 		Website:                 optional.Some(form.Website),
 		Location:                optional.Some(form.Location),
-		Pronouns:                optional.Some(form.Pronouns),
 		IsActive:                optional.Some(form.Active),
 		IsAdmin:                 optional.Some(form.Admin),
 		AllowGitHook:            optional.Some(form.AllowGitHook),

@@ -59,6 +59,20 @@ func (f *CreateRepoForm) Validate(req *http.Request, errs binding.Errors) bindin
 
 // MigrateRepoForm form for migrating repository
 // this is used to interact with web ui
+// MassMigrateForm migrates or mirrors every repository of a
+// remote user or org in one shot.
+type MassMigrateForm struct {
+	CloneAddr    string `form:"clone_addr" binding:"Required"`
+	Service      structs.GitServiceType
+	Owner        string `form:"mass_owner" binding:"Required"`
+	UID          int64  `form:"uid"`
+	Mirror       bool   `form:"mirror"`
+	Private      bool   `form:"private"`
+	AuthUsername string `form:"auth_username"`
+	AuthPassword string `form:"auth_password"`
+	AuthToken    string `form:"auth_token"`
+}
+
 type MigrateRepoForm struct {
 	// required: true
 	CloneAddr    string                 `json:"clone_addr" binding:"Required"`

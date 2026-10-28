@@ -75,6 +75,7 @@ var Service = struct {
 	CapSitekey                              string
 	CapURL                                  string
 	DefaultKeepEmailPrivate                 bool
+	DefaultKeepActivityPrivate               bool
 	DefaultAllowCreateOrganization          bool
 	DefaultUserIsRestricted                 bool
 	AllowDotsInUsernames                    bool
@@ -189,7 +190,7 @@ func loadServiceFrom(rootCfg ConfigProvider) {
 	}
 	emailDomainAllowList := CompileEmailGlobList(sec, "EMAIL_DOMAIN_WHITELIST", "EMAIL_DOMAIN_ALLOWLIST")
 
-	if len(emailDomainAllowList) > 0 && Federation.Enabled {
+	if len(emailDomainAllowList) > 0 {
 		appURL, err := appURLAsGlob(AppURL)
 		if err == nil {
 			emailDomainAllowList = append(emailDomainAllowList, appURL)
@@ -241,7 +242,8 @@ func loadServiceFrom(rootCfg ConfigProvider) {
 	Service.CapURL = sec.Key("CAP_URL").MustString("https://cap.quad4.io/")
 	Service.CapSecret = sec.Key("CAP_SECRET").MustString("")
 	Service.CapSitekey = sec.Key("CAP_SITEKEY").MustString("")
-	Service.DefaultKeepEmailPrivate = sec.Key("DEFAULT_KEEP_EMAIL_PRIVATE").MustBool()
+	Service.DefaultKeepEmailPrivate = sec.Key("DEFAULT_KEEP_EMAIL_PRIVATE").MustBool(true)
+	Service.DefaultKeepActivityPrivate = sec.Key("DEFAULT_KEEP_ACTIVITY_PRIVATE").MustBool(true)
 	Service.DefaultAllowCreateOrganization = sec.Key("DEFAULT_ALLOW_CREATE_ORGANIZATION").MustBool(true)
 	Service.DefaultUserIsRestricted = sec.Key("DEFAULT_USER_IS_RESTRICTED").MustBool(false)
 	Service.AllowDotsInUsernames = sec.Key("ALLOW_DOTS_IN_USERNAMES").MustBool(true)

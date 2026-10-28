@@ -6,7 +6,16 @@
 		<meta name="viewport" content="width=device-width, initial-scale=0.85">
 	</head>
 	<body>
-		<a class="swagger-back-link" href="{{AppSubUrl}}/">{{svg "octicon-reply"}}{{ctx.Locale.Tr "return_to_forgejo"}}</a>
+		<header class="blacksmith-api-header">
+			<a class="swagger-back-link" href="{{AppSubUrl}}/">{{svg "octicon-reply"}}{{ctx.Locale.Tr "return_to_forgejo"}}</a>
+			<div class="blacksmith-api-title">
+				<img src="{{AssetUrlPrefix}}/img/logo.svg" alt="" width="28">
+				<div>
+					<h1>Blacksmith API</h1>
+					<p>REST API v1. Interactive reference below, generated from <a href="{{AppSubUrl}}/swagger.{{.APIJSONVersion}}.json">swagger.{{.APIJSONVersion}}.json</a>.</p>
+				</div>
+			</div>
+		</header>
 		<div id="swagger-ui" data-source="{{AppSubUrl}}/swagger.{{.APIJSONVersion}}.json"></div>
 		<script src="{{AssetUrlPrefix}}/js/swagger.js?v={{AssetVersion}}"></script>
 	</body>

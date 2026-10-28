@@ -29,16 +29,6 @@
 						<input name="full_name" value="{{.SignedUser.FullName}}" maxlength="100">
 					</label>
 
-					<label id="label-pronouns">
-						{{ctx.Locale.Tr "settings.pronouns"}}
-						<input name="pronouns" list="pronouns" placeholder="{{ctx.Locale.Tr "settings.pronouns_unspecified"}}" value="{{.SignedUser.Pronouns}}" maxlength="50">
-						<datalist id="pronouns">
-							{{range .CommonPronouns}}
-								<option value="{{.}}"></option>
-							{{end}}
-						</datalist>
-					</label>
-
 					<label {{if .Err_Biography}}class="field error"{{end}}>
 						{{ctx.Locale.Tr "user.user_bio"}}
 						<textarea name="biography" rows="2" placeholder="{{ctx.Locale.Tr "settings.biography_placeholder"}}" maxlength="255">{{.SignedUser.Description}}</textarea>
@@ -99,11 +89,6 @@
 						<span class="help">{{ctx.Locale.Tr "settings.keep_activity_private.description" (printf "/%s?tab=activity" .SignedUser.Name)}}</span>
 					</label>
 
-					<label>
-						<input name="keep_pronouns_private" type="checkbox" {{if .SignedUser.KeepPronounsPrivate}}checked{{end}}>
-						{{ctx.Locale.Tr "settings.keep_pronouns_private"}}
-						<span class="help">{{ctx.Locale.Tr "settings.keep_pronouns_private.description"}}</span>
-					</label>
 				</fieldset>
 
 				<button class="ui primary button">{{ctx.Locale.Tr "settings.update_profile"}}</button>

@@ -71,7 +71,6 @@ import (
 	api "forgejo.org/modules/structs"
 	"forgejo.org/modules/web"
 	"forgejo.org/routers/api/shared"
-	"forgejo.org/routers/api/v1/activitypub"
 	"forgejo.org/routers/api/v1/admin"
 	"forgejo.org/routers/api/v1/misc"
 	"forgejo.org/routers/api/v1/notify"
@@ -90,7 +89,6 @@ import (
 	_ "forgejo.org/routers/api/v1/swagger" // for swagger generation
 
 	"code.forgejo.org/go-chi/binding"
-	ap "github.com/go-ap/activitypub"
 )
 
 func sudo() func(ctx *context.APIContext) {
@@ -579,34 +577,6 @@ func Routes() *web.Route {
 			})
 		}
 
-		if setting.Federation.Enabled {
-			m.Get("/nodeinfo", misc.NodeInfo)
-			m.Group("/activitypub", func() {
-				// The instance actor must always be fetchable without signatures
-				m.Get("/actor", activitypub.Actor)
-				m.Group("", func() {
-					m.Group("/actor", func() {
-						m.Post("/inbox", activitypub.ActorInbox)
-						m.Get("/outbox", activitypub.ActorOutbox)
-					})
-					m.Group("/user-id/{user-id}", func() {
-						m.Get("", activitypub.Person)
-						m.Post("/inbox", bind(ap.Activity{}), activitypub.PersonInbox)
-						m.Get("/outbox", activitypub.PersonFeed)
-						m.Group("/activities/{activity-id}", func() {
-							m.Get("", activitypub.PersonActivityNote)
-							m.Get("/activity", activitypub.PersonActivity)
-						})
-					}, context.UserIDAssignmentAPI(), checkTokenPublicOnly())
-					m.Group("/repository-id/{repository-id}", func() {
-						m.Get("", activitypub.Repository)
-						m.Post("/inbox", bind(ap.Activity{}), activitypub.RepositoryInbox)
-						m.Get("/outbox", activitypub.RepositoryOutbox)
-					}, context.RepositoryIDAssignmentAPI())
-				}, activitypub.ReqHTTPSignature())
-			}, tokenRequiresScopes(auth_model.AccessTokenScopeCategoryActivityPub))
-		}
-
 		// Misc (public accessible)
 		m.Group("", func() {
 			m.Get("/version", misc.Version)
@@ -721,11 +691,6 @@ func Routes() *web.Route {
 					m.Delete("", user.Unfollow)
 				}, context.UserAssignmentAPI())
 			})
-			if setting.Federation.Enabled {
-				m.Group("/activitypub", func() {
-					m.Post("/follow", bind(api.APRemoteFollowOption{}), user.ActivityPubFollow)
-				})
-			}
 
 			// (admin:public_key scope)
 			m.Group("/keys", func() {

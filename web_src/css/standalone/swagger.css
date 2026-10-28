@@ -40,3 +40,9 @@ body {
     filter: invert(100%) hue-rotate(180deg);
   }
 }
+
+.blacksmith-api-header { padding: 1rem 2rem; border-bottom: 1px solid var(--color-secondary); }
+.blacksmith-api-title { display: flex; gap: 1rem; align-items: center; margin-top: 0.75rem; }
+.blacksmith-api-title h1 { margin: 0; font-size: 1.4rem; }
+.blacksmith-api-title p { margin: 0.25rem 0 0; color: var(--color-grey); }
+.swagger-ui .topbar { display: none; }

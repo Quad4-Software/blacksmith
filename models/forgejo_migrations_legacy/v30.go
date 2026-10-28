@@ -4,11 +4,12 @@
 package forgejo_migrations_legacy
 
 import (
+	"net/url"
+	"strconv"
 	"time"
 
 	"forgejo.org/models/gitea_migrations/base"
-	"forgejo.org/modules/forgefed"
-	"forgejo.org/modules/log"
+		"forgejo.org/modules/log"
 	"forgejo.org/modules/timeutil"
 
 	"code.forgejo.org/xorm/xorm"
@@ -77,12 +78,24 @@ func MigrateNormalizedFederatedURI(x *xorm.Engine) error {
 				}
 
 				// Migrate (Port, Schema) FederatedUser.NormalizedOriginalUrl -> FederationHost.(Port, Schema)
-				actorID, err := forgefed.NewActorID(user.NormalizedFederatedURI)
+				parsed, err := url.Parse(user.NormalizedFederatedURI)
 				if err != nil {
 					return err
 				}
+				hostPort := uint16(443)
+				hostSchema := parsed.Scheme
+				if hostSchema == "http" {
+					hostPort = 80
+				}
+				if port := parsed.Port(); port != "" {
+					p, err := strconv.ParseUint(port, 10, 16)
+					if err != nil {
+						return err
+					}
+					hostPort = uint16(p)
+				}
 				sql = "UPDATE `federation_host` SET `host_port` = ?, `host_schema` = ? WHERE `id` = ?"
-				if _, err := sessMigration.Exec(sql, actorID.HostPort, actorID.HostSchema, federatedUser.FederationHostID); err != nil {
+				if _, err := sessMigration.Exec(sql, hostPort, hostSchema, federatedUser.FederationHostID); err != nil {
 					return err
 				}
 			}

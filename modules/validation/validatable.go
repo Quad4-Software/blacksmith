@@ -12,7 +12,6 @@ import (
 
 	"forgejo.org/modules/timeutil"
 
-	ap "github.com/go-ap/activitypub"
 )
 
 // ErrNotValid represents a validation error
@@ -44,12 +43,6 @@ func IsValid(v Validateable) (bool, error) {
 	return true, nil
 }
 
-func ValidateIDExists(value ap.Item, name string) []string {
-	if value == nil {
-		return []string{fmt.Sprintf("Field %v must not be nil", name)}
-	}
-	return ValidateNotEmpty(value.GetID().String(), name)
-}
 
 func ValidateNotEmpty(value any, name string) []string {
 	isValid := true
@@ -70,8 +63,6 @@ func ValidateNotEmpty(value any, name string) []string {
 		if v == 0 {
 			isValid = false
 		}
-	case ap.Typer:
-		isValid = len(value.(ap.Typer).AsTypes()) > 0
 	default:
 		isValid = false
 	}

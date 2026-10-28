@@ -34,7 +34,6 @@ import (
 	"forgejo.org/modules/setting"
 	"forgejo.org/modules/storage"
 	actions_service "forgejo.org/services/actions"
-	federation_service "forgejo.org/services/federation"
 
 	"xorm.io/builder"
 )
@@ -336,10 +335,6 @@ func DeleteRepositoryDirectly(ctx context.Context, repoID int64, opts DeleteRepo
 		}
 
 		if _, err := sess.Where("repo_id=?", repo.ID).Delete(new(repo_model.Attachment)); err != nil {
-			return err
-		}
-
-		if err := federation_service.DeleteFollowingRepos(ctx, repo.ID); err != nil {
 			return err
 		}
 

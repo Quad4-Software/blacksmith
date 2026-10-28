@@ -46,6 +46,9 @@
 		{{end}}
 
 		{{template "custom/extra_links" .}}
+		{{if .CrowCIURL}}
+			<a class="item" href="{{.CrowCIURL}}" target="_blank" rel="noopener noreferrer">{{ctx.Locale.Tr "blacksmith.ci_link"}}</a>
+		{{end}}
 
 		{{if not .IsSigned}}
 			<a class="item" target="_blank" rel="noopener noreferrer" href="{{AppDocsURL "/"}}">{{ctx.Locale.Tr "help"}}</a>

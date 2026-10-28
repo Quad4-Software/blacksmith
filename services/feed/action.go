@@ -25,7 +25,6 @@ import (
 	"forgejo.org/modules/setting"
 	"forgejo.org/modules/timeutil"
 	"forgejo.org/modules/util"
-	federation_service "forgejo.org/services/federation"
 	notify_service "forgejo.org/services/notify"
 )
 
@@ -141,19 +140,6 @@ func deliverNotification(notification *notificationQueueItem) error {
 		notification.LocalOut = optional.Some(queueableActionOut)
 	}
 
-	_, out := notification.LocalOut.Get()
-	// convert QueueableActions to database Actions
-	actionOut := []activities_model.Action{}
-	for _, a := range out {
-		actionOut = append(actionOut, a.ToAction())
-	}
-
-	err := federation_service.NotifyActivityPubFollowers(ctx, actionOut)
-	if err != nil {
-		notification.FederationCount++
-		return err
-	}
-
 	return nil
 }
 
@@ -181,13 +167,6 @@ func notifyAll(ctx context.Context, action QueueableAction) {
 	})
 }
 
-func notifyAllActions(ctx context.Context, acts []*activities_model.Action) error {
-	out, err := activities_model.NotifyWatchersActions(ctx, acts)
-	if err != nil {
-		return err
-	}
-	return federation_service.NotifyActivityPubFollowers(ctx, out)
-}
 
 func (a *actionNotifier) NewIssue(ctx context.Context, issue *issues_model.Issue, mentions []*user_model.User) {
 	if err := issue.LoadPoster(ctx); err != nil {
@@ -371,10 +350,6 @@ func (a *actionNotifier) PullRequestReview(ctx context.Context, pr *issues_model
 		}
 
 		actions = append(actions, action)
-	}
-
-	if err := notifyAllActions(ctx, actions); err != nil {
-		log.Error("notify watchers '%d/%d': %v", review.Reviewer.ID, review.Issue.RepoID, err)
 	}
 }
 

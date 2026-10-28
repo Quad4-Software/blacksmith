@@ -217,11 +217,9 @@ type UpdateProfileForm struct {
 	KeepEmailPrivate    bool
 	Website             string `binding:"ValidSiteUrl;MaxSize(255)"`
 	Location            string `binding:"MaxSize(50)"`
-	Pronouns            string `binding:"MaxSize(50)"`
 	Biography           string `binding:"MaxSize(255)"`
 	Visibility          structs.VisibleType
 	KeepActivityPrivate bool
-	KeepPronounsPrivate bool
 }
 
 // Validate validates the fields

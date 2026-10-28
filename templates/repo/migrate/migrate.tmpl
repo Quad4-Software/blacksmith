@@ -24,6 +24,58 @@
 				</a>
 			{{end}}
 		</div>
+
+		<div class="ui divider"></div>
+		<h3 class="ui top attached header tw-mt-4">{{ctx.Locale.Tr "migrate.mass_title"}}</h3>
+		<div class="ui attached segment">
+			<form class="ui form" method="post" action="{{AppSubUrl}}/repo/migrate/mass">
+				{{.CSRFTokenHTML}}
+				<input type="hidden" name="uid" value="{{.SignedUser.ID}}">
+				<div class="inline fields">
+					<div class="field">
+						<label>{{ctx.Locale.Tr "migrate.service_title"}}</label>
+						<select name="service">
+							<option value="9">Blacksmith</option>
+							<option value="12">Forgejo</option>
+							<option value="3">Gitea</option>
+						</select>
+					</div>
+					<div class="field {{if .Err_CloneAddr}}error{{end}}">
+						<label>{{ctx.Locale.Tr "repo.migrate.clone_address"}}</label>
+						<input name="clone_addr" placeholder="https://codeberg.org" required>
+					</div>
+					<div class="field">
+						<label>{{ctx.Locale.Tr "migrate.mass_owner"}}</label>
+						<input name="mass_owner" placeholder="user-or-org" required>
+					</div>
+				</div>
+				<div class="inline fields">
+					<div class="field">
+						<label>{{ctx.Locale.Tr "migrate.auth_username"}}</label>
+						<input name="auth_username">
+					</div>
+					<div class="field">
+						<label>{{ctx.Locale.Tr "migrate.auth_password"}}</label>
+						<input name="auth_password" type="password">
+					</div>
+					<div class="field">
+						<label>{{ctx.Locale.Tr "migrate.auth_token"}}</label>
+						<input name="auth_token">
+					</div>
+				</div>
+				<div class="inline field">
+					<div class="ui checkbox">
+						<input type="checkbox" name="mirror" checked>
+						<label>{{ctx.Locale.Tr "repo.migrate.mirror"}}</label>
+					</div>
+					<div class="ui checkbox">
+						<input type="checkbox" name="private">
+						<label>{{ctx.Locale.Tr "repo.migrate.private"}}</label>
+					</div>
+				</div>
+				<button class="ui primary button" type="submit">{{ctx.Locale.Tr "migrate.mass_submit"}}</button>
+			</form>
+		</div>
 	</div>
 </div>
 {{template "base/footer" .}}

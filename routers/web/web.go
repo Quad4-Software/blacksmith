@@ -561,12 +561,6 @@ var (
 		}
 	}
 
-	federationEnabled = func(ctx *context.Context) {
-		if !setting.Federation.Enabled {
-			ctx.Error(http.StatusNotFound)
-			return
-		}
-	}
 
 	sitemapEnabled = func(ctx *context.Context) {
 		if !setting.Other.EnableSitemap {
@@ -656,10 +650,6 @@ func registerRoutes(m *web.Route) {
 	m.Get("/sitemap.xml", sitemapEnabled, ignExploreSignIn, HomeSitemap)
 	m.Group("/.well-known", func() {
 		m.Get("/openid-configuration", auth.OIDCWellKnown)
-		m.Group("", func() {
-			m.Get("/nodeinfo", NodeInfoLinks)
-			m.Get("/webfinger", WebfingerQuery)
-		}, federationEnabled)
 		m.Get("/change-password", func(ctx *context.Context) {
 			ctx.Redirect(setting.AppSubURL + "/user/settings/account")
 		})
@@ -1033,13 +1023,6 @@ func registerRoutes(m *web.Route) {
 			m.Post("/abuse_reports/act", admin.PerformAction)
 		}
 
-		if setting.Federation.Enabled {
-			m.Group("/federation", func() {
-				m.Get("/hosts", admin.FederationHosts)
-				m.Get("/users", admin.FederationUsers)
-				m.Get("/hosts/{id}", admin.FederationHost)
-			})
-		}
 	}, adminReq, ctxDataSet("EnableOAuth2", setting.OAuth2.Enabled, "EnablePackages", setting.Packages.Enabled, "EnableModeration", setting.Moderation.Enabled))
 	// ***** END: Admin *****
 
@@ -1215,6 +1198,7 @@ func registerRoutes(m *web.Route) {
 		m.Post("/create", web.Bind(forms.CreateRepoForm{}), repo.CreatePost)
 		m.Get("/migrate", repo.Migrate)
 		m.Post("/migrate", web.Bind(forms.MigrateRepoForm{}), repo.MigratePost)
+			m.Post("/migrate/mass", web.Bind(forms.MassMigrateForm{}), repo.MassMigratePost)
 		if !setting.Repository.DisableForks {
 			m.Get("/fork/{repoid}", context.RepoIDAssignment(), context.UnitTypes(), reqRepoCodeReader, repo.ForkByID)
 		}

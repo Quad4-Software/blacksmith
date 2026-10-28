@@ -36,7 +36,6 @@ import (
 	actions_service "forgejo.org/services/actions"
 	asymkey_service "forgejo.org/services/asymkey"
 	"forgejo.org/services/context"
-	"forgejo.org/services/federation"
 	"forgejo.org/services/forms"
 	migrations_allowlist "forgejo.org/services/migrations/allowlist"
 	mirror_service "forgejo.org/services/mirror"
@@ -394,39 +393,6 @@ func SettingsPost(ctx *context.Context) {
 		ctx.Flash.Success(ctx.Tr("repo.settings.update_settings_success"))
 		ctx.Redirect(repo.Link() + "/settings")
 
-	case "federation":
-		if !setting.Federation.Enabled {
-			ctx.Flash.Info(ctx.Tr("repo.settings.federation_not_enabled"))
-			ctx.NotFound("", nil)
-			return
-		}
-		followingRepos := strings.TrimSpace(form.FollowingRepos)
-		followingRepos = strings.TrimSuffix(followingRepos, ";")
-
-		maxFollowingRepoStrLength := 2048
-		errs := validation.ValidateMaxLen(followingRepos, maxFollowingRepoStrLength, "federationRepos")
-		if len(errs) > 0 {
-			ctx.Data["ERR_FollowingRepos"] = true
-			ctx.Flash.Error(ctx.Tr("repo.form.string_too_long", maxFollowingRepoStrLength))
-			ctx.Redirect(repo.Link() + "/settings")
-			return
-		}
-
-		federationRepoSplit := []string{}
-		if followingRepos != "" {
-			federationRepoSplit = strings.Split(followingRepos, ";")
-		}
-		for idx, repo := range federationRepoSplit {
-			federationRepoSplit[idx] = strings.TrimSpace(repo)
-		}
-
-		if _, _, err := federation.StoreFollowingRepoList(ctx, ctx.Repo.Repository.ID, federationRepoSplit); err != nil {
-			ctx.ServerError("UpdateRepository", err)
-			return
-		}
-
-		ctx.Flash.Success(ctx.Tr("repo.settings.update_settings_success"))
-		ctx.Redirect(repo.Link() + "/settings")
 
 	case "mirror":
 		if !setting.Mirror.Enabled || !repo.IsMirror || repo.IsArchived {

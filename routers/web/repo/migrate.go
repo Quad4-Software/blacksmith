@@ -5,6 +5,8 @@
 package repo
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
@@ -308,4 +310,136 @@ func MigrateCancelPost(ctx *context.Context) {
 		}
 	}
 	ctx.Redirect(ctx.Repo.Repository.Link())
+}
+
+// MassMigratePost migrates or mirrors every repository of a remote
+// user or organization. Only forgejo-family services (Blacksmith,
+// Forgejo, Gitea) support owner enumeration.
+func MassMigratePost(ctx *context.Context) {
+	form := web.GetForm(ctx).(*forms.MassMigrateForm)
+
+	if setting.Repository.DisableMigrations {
+		ctx.Error(http.StatusForbidden, "Migrate: the site administrator has disabled migrations")
+		return
+	}
+	ctxUser := checkContextUser(ctx, form.UID)
+	if ctx.Written() {
+		return
+	}
+
+	var listURL string
+	switch form.Service {
+	case structs.BlacksmithService, structs.ForgejoService, structs.GiteaService:
+		listURL = strings.TrimSuffix(form.CloneAddr, "/")
+	default:
+		ctx.Flash.Error(ctx.Tr("repo.migrate.mass.unsupported_service"))
+		ctx.Redirect(setting.AppSubURL + "/repo/migrate?service_type=0")
+		return
+	}
+
+	repos, err := listRemoteOwnerRepos(ctx, listURL, form)
+	if err != nil {
+		ctx.Flash.Error(ctx.Tr("repo.migrate.mass.list_failed", err.Error()))
+		ctx.Redirect(setting.AppSubURL + "/repo/migrate?service_type=0")
+		return
+	}
+	if len(repos) == 0 {
+		ctx.Flash.Error(ctx.Tr("repo.migrate.mass.no_repos"))
+		ctx.Redirect(setting.AppSubURL + "/repo/migrate?service_type=0")
+		return
+	}
+
+	succeeded := []string{}
+	failed := map[string]string{}
+	for _, name := range repos {
+		cloneAddr := strings.TrimSuffix(form.CloneAddr, "/") + "/" + form.Owner + "/" + name + ".git"
+		remoteAddr, err := forms.ParseRemoteAddr(cloneAddr, form.AuthUsername, form.AuthPassword)
+		if err != nil {
+			failed[name] = err.Error()
+			continue
+		}
+		if err := migrations_allowlist.IsMigrateURLAllowed(remoteAddr, ctx.Doer); err != nil {
+			failed[name] = err.Error()
+			continue
+		}
+		opts := migrations.MigrateOptions{
+			OriginalURL:    cloneAddr,
+			GitServiceType: form.Service,
+			CloneAddr:      remoteAddr,
+			RepoName:       name,
+			Private:        form.Private || setting.Repository.ForcePrivate,
+			Mirror:         form.Mirror,
+			AuthUsername:   form.AuthUsername,
+			AuthPassword:   form.AuthPassword,
+			AuthToken:      form.AuthToken,
+		}
+		if err := task.MigrateRepository(ctx, ctx.Doer, ctxUser, opts); err != nil {
+			failed[name] = err.Error()
+			continue
+		}
+		succeeded = append(succeeded, name)
+	}
+
+	if len(failed) > 0 {
+		names := []string{}
+		for n := range failed {
+			names = append(names, n)
+		}
+		ctx.Flash.Warning(ctx.Tr("repo.migrate.mass.partial", len(succeeded), strings.Join(names, ", ")))
+	} else {
+		ctx.Flash.Success(ctx.Tr("repo.migrate.mass.success", len(succeeded)))
+	}
+	ctx.Redirect(ctxUser.HomeLink())
+}
+
+// listRemoteOwnerRepos returns the repository names of a remote
+// user or org via the forgejo-compatible REST API.
+func listRemoteOwnerRepos(ctx *context.Context, base string, form *forms.MassMigrateForm) ([]string, error) {
+	names := []string{}
+	for _, kind := range []string{"orgs", "users"} {
+		page := 1
+		for {
+			u := fmt.Sprintf("%s/api/v1/%s/%s/repos?limit=50&page=%d", base, kind, form.Owner, page)
+			req, err := http.NewRequestWithContext(ctx, http.MethodGet, u, nil)
+			if err != nil {
+				return nil, err
+			}
+			if form.AuthToken != "" {
+				req.Header.Set("Authorization", "token "+form.AuthToken)
+			} else if form.AuthUsername != "" {
+				req.SetBasicAuth(form.AuthUsername, form.AuthPassword)
+			}
+			resp, err := http.DefaultClient.Do(req)
+			if err != nil {
+				return nil, err
+			}
+			var payload []struct {
+				Name string `json:"name"`
+			}
+			if resp.StatusCode == http.StatusNotFound && kind == "orgs" {
+				resp.Body.Close()
+				break
+			}
+			if resp.StatusCode != http.StatusOK {
+				resp.Body.Close()
+				return nil, fmt.Errorf("%s returned %d", u, resp.StatusCode)
+			}
+			if err := json.NewDecoder(resp.Body).Decode(&payload); err != nil {
+				resp.Body.Close()
+				return nil, err
+			}
+			resp.Body.Close()
+			for _, r := range payload {
+				names = append(names, r.Name)
+			}
+			if len(payload) < 50 {
+				break
+			}
+			page++
+		}
+		if len(names) > 0 {
+			break
+		}
+	}
+	return names, nil
 }

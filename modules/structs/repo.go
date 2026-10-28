@@ -334,6 +334,7 @@ const (
 	BlacksmithService                                   // 9 forgejo service
 	PagureService                                    // 10 pagure service
 	BitbucketDataCenterService                       // 11 bitbucket data center / server service
+	ForgejoService                                   // 12 forgejo service
 )
 
 // Name represents the service type's name
@@ -361,6 +362,8 @@ func (gt GitServiceType) Title() string {
 		return "Codebase"
 	case BlacksmithService:
 		return "Blacksmith"
+	case ForgejoService:
+		return "Forgejo"
 	case PagureService:
 		return "Pagure"
 	case BitbucketDataCenterService:
@@ -406,7 +409,7 @@ type MigrateRepoOptions struct {
 // TokenAuth represents whether a service type supports token-based auth
 func (gt GitServiceType) TokenAuth() bool {
 	switch gt {
-	case GithubService, GiteaService, GitlabService, BlacksmithService, BitbucketDataCenterService:
+	case GithubService, GiteaService, GitlabService, BlacksmithService, ForgejoService, BitbucketDataCenterService:
 		return true
 	}
 	return false
@@ -418,6 +421,7 @@ var SupportedFullGitService = []GitServiceType{
 	GithubService,
 	GitlabService,
 	BlacksmithService,
+	ForgejoService,
 	GiteaService,
 	GogsService,
 	OneDevService,

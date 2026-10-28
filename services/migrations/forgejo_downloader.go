@@ -9,6 +9,7 @@ import (
 
 func init() {
 	RegisterDownloaderFactory(&BlacksmithDownloaderFactory{})
+	RegisterDownloaderFactory(&ForgejoDownloaderFactory{})
 }
 
 type BlacksmithDownloaderFactory struct {
@@ -17,4 +18,12 @@ type BlacksmithDownloaderFactory struct {
 
 func (f *BlacksmithDownloaderFactory) GitServiceType() structs.GitServiceType {
 	return structs.BlacksmithService
+}
+
+type ForgejoDownloaderFactory struct {
+	GiteaDownloaderFactory
+}
+
+func (f *ForgejoDownloaderFactory) GitServiceType() structs.GitServiceType {
+	return structs.ForgejoService
 }
