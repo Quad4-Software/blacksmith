@@ -26,6 +26,15 @@ deployments.
   external What's Up Docker container for compose deployments.
 - **Encrypted backups.** Restic sidecar to rest-server or S3.
 - **WAF front.** CrowdSec + Coraza (OWASP CRS) in front of the app.
+  Caddy or Traefik at the edge.
+- **No-JS friendly.** Server-rendered pages keep working. JS-only
+  controls are hidden instead of dead.
+- **Cap captcha.** Optional self-hosted proof-of-work captcha
+  (trycap.dev) on registration and login.
+- **Crow CI.** Optional server + agent profile, OAuth-wired to the
+  forge.
+- **CI published.** GitHub Actions builds all images and pushes to
+  ghcr.io with zstd-compressed layers.
 
 ## Build
 
@@ -60,8 +69,8 @@ Then open http://localhost:3000 to finish the installer.
 - `proxy` - Caddy + Coraza WAF plugin + CrowdSec bouncer
   (`--profile caddy`), or Traefik via `compose.traefik.yaml`
   (`--profile traefik`)
-- `crowdsec` - intrusion detection, AppSec engine (Coraza + CRS);
-  smart-HTTP git endpoints are excluded from WAF inspection
+- `crowdsec` - intrusion detection, AppSec engine (Coraza + CRS).
+  Smart-HTTP git endpoints are excluded from WAF inspection
 - `blacksmith` - the forge, with Valkey-backed cache, sessions and
   queues, local Actions storage, and optional Cap captcha
 - `valkey` - cache/session/queue + captcha backend
@@ -79,8 +88,8 @@ podman compose -f compose.prod.yaml \
     up -d
 ```
 
-SSH clone is bound to localhost by default (`SSH_BIND`); it only
-accepts authorized keys anyway.
+SSH clone is bound to localhost by default (`SSH_BIND`) and only
+accepts authorized keys.
 
 ### Crow CI
 
@@ -88,7 +97,7 @@ Enable with `--profile crow`, then create an OAuth2 app in
 Blacksmith (Settings -> Applications) with redirect
 `${CROW_HOST}/authorize` and set `CROW_FORGEJO_CLIENT` /
 `CROW_FORGEJO_SECRET` in `.env`. Users log into Crow with their
-forge account; repos get webhooks automatically.
+forge account and repos get webhooks automatically.
 
 For rootless podman + systemd, install `contrib/quadlets/blacksmith.container`
 into `~/.config/containers/systemd/` and enable
@@ -110,7 +119,7 @@ into `~/.config/containers/systemd/` and enable
 ## Upstream
 
 Blacksmith tracks Forgejo upstream. API and `GITEA__*` / `FORGEJO__*`
-environment compatibility is retained; `BLACKSMITH__*` works
+environment compatibility is retained. `BLACKSMITH__*` works
 everywhere those do.
 
 Fork of Forgejo, which is a fork of Gitea, which is a fork of Gogs.
