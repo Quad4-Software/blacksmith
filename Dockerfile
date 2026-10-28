@@ -31,13 +31,13 @@ RUN make FORGEJO_GENERATE_SKIP_HASH=true RELEASE_VERSION="${RELEASE_VERSION}" ge
       -ldflags "-s -w -X main.ReleaseVersion=${RELEASE_VERSION}" \
       -o blacksmith . \
  && go build -o environment-to-ini contrib/environment-to-ini/environment-to-ini.go \
- && mkdir -p /tmp/rootfs/bin /tmp/rootfs/usr/local/bin /tmp/rootfs/usr/bin /tmp/rootfs/app \
+ && mkdir -p /tmp/rootfs/usr/local/bin /tmp/rootfs/usr/bin /tmp/rootfs/app \
  && install -d -m 0700 -o 65532 -g 65532 /tmp/rootfs/var/lib/blacksmith /tmp/rootfs/var/lib/blacksmith/git /tmp/rootfs/tmp/blacksmith \
  && install -m 0755 blacksmith /tmp/rootfs/app/blacksmith \
  && install -m 0755 environment-to-ini /tmp/rootfs/usr/local/bin/environment-to-ini \
  && install -m 0755 /usr/bin/dumb-init /tmp/rootfs/usr/bin/dumb-init \
- && install -m 0755 /bin/busybox /tmp/rootfs/bin/busybox \
- && /bin/busybox --install -s /tmp/rootfs/bin \
+ && install -m 0755 /bin/busybox /tmp/rootfs/usr/bin/busybox \
+ && /bin/busybox --install -s /tmp/rootfs/usr/bin \
  && install -m 0755 docker/blacksmith/entrypoint.sh /tmp/rootfs/usr/local/bin/blacksmith-entrypoint.sh \
  && install -m 0755 docker/blacksmith/setup.sh /tmp/rootfs/usr/local/bin/blacksmith-setup.sh \
  && ln -s /app/blacksmith /tmp/rootfs/usr/local/bin/blacksmith
