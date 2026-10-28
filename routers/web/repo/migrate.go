@@ -6,10 +6,12 @@ package repo
 
 import (
 	"encoding/json"
+	"io"
 	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
 	"forgejo.org/models"
 	admin_model "forgejo.org/models/admin"
@@ -172,6 +174,11 @@ func MigratePost(ctx *context.Context) {
 	if ctx.Written() {
 		return
 	}
+	if !ctx.CheckQuota(quota_model.LimitSubjectSizeReposAll, ctxUser.ID, ctxUser.Name) {
+		ctx.Flash.Error(ctx.Tr("form.max_size_reached"))
+		ctx.Redirect(setting.AppSubURL + "/repo/migrate?service_type=0")
+		return
+	}
 	ctx.Data["ContextUser"] = ctxUser
 
 	tpl := base.TplName("repo/migrate/" + form.Service.Name())
@@ -322,22 +329,31 @@ func MassMigratePost(ctx *context.Context) {
 		ctx.Error(http.StatusForbidden, "Migrate: the site administrator has disabled migrations")
 		return
 	}
+	if form.Mirror && setting.Mirror.DisableNewPull {
+		ctx.Flash.Error(ctx.Tr("repo.migrate.mirror_disabled"))
+		ctx.Redirect(setting.AppSubURL + "/repo/migrate?service_type=0")
+		return
+	}
+	base := strings.TrimSuffix(form.CloneAddr, "/")
+	if err := migrations_allowlist.IsMigrateURLAllowed(base+"/", ctx.Doer); err != nil {
+		ctx.Flash.Error(ctx.Tr("repo.migrate.permission_denied_blocked"))
+		ctx.Redirect(setting.AppSubURL + "/repo/migrate?service_type=0")
+		return
+	}
 	ctxUser := checkContextUser(ctx, form.UID)
 	if ctx.Written() {
 		return
 	}
 
-	var listURL string
 	switch form.Service {
 	case structs.BlacksmithService, structs.ForgejoService, structs.GiteaService:
-		listURL = strings.TrimSuffix(form.CloneAddr, "/")
 	default:
 		ctx.Flash.Error(ctx.Tr("repo.migrate.mass.unsupported_service"))
 		ctx.Redirect(setting.AppSubURL + "/repo/migrate?service_type=0")
 		return
 	}
 
-	repos, err := listRemoteOwnerRepos(ctx, listURL, form)
+	repos, err := listRemoteOwnerRepos(ctx, base, form)
 	if err != nil {
 		ctx.Flash.Error(ctx.Tr("repo.migrate.mass.list_failed", err.Error()))
 		ctx.Redirect(setting.AppSubURL + "/repo/migrate?service_type=0")
@@ -349,6 +365,9 @@ func MassMigratePost(ctx *context.Context) {
 		return
 	}
 
+	if len(repos) > 100 {
+		repos = repos[:100]
+	}
 	succeeded := []string{}
 	failed := map[string]string{}
 	for _, name := range repos {
@@ -394,12 +413,14 @@ func MassMigratePost(ctx *context.Context) {
 
 // listRemoteOwnerRepos returns the repository names of a remote
 // user or org via the forgejo-compatible REST API.
+var massHTTPClient = &http.Client{Timeout: 30 * time.Second}
+
 func listRemoteOwnerRepos(ctx *context.Context, base string, form *forms.MassMigrateForm) ([]string, error) {
 	names := []string{}
 	for _, kind := range []string{"orgs", "users"} {
 		page := 1
-		for {
-			u := fmt.Sprintf("%s/api/v1/%s/%s/repos?limit=50&page=%d", base, kind, form.Owner, page)
+		for page <= 40 {
+			u := fmt.Sprintf("%s/api/v1/%s/%s/repos?limit=50&page=%d", base, kind, url.PathEscape(form.Owner), page)
 			req, err := http.NewRequestWithContext(ctx, http.MethodGet, u, nil)
 			if err != nil {
 				return nil, err
@@ -409,7 +430,7 @@ func listRemoteOwnerRepos(ctx *context.Context, base string, form *forms.MassMig
 			} else if form.AuthUsername != "" {
 				req.SetBasicAuth(form.AuthUsername, form.AuthPassword)
 			}
-			resp, err := http.DefaultClient.Do(req)
+			resp, err := massHTTPClient.Do(req)
 			if err != nil {
 				return nil, err
 			}
@@ -422,9 +443,9 @@ func listRemoteOwnerRepos(ctx *context.Context, base string, form *forms.MassMig
 			}
 			if resp.StatusCode != http.StatusOK {
 				resp.Body.Close()
-				return nil, fmt.Errorf("%s returned %d", u, resp.StatusCode)
+				return nil, fmt.Errorf("remote returned %d", resp.StatusCode)
 			}
-			if err := json.NewDecoder(resp.Body).Decode(&payload); err != nil {
+			if err := json.NewDecoder(io.LimitReader(resp.Body, 4<<20)).Decode(&payload); err != nil {
 				resp.Body.Close()
 				return nil, err
 			}

@@ -58,12 +58,10 @@
 						{{.ProfileReadme}}
 					{{end}}
 					</div>
-				{{else if and FederationEnabled (eq .TabName "feed")}}
+				
 					{{if eq .SignedUserID .ContextUser.ID}}
 						{{if .FollowingFeeds}}
-							{{template "user/dashboard/ap_feed" .}}
 						{{else}}
-							{{template "user/dashboard/ap_feed_guide" .}}
 						{{end}}
 					{{end}}
 				{{else}}

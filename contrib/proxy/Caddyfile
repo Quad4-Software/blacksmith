@@ -29,7 +29,8 @@
 	}
 
 	# Never serve dotfiles or well-known probe targets.
-	@dotfiles path */.* /.git/* /.env /*.sql /*.bak /*.old /*.swp
+	@dotfiles path */.*
+	@wellknown path /.well-known/* /.git/* /.env /*.sql /*.bak /*.old /*.swp
 	respond @dotfiles 404
 
 	@probe path /wp-* /wp-admin/* /wp-login* /wp-content/* /xmlrpc.php /phpmyadmin/* /pma/* /.git/* /.svn/* /cgi-bin/* /vendor/phpunit/* /boaform/* /hudson /manager/html /actuator/* /console/* /jmx-console/* /solr/* /HNAP1 /etc/passwd /proc/* /windows/* /winnt/*

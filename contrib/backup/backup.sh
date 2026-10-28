@@ -49,6 +49,6 @@ if [ -n "${RESTIC_FORGET_ARGS:-}" ]; then
     restic forget --prune ${RESTIC_FORGET_ARGS}
 fi
 
-restic check --with-cache --read-data-subset=5% || true
+[ "$(date +%u)" = "7" ] && restic check --with-cache --read-data-subset=5% || true
 
 echo "backup complete"

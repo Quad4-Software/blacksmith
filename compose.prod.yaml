@@ -76,7 +76,7 @@ services:
       BLACKSMITH__database__USER: ${DB_USER:-blacksmith}
       BLACKSMITH__database__PASSWD: ${DB_PASSWD:-}
       BLACKSMITH__service__DISABLE_REGISTRATION: ${DISABLE_REGISTRATION:-true}
-      BLACKSMITH__security__INSTALL_LOCK: ${INSTALL_LOCK:-false}
+      BLACKSMITH__security__INSTALL_LOCK: ${INSTALL_LOCK:-true}
       BLACKSMITH__server__SSH_PORT: "22"
       BLACKSMITH__server__SSH_LISTEN_PORT: "2222"
       BLACKSMITH__server__START_SSH_SERVER: "true"
@@ -94,7 +94,7 @@ services:
       # cap captcha (trycap.dev) for registration and login
       BLACKSMITH__service__ENABLE_CAPTCHA: ${ENABLE_CAPTCHA:-false}
       BLACKSMITH__service__CAPTCHA_TYPE: ${CAPTCHA_TYPE:-cap}
-      BLACKSMITH__service__CAP_URL: ${CAP_URL:-https://cap.quad4.io/}
+      BLACKSMITH__service__CAP_URL: ${CAP_URL:-}
       BLACKSMITH__service__CAP_SITEKEY: ${CAP_SITEKEY:-}
       BLACKSMITH__service__CAP_SECRET: ${CAP_SECRET:-}
     ports:
@@ -206,7 +206,7 @@ services:
   valkey:
     image: docker.io/valkey/valkey:9-alpine
     restart: unless-stopped
-    command: valkey-server --save 60 1 --loglevel warning --maxmemory 256mb --maxmemory-policy allkeys-lru
+    command: valkey-server --save 300 100 --loglevel warning --maxmemory 256mb --maxmemory-policy noeviction
     volumes:
       - valkey-data:/data
     networks:

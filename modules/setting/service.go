@@ -239,7 +239,7 @@ func loadServiceFrom(rootCfg ConfigProvider) {
 	Service.McaptchaURL = sec.Key("MCAPTCHA_URL").MustString("https://demo.mcaptcha.org/")
 	Service.McaptchaSecret = sec.Key("MCAPTCHA_SECRET").MustString("")
 	Service.McaptchaSitekey = sec.Key("MCAPTCHA_SITEKEY").MustString("")
-	Service.CapURL = sec.Key("CAP_URL").MustString("https://cap.quad4.io/")
+	Service.CapURL = sec.Key("CAP_URL").MustString("")
 	Service.CapSecret = sec.Key("CAP_SECRET").MustString("")
 	Service.CapSitekey = sec.Key("CAP_SITEKEY").MustString("")
 	Service.DefaultKeepEmailPrivate = sec.Key("DEFAULT_KEEP_EMAIL_PRIVATE").MustBool(true)

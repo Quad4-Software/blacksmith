@@ -19,12 +19,13 @@ After=network-online.target
 Wants=network-online.target
 
 [Container]
+Environment=BLACKSMITH__security__INSTALL_LOCK=true
 Image=blacksmith:latest
 ContainerName=blacksmith
 AutoUpdate=registry
 
 PublishPort=2222:2222
-PublishPort=3000:3000
+PublishPort=127.0.0.1:3000:3000
 
 Volume=%h/blacksmith/data:/var/lib/blacksmith:Z
 Tmpfs=/tmp/blacksmith:U=65532,G=65532
