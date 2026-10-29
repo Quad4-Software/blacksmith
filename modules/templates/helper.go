@@ -31,6 +31,9 @@ func NewFuncMap() template.FuncMap {
 	return map[string]any{
 		"ctx": func() any { return nil }, // template context function
 
+		// federation was removed; stub keeps legacy templates compiling
+		"FederationEnabled": func() bool { return false },
+
 		"ExecuteTemplate": func(ctx context.Context, tmplName string, args any) template.HTML {
 			h := HTMLRenderer()
 			tmpl, err := h.TemplateLookup(tmplName, ctx)
