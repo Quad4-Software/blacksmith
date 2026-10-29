@@ -101,7 +101,9 @@ forge account and repos get webhooks automatically.
 
 For rootless podman + systemd, install `contrib/quadlets/blacksmith.container`
 into `~/.config/containers/systemd/` and enable
-`podman-auto-update.timer`.
+`podman-auto-update.timer`. The Quadlet stores sessions under the persistent
+Blacksmith data volume, so container updates and host restarts do not clear
+active sessions.
 
 ## Layout
 

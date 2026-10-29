@@ -20,6 +20,8 @@ Wants=network-online.target
 
 [Container]
 Environment=BLACKSMITH__security__INSTALL_LOCK=true
+Environment=BLACKSMITH__session__PROVIDER=file
+Environment=BLACKSMITH__session__PROVIDER_CONFIG=/var/lib/blacksmith/data/sessions
 Image=blacksmith:latest
 ContainerName=blacksmith
 AutoUpdate=registry
