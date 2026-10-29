@@ -38,6 +38,17 @@
 
 	encode zstd gzip
 
+	# Fingerprinted assets (css/js/img with ?v= versions) are safe to
+	# cache forever. Repeat visits skip the render-blocking downloads.
+	@static path /assets/* /vendor/*
+	header @static Cache-Control "public, max-age=31536000, immutable"
+
+	@avatars path /avatars/* /repo-avatars/*
+	header @avatars Cache-Control "public, max-age=300"
+
+	@docs path /swagger.* /api/*
+	header @docs Cache-Control "no-store"
+
 	header {
 		-Server
 		-Powered-By
