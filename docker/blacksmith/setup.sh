@@ -80,4 +80,4 @@ PATH = ${BLACKSMITH_WORK_DIR}/git/lfs
 EOF
 fi
 
-environment-to-ini && chmod 0600 "${BLACKSMITH_APP_INI}" --config "${BLACKSMITH_APP_INI}"
+environment-to-ini --config "${BLACKSMITH_APP_INI}" && chmod 0600 "${BLACKSMITH_APP_INI}"
