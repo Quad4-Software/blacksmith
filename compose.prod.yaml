@@ -242,7 +242,7 @@ services:
   # CROW_FORGEJO_SECRET in .env. Crow logs in with forge accounts
   # and receives repo webhooks automatically.
   crow-server:
-    image: codefloe.com/crowci/crow-server:v6.12
+    image: ghcr.io/quad4-software/blacksmith-ci-server:latest
     restart: unless-stopped
     profiles:
       - crow
@@ -269,7 +269,7 @@ services:
       - no-new-privileges:true
 
   crow-agent:
-    image: codefloe.com/crowci/crow-agent:v6.12
+    image: ghcr.io/quad4-software/blacksmith-ci-agent:latest
     restart: unless-stopped
     profiles:
       - crow
