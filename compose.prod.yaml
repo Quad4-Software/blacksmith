@@ -237,10 +237,12 @@ services:
       - no-new-privileges:true
 
   # Crow CI server + agent. Blacksmith side: create an OAuth2 app
-  # (Settings -> Applications) with redirect
+  # named Blacksmith CI (Settings -> Applications) with redirect
   # ${CROW_HOST}/authorize, then set CROW_FORGEJO_CLIENT and
   # CROW_FORGEJO_SECRET in .env. Crow logs in with forge accounts
-  # and receives repo webhooks automatically.
+  # and receives repo webhooks automatically. CROW_HOST must be
+  # the public CI URL and ROOT_URL the public forge URL so the
+  # authorize redirect never shows localhost.
   crow-server:
     image: ghcr.io/quad4-software/blacksmith-ci-server:latest
     restart: unless-stopped
@@ -252,7 +254,7 @@ services:
       - crow-data:/var/lib/crow
     environment:
       CROW_OPEN: "false"
-      CROW_HOST: ${CROW_HOST:-http://localhost:8000}
+      CROW_HOST: ${CROW_HOST:?set CROW_HOST, e.g. https://ci.quad4.io}
       CROW_AGENT_SECRET: ${CROW_AGENT_SECRET:?set CROW_AGENT_SECRET}
       CROW_FORGEJO: "true"
       CROW_FORGEJO_URL: ${ROOT_URL:-https://${BLACKSMITH_DOMAIN:-localhost}/}
