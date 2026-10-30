@@ -108,9 +108,11 @@ func TestHostOrIPMatchesList(t *testing.T) {
 		{"", net.ParseIP("100.64.0.0"), false},
 		{"", net.ParseIP("100.127.255.255"), false},
 		{"", net.ParseIP("100.128.0.0"), true},
+		{"", net.ParseIP("169.254.169.254"), false},
 
 		{"", net.ParseIP("::1"), false},
 		{"", net.ParseIP("fd00::1"), false},
+		{"", net.ParseIP("fe80::1"), false},
 		{"", net.ParseIP("1000::1"), true},
 
 		{"mydomain.com", net.IPv4zero, false},

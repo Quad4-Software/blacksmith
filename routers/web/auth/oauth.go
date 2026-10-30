@@ -16,12 +16,14 @@ import (
 	"net/url"
 	"sort"
 	"strings"
+	"time"
 
 	asymkey_model "forgejo.org/models/asymkey"
 	"forgejo.org/models/auth"
 	org_model "forgejo.org/models/organization"
 	user_model "forgejo.org/models/user"
 	auth_module "forgejo.org/modules/auth"
+	"forgejo.org/modules/avatar"
 	"forgejo.org/modules/base"
 	"forgejo.org/modules/container"
 	"forgejo.org/modules/json"
@@ -1287,7 +1289,13 @@ func showLinkingLogin(ctx *context.Context, gothUser goth.User) {
 
 func updateAvatarIfNeed(ctx *context.Context, url string, u *user_model.User) {
 	if setting.OAuth2Client.UpdateAvatar && len(url) > 0 {
-		resp, err := http.Get(url)
+		client := avatar.NewExternalHTTPClient(10 * time.Second)
+		defer client.CloseIdleConnections()
+		request, err := http.NewRequestWithContext(ctx.Req.Context(), http.MethodGet, url, nil)
+		if err != nil {
+			return
+		}
+		resp, err := client.Do(request)
 		if err == nil {
 			defer func() {
 				_ = resp.Body.Close()

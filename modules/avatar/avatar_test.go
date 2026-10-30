@@ -311,3 +311,17 @@ func Test_FetchExternalImageData(t *testing.T) {
 		})
 	}
 }
+
+func TestNewExternalHTTPClientBlocksLoopback(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	}))
+	defer server.Close()
+
+	defer test.MockVariableValue(&setting.Proxy.Enabled, false)()
+	client := NewExternalHTTPClient(time.Second)
+	defer client.CloseIdleConnections()
+
+	_, err := client.Get(server.URL)
+	require.Error(t, err)
+}

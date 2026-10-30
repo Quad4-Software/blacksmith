@@ -12,12 +12,15 @@ import (
 	"image/png"
 	"io"
 	"net/http"
+	"time"
 
 	_ "image/gif"  // for processing gif images
 	_ "image/jpeg" // for processing jpeg images
 
 	"forgejo.org/modules/avatar/identicon"
+	"forgejo.org/modules/hostmatcher"
 	"forgejo.org/modules/log"
+	"forgejo.org/modules/proxy"
 	"forgejo.org/modules/setting"
 
 	"golang.org/x/image/draw"
@@ -30,6 +33,18 @@ import (
 // usual size of avatar image saved on server, unless the original file is smaller
 // than the size after resizing.
 const DefaultAvatarSize = 256
+
+// NewExternalHTTPClient returns an HTTP client restricted to non-private, non-link-local unicast addresses.
+func NewExternalHTTPClient(timeout time.Duration) *http.Client {
+	allowList := hostmatcher.ParseHostMatchList("avatar.URL", hostmatcher.MatchBuiltinExternal)
+	return &http.Client{
+		Timeout: timeout,
+		Transport: &http.Transport{
+			Proxy:       proxy.Proxy(),
+			DialContext: hostmatcher.NewDialContext("avatar", allowList, nil, setting.Proxy.ProxyURLFixed),
+		},
+	}
+}
 
 // Sizes to which we allow resizing an avatar down to. They must be specified in increasing order.
 var AllowedResizedAvatarSizes = []int{64, 128}
