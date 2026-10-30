@@ -5,7 +5,7 @@ import {attachTribute} from '../tribute.js';
 import {autosize, hideElem, isElemVisible, replaceTextareaSelection, showElem} from '../../utils/dom.ts';
 import {initEasyMDEPaste, initTextareaPaste} from './Paste.js';
 import {handleGlobalEnterQuickSubmit} from './QuickSubmit.js';
-import {renderPreviewPanelContent} from '../repo-editor.js';
+import {renderPreviewPanelContent} from '../repo-editor-preview.js';
 import {easyMDEToolbarActions} from './EasyMDEToolbarActions.js';
 import {initTextExpander} from './TextExpander.js';
 import {showErrorToast, showHintToast} from '../../modules/toast.ts';

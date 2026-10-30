@@ -1,5 +1,6 @@
 import {expect, test} from 'vitest';
-import {svg, SvgIcon, svgParseOuterInner} from './svg.ts';
+import {svg, svgParseOuterInner} from './svg.ts';
+import {SvgIcon} from './svg-icon.ts';
 import {createApp, h} from 'vue';
 
 test('svg', () => {

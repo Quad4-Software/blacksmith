@@ -1,7 +1,7 @@
 <script>
 import {nextTick} from 'vue';
 import $ from 'jquery';
-import {SvgIcon} from '../svg.ts';
+import {SvgIcon} from '../svg-icon.ts';
 import {pathEscapeSegments} from '../utils/url.ts';
 import {showErrorToast} from '../modules/toast.ts';
 import {GET} from '../modules/fetch.ts';

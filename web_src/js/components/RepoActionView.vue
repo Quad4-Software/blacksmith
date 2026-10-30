@@ -1,5 +1,5 @@
 <script>
-import {SvgIcon} from '../svg.ts';
+import {SvgIcon} from '../svg-icon.ts';
 import ActionRunStatus from './ActionRunStatus.vue';
 import ActionJobStepList from './ActionJobStepList.vue';
 import {toggleElem} from '../utils/dom.ts';

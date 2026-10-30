@@ -9,22 +9,18 @@ import {
 import {initUnicodeEscapeButton} from './repo-unicode-escape.js';
 import {svg} from '../svg.ts';
 import {htmlEscape} from 'escape-goat';
-import {initRepoBranchTagSelector} from './repo-branch-tag-selector.js';
 import {
   initRepoCloneLink, initRepoCommonBranchOrTagDropdown, initRepoCommonFilterSearchDropdown,
 } from './repo-common.js';
 import {initCompLabelEdit} from './comp/LabelEdit.js';
-import {initRepoDiffConversationNav} from './repo-diff.js';
 import {syncSuggestionBatchUI} from './repo-suggestion.js';
 import {showErrorToast} from '../modules/toast.ts';
 import {initCommentContent, initMarkupContent} from '../markup/content.js';
 import {initCompReactionSelector} from './comp/ReactionSelector.js';
 import {initRepoSettingBranches} from './repo-settings.js';
-import {initRepoPullRequestMergeForm} from './repo-issue-pr-form.js';
 import {initRepoPullRequestCommitStatus} from './repo-issue-pr-status.js';
 import {hideElem, showElem} from '../utils/dom.ts';
 import {getComboMarkdownEditor, initComboMarkdownEditor} from './comp/ComboMarkdownEditor.js';
-import {attachRefIssueContextPopup} from './contextpopup.js';
 import {POST} from '../modules/fetch.ts';
 import {MarkdownQuote} from '@github/quote-selection';
 import {toAbsoluteUrl} from '../utils.ts';
@@ -354,7 +350,9 @@ async function onEditContent(event) {
         renderContent.innerHTML = data.content;
         rawContent.textContent = comboMarkdownEditor.value();
         const refIssues = renderContent.querySelectorAll('p .ref-issue');
-        attachRefIssueContextPopup(refIssues);
+        if (refIssues.length) {
+          import('./contextpopup.js').then(({attachRefIssueContextPopup}) => attachRefIssueContextPopup(refIssues));
+        }
       }
       // refresh the server-rendered suggestion diff(s) so an added/changed suggestion shows without a reload
       for (const old of segment.querySelectorAll('.suggestion-diff')) old.remove();
@@ -412,7 +410,9 @@ async function onEditContent(event) {
 export function initRepository() {
   if (!$('.page-content.repository').length) return;
 
-  initRepoBranchTagSelector('.js-branch-tag-selector');
+  if (document.querySelector('.js-branch-tag-selector')) {
+    import('./repo-branch-tag-selector.js').then(({initRepoBranchTagSelector}) => initRepoBranchTagSelector('.js-branch-tag-selector'));
+  }
 
   // Options
   if ($('.repository.settings.options').length > 0) {
@@ -483,7 +483,9 @@ export function initRepository() {
     initRepoIssueWipToggle();
     initRepoIssueComments();
 
-    initRepoDiffConversationNav();
+    if (document.querySelector('.previous-conversation, .next-conversation')) {
+      import('./repo-diff.js').then(({initRepoDiffConversationNav}) => initRepoDiffConversationNav());
+    }
     initRepoIssueReferenceIssue();
 
     initRepoIssueCommentDelete();
@@ -492,7 +494,9 @@ export function initRepository() {
     initRepoPullRequestUpdate();
     initCompReactionSelector($(document));
 
-    initRepoPullRequestMergeForm();
+    if (document.getElementById('pull-request-merge-form')) {
+      import('./repo-issue-pr-form.js').then(({initRepoPullRequestMergeForm}) => initRepoPullRequestMergeForm());
+    }
     initRepoPullRequestCommitStatus();
   }
 

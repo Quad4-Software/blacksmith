@@ -1,12 +1,11 @@
 import $ from 'jquery';
 import {htmlEscape} from 'escape-goat';
 import {hideElem, showElem, createElementFromHTML} from '../utils/dom.ts';
-import {initMarkupContent} from '../markup/content.js';
-import {attachRefIssueContextPopup} from './contextpopup.js';
 import {POST} from '../modules/fetch.ts';
 import {initTab} from '../modules/tab.ts';
 import {showModal} from '../modules/modal.ts';
 import {createCodeEditor} from './codeeditor.ts';
+import {renderPreviewPanelContent} from './repo-editor-preview.js';
 
 function initEditPreviewTab($form) {
   const $tabMenu = $form.find('.switch');
@@ -191,12 +190,4 @@ export function initRepoEditor() {
       }
     });
   })();
-}
-
-export function renderPreviewPanelContent($panelPreviewer, data) {
-  $panelPreviewer.html(data);
-  initMarkupContent();
-
-  const $refIssues = $panelPreviewer.find('p .ref-issue');
-  attachRefIssueContextPopup($refIssues);
 }

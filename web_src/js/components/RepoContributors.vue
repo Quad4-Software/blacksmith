@@ -1,5 +1,5 @@
 <script>
-import {SvgIcon} from '../svg.ts';
+import {SvgIcon} from '../svg-icon.ts';
 import dayjs from 'dayjs';
 import {
   Chart,

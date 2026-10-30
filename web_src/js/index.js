@@ -1,13 +1,8 @@
 // bootstrap module must be the first one to be imported, it handles webpack lazy-loading and global errors
 import './bootstrap.js';
 
-import {initRepoActivityTopAuthorsChart} from './features/repo-activity-top-authors.ts';
-import {initDashboardRepoList} from './features/dashboard-repo-list.ts';
-
 import {initGlobalCopyToClipboardListener} from './features/clipboard.js';
-import {initContextPopups} from './features/contextpopup.js';
 import {initRepoGraphGit} from './features/repo-graph.js';
-import {initHeatmap} from './features/heatmap.js';
 import {initImageDiff} from './features/imagediff.js';
 import {initRepoMigration} from './features/repo-migration.js';
 import {initRepoProject} from './features/repo-projects.ts';
@@ -59,12 +54,10 @@ import {
   initRepoSettingsCollaboration,
   initRepoSettingSearchTeamBox,
 } from './features/repo-settings.js';
-import {initRepoDiffView} from './features/repo-diff.js';
 import {initRepoSuggestionApply} from './features/repo-suggestion.js';
 import {initOrgTeamSearchRepoBox} from './features/org-team.js';
 import {initUserAuthWebAuthn, initUserAuthWebAuthnRegister} from './features/user-auth-webauthn.js';
 import {initRepoRelease, initRepoReleaseNew} from './features/repo-release.js';
-import {initRepoEditor} from './features/repo-editor.js';
 import {initAddOrgMemberButton} from './features/add-org-member.ts';
 import {initCompSearchUserBox} from './features/comp/SearchUserBox.js';
 import {initInstall} from './features/install.js';
@@ -75,16 +68,12 @@ import {initRepoWikiForm} from './features/repo-wiki.js';
 import {initRepoCommentForm, initRepository} from './features/repo-legacy.js';
 import {initCopyContent} from './features/copycontent.js';
 import {initCaptcha} from './features/captcha.js';
-import {initRepositoryActionView} from './features/repo-action-view.ts';
 import {initGlobalTooltips} from './modules/tippy.js';
 import {initDropdowns} from './modules/dropdown.ts';
 import {initGiteaFomantic} from './modules/fomantic.js';
 import {onDomReady} from './utils/dom.ts';
 import {initRepoIssueList} from './features/repo-issue-list.js';
 import {initCommonIssueListQuickGoto} from './features/common-issue-list.js';
-import {initRepoContributors} from './features/contributors.js';
-import {initRepoCodeFrequency} from './features/code-frequency.js';
-import {initRepoRecentCommits} from './features/recent-commits.js';
 import {initRepoDiffCommitBranchesAndTags} from './features/repo-diff-commit.js';
 import {initDirAuto} from './modules/dirauto.js';
 import {initRepositorySearch} from './features/repo-search.js';
@@ -128,8 +117,12 @@ onDomReady(() => {
   initFootLanguageMenu();
 
   initCommentContent();
-  initContextPopups();
-  initHeatmap();
+  if (document.querySelector('.ref-issue')) {
+    import('./features/contextpopup.js').then(({initContextPopups}) => initContextPopups());
+  }
+  if (document.getElementById('user-heatmap')) {
+    import('./features/heatmap.js').then(({initHeatmap}) => initHeatmap());
+  }
   initImageDiff();
   initMarkupAnchors();
   initMarkupContent();
@@ -145,21 +138,27 @@ onDomReady(() => {
   initAdminUserListSearchForm();
   initAdminConfigs();
 
-  initDashboardRepoList();
+  if (document.getElementById('dashboard-repo-list')) {
+    import('./features/dashboard-repo-list.ts').then(({initDashboardRepoList}) => initDashboardRepoList());
+  }
 
   initNotificationCount();
   initNotificationsTable();
 
   initOrgTeamSearchRepoBox();
 
-  initRepoActivityTopAuthorsChart();
+  if (document.getElementById('repo-activity-top-authors-chart')) {
+    import('./features/repo-activity-top-authors.ts').then(({initRepoActivityTopAuthorsChart}) => initRepoActivityTopAuthorsChart());
+  }
   initRepoArchiveLinks();
   initRepoBranchButton();
   initRepoCodeView();
   initRepoCommentForm();
   initRepoEllipsisButton();
   initRepoDiffCommitBranchesAndTags();
-  initRepoEditor();
+  if (document.querySelector('.repository .edit.form, .js-quick-pull-choice-option')) {
+    import('./features/repo-editor.js').then(({initRepoEditor}) => initRepoEditor());
+  }
   initAddOrgMemberButton();
   initRepoGraphGit();
   initRepoIssueContentHistory();
@@ -184,11 +183,22 @@ onDomReady(() => {
   initRepoTopicBar();
   initRepoWikiForm();
   initRepository();
-  initRepositoryActionView();
+  if (document.getElementById('repo-action-view')) {
+    import('./features/repo-action-view.ts').then(({initRepositoryActionView}) => initRepositoryActionView());
+  }
   initRepositorySearch();
-  initRepoContributors();
-  initRepoCodeFrequency();
-  initRepoRecentCommits();
+  if (document.getElementById('repo-contributors-chart')) {
+    import('./features/contributors.js').then(({initRepoContributors}) => initRepoContributors());
+  }
+  if (document.getElementById('repo-code-frequency-chart')) {
+    import('./features/code-frequency.js').then(({initRepoCodeFrequency}) => initRepoCodeFrequency());
+  }
+  if (document.getElementById('repo-recent-commits-chart')) {
+    import('./features/recent-commits.js').then(({initRepoRecentCommits}) => initRepoRecentCommits());
+  }
+  if (document.querySelector('#diff-file-boxes, .conversation-holder')) {
+    import('./features/repo-diff.js').then(({initRepoDiffView}) => initRepoDiffView());
+  }
   initRepoMilestoneEditor();
 
   initCommitStatuses();
@@ -199,7 +209,6 @@ onDomReady(() => {
   initUserAuthWebAuthn();
   initUserAuthWebAuthnRegister();
   initUserAuth();
-  initRepoDiffView();
   initRepoSuggestionApply();
   initColorPickers();
   initModalClose();

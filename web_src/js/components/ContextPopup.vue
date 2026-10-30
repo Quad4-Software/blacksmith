@@ -1,5 +1,5 @@
 <script>
-import {SvgIcon} from '../svg.ts';
+import {SvgIcon} from '../svg-icon.ts';
 import {contrastColor} from '../utils/color.ts';
 import {GET} from '../modules/fetch.ts';
 import {emojiHTML} from '../features/emoji.ts';
