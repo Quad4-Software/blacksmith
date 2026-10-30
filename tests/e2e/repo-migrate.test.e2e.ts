@@ -16,6 +16,7 @@ test('Migration type selection screen', async ({page}) => {
   await expect(page.locator('svg.gitea-git')).toBeVisible();
   await expect(page.locator('svg.octicon-mark-github')).toBeVisible();
   await expect(page.locator('svg.gitea-gitlab')).toBeVisible();
+  await expect(page.locator('svg.gitea-blacksmith')).toBeVisible();
   await expect(page.locator('svg.gitea-forgejo')).toBeVisible();
   await expect(page.locator('svg.gitea-gitea')).toBeVisible();
   await expect(page.locator('svg.gitea-gogs')).toBeVisible();
