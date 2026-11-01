@@ -7,6 +7,9 @@ SPDX-License-Identifier: GPL-3.0-or-later
 import SvgIcon from './SvgIcon.svelte';
 import ActionRunStatus from './ActionRunStatus.svelte';
 import ActionJobStepList from './ActionJobStepList.svelte';
+import ActionLogSearch from './ActionLogSearch.svelte';
+import {findFirstErrorLine} from '../modules/action-log-search.ts';
+import {useEventListener} from 'runed';
 import {toggleElem} from '../utils/dom.ts';
 import {GET, POST, DELETE} from '../modules/fetch.ts';
 import {initMarkupContent} from '../markup/content.js';
@@ -50,6 +53,11 @@ interface Locale {
   areYouSure: string; confirmDeleteArtifact: string; rerun_all: string;
   showTimeStamps: string; showLogSeconds: string; showFullScreen: string;
   downloadLogs: string; runAttemptLabel: string; viewingOutOfDateRun: string;
+  logSearchToggle: string; logSearchPlaceholder: string; logSearchCount: string;
+  logSearchNoMatches: string; logSearchPrevious: string; logSearchNext: string;
+  logSearchCaseSensitive: string; logSearchClose: string;
+  logSearchStepsNotLoaded: string; logSearchLoadAll: string;
+  logJumpToError: string; logExpandAll: string; logCollapseAll: string;
   viewMostRecentRun: string; preExecutionError: string; preExecutionWarning: string;
   status: Record<string, string>;
 }
@@ -90,6 +98,11 @@ let needLoadingWithLogCursors = null;
 let intervalID = $state<ReturnType<typeof setInterval> | null>(null);
 let lineNumberOffset = [];
 let currentJobStepsStates = $state<Array<{cursor: number | null, expanded: boolean}>>([]);
+let searchOpen = $state(false);
+let searchRefreshKey = $state(0);
+let logsPanelEl = $state<HTMLElement | null>(null);
+let searchToggleEl = $state<HTMLButtonElement>();
+let autoExpandDone = false;
 let artifacts = $state<Artifact[]>([]);
 let menuVisible = $state<string | undefined>(undefined);
 let isFullScreen = $state(false);
@@ -321,6 +334,18 @@ export async function loadJob(initializationData?) {
       lineNumberOffset[logs.step] = 0;
       currentJobStepsStates[logs.step].cursor = logs.cursor;
       await appendLogs(logs.step, logs.lines, logs.started);
+      searchRefreshKey++;
+    }
+
+    if (!autoExpandDone) {
+      autoExpandDone = true;
+      if (run.done && !window.location.hash) {
+        const failed = currentJob.steps.findIndex((s) => s.status === 'failure' && isExpandable(s.status));
+        if (failed !== -1) {
+          currentJobStepsStates[failed].expanded = true;
+          await loadJob();
+        }
+      }
     }
 
     if (run.done) {
@@ -346,6 +371,78 @@ function navigateToMostRecentAttempt() {
 function isDone(status) {
   return ['success', 'skipped', 'failure', 'cancelled'].includes(status);
 }
+
+const hasFailedStep = $derived(Boolean(currentJob.steps?.some((s) => s.status === 'failure')));
+const unloadedSteps = $derived(
+  currentJob.steps ? currentJob.steps.filter((step, i) => isExpandable(step.status) && currentJobStepsStates[i]?.cursor === null).length : 0,
+);
+
+async function loadAllSteps() {
+  for (let i = 0; i < currentJobStepsStates.length; i++) {
+    if (currentJobStepsStates[i] && currentJobStepsStates[i].cursor === null) {
+      currentJobStepsStates[i].expanded = true;
+    }
+  }
+  await loadJob();
+}
+
+const logSearchLocale = $derived({
+  placeholder: locale.logSearchPlaceholder,
+  count: locale.logSearchCount,
+  noMatches: locale.logSearchNoMatches,
+  previous: locale.logSearchPrevious,
+  next: locale.logSearchNext,
+  caseSensitive: locale.logSearchCaseSensitive,
+  close: locale.logSearchClose,
+  stepsNotLoaded: locale.logSearchStepsNotLoaded,
+  loadAll: locale.logSearchLoadAll,
+});
+
+async function expandAllSteps() {
+  for (let i = 0; i < currentJob.steps.length; i++) {
+    if (isExpandable(currentJob.steps[i].status)) currentJobStepsStates[i].expanded = true;
+  }
+  await loadJob();
+}
+
+function collapseAllSteps() {
+  for (let i = 0; i < currentJob.steps.length; i++) {
+    if (isExpandable(currentJob.steps[i].status)) currentJobStepsStates[i].expanded = false;
+  }
+}
+
+async function jumpToFirstError() {
+  const idx = currentJob.steps.findIndex((s) => s.status === 'failure');
+  if (idx === -1) return;
+  if (!currentJobStepsStates[idx]?.expanded || currentJobStepsStates[idx]?.cursor === null) {
+    currentJobStepsStates[idx].expanded = true;
+    await loadJob();
+    await tick();
+  }
+  const lines = Array.from(logsPanelEl?.querySelectorAll(`.job-log-line[id^="jobstep-${idx}-"]`) ?? []);
+  if (!lines.length) {
+    logsPanelEl?.querySelector(`.job-step-section:nth-of-type(${idx + 1}) .job-step-summary`)?.scrollIntoView({block: 'center'});
+    return;
+  }
+  const texts = lines.map((el) => el.querySelector('.log-msg')?.textContent ?? '');
+  let err = findFirstErrorLine(texts);
+  if (err === -1) err = lines.length - 1;
+  const m = /^jobstep-\d+-(\d+)$/.exec(lines[err].id);
+  if (m) window.location.hash = `#jobstep-${idx}-${m[1]}`;
+}
+
+function closeSearch() {
+  searchOpen = false;
+  searchToggleEl?.focus();
+}
+
+useEventListener(() => document, 'keydown', (e: KeyboardEvent) => {
+  if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey) return;
+  const t = e.target;
+  if (t instanceof Element && t.closest('input, textarea, select, [contenteditable=""], [contenteditable="true"]')) return;
+  e.preventDefault();
+  searchOpen = true;
+});
 
 function isExpandable(status) {
   return ['success', 'running', 'failure', 'cancelled'].includes(status);
@@ -617,6 +714,14 @@ onMount(() => {
           </div>
         {/if}
         <div class="job-info-header-right">
+          {#if hasFailedStep}
+            <button type="button" class="btn interact-bg tw:p-2" aria-label={locale.logJumpToError} data-tooltip-content={locale.logJumpToError} onclick={(e) => { e.stopPropagation(); jumpToFirstError(); }}>
+              <SvgIcon name="octicon-alert" size={18}/>
+            </button>
+          {/if}
+          <button type="button" class="btn interact-bg tw:p-2" bind:this={searchToggleEl} aria-label={locale.logSearchToggle} data-tooltip-content={locale.logSearchToggle} aria-expanded={searchOpen} aria-pressed={searchOpen} onclick={(e) => { e.stopPropagation(); searchOpen = !searchOpen; }}>
+            <SvgIcon name="octicon-search" size={18}/>
+          </button>
           <!-- the click comes from the keyboard accessible gear button inside, the container only forwards it -->
           <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
           <div class="ui top right pointing dropdown dark-dropdown custom jump item job-gear-dropdown" onclick={(e) => { e.stopPropagation(); toggleGearDropdown(); }}>
@@ -637,6 +742,14 @@ onMount(() => {
                   <i class="icon"><SvgIcon name={isFullScreen ? 'octicon-check' : 'gitea-empty-checkbox'}/></i>
                   {locale.showFullScreen}
                 </button>
+                <button type="button" class="item" onclick={() => expandAllSteps()}>
+                  <i class="icon"><SvgIcon name="octicon-sidebar-expand"/></i>
+                  {locale.logExpandAll}
+                </button>
+                <button type="button" class="item" onclick={() => collapseAllSteps()}>
+                  <i class="icon"><SvgIcon name="octicon-sidebar-collapse"/></i>
+                  {locale.logCollapseAll}
+                </button>
                 <div class="divider"></div>
                 <a class={['item', !currentJob.steps.length ? 'disabled' : ''].filter(Boolean).join(' ')} href={run.link + '/jobs/' + jobIndex + '/attempt/' + viewingAttemptNumber + '/logs'} target="_blank" rel="noopener">
                   <i class="icon"><SvgIcon name="octicon-download"/></i>
@@ -655,6 +768,10 @@ onMount(() => {
           {/each}
         </div>
       {/if}
+      <div class="job-logs-panel" bind:this={logsPanelEl}>
+      {#if searchOpen}
+        <ActionLogSearch root={logsPanelEl} {unloadedSteps} refreshKey={searchRefreshKey} onclose={closeSearch} onloadall={loadAllSteps} locale={logSearchLocale}/>
+      {/if}
       <ActionJobStepList
         bind:this={stepList}
         steps={currentJob.steps}
@@ -666,6 +783,7 @@ onMount(() => {
         timeVisibleSeconds={timeVisible['log-time-seconds']}
         onToggleStepLogs={toggleStepLogs}
       />
+      </div>
     </div>
   </div>
 </div>
@@ -924,6 +1042,21 @@ onMount(() => {
 }
 
 /* end fomantic dropdown menu overrides */
+
+.job-info-header-right .btn {
+  color: #d0d7de;
+}
+
+.job-info-header-right .btn:hover,
+.job-info-header-right .btn:active {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff;
+}
+
+.job-info-header-right .btn:focus-visible {
+  outline: 2px solid #58a6ff;
+  outline-offset: 1px;
+}
 
 .job-info-header {
   display: flex;

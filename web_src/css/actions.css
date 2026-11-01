@@ -199,3 +199,15 @@
 .ui.vertical.menu.actions-menu .item .label {
   flex-shrink: 0;
 }
+
+::highlight(action-log-search) {
+  background-color: var(--color-accent);
+  color: var(--color-text);
+}
+::highlight(action-log-search-active) {
+  background-color: var(--color-primary);
+  color: var(--color-primary-contrast);
+}
+.action-log-search-active-line {
+  background-color: var(--color-accent);
+}

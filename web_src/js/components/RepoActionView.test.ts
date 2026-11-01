@@ -1,4 +1,4 @@
-import {afterEach, expect, test, vi} from 'vitest';
+import {describe, afterEach, expect, test, vi} from 'vitest';
 // Copyright 2025 The Forgejo Authors. All rights reserved.
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -34,6 +34,11 @@ const testLocale = {
   showLogSeconds: '',
   showFullScreen: '',
   downloadLogs: '',
+  logSearchToggle: '', logSearchPlaceholder: '', logSearchCount: '',
+  logSearchNoMatches: '', logSearchPrevious: '', logSearchNext: '',
+  logSearchCaseSensitive: '', logSearchClose: '',
+  logSearchStepsNotLoaded: '', logSearchLoadAll: '',
+  logJumpToError: 'Jump to first error', logExpandAll: 'Expand all steps', logCollapseAll: 'Collapse all steps',
   runAttemptLabel: 'Run attempt %[1]s %[2]s',
   viewingOutOfDateRun: 'oh no, out of date since %[1]s give or take or so',
   viewMostRecentRun: '',
@@ -703,8 +708,8 @@ test('gear dropdown uses the inner button for keyboard access and plain item but
   gear.click();
   await flushPromises();
   const items = Array.from(gear.querySelectorAll('.menu > .item'));
-  expect(items.map((x) => x.tagName)).toEqual(['BUTTON', 'BUTTON', 'BUTTON', 'A']);
-  expect(items.filter((x) => x.tagName === 'BUTTON').map((x) => x.getAttribute('type'))).toEqual(['button', 'button', 'button']);
+  expect(items.map((x) => x.tagName)).toEqual(['BUTTON', 'BUTTON', 'BUTTON', 'BUTTON', 'BUTTON', 'A']);
+  expect(items.filter((x) => x.tagName === 'BUTTON').map((x) => x.getAttribute('type'))).toEqual(['button', 'button', 'button', 'button', 'button']);
 
   // like the original anchors, activating a menu item bubbles to the dropdown and closes the menu
   (items[0] as HTMLElement).click();
@@ -747,4 +752,165 @@ test('artifact delete is a plain button that asks for confirmation', async () =>
   del.click();
   await flushPromises();
   expect(fetchSpy.mock.calls.some(([url, opts]) => String(url) === '/example-org/example-repo/actions/runs/10/artifacts/artifactname1' && opts?.method === 'DELETE')).toBe(true);
+});
+
+describe('log search bar', () => {
+  test('toggle button opens and closes the bar', async () => {
+    const {container} = render(RepoActionView, {props: defaultTestProps});
+    await flushPromises();
+    const toggle = container.querySelector('.job-info-header-right > button.btn');
+    expect(toggle).toBeTruthy();
+    (toggle as HTMLElement).click();
+    await flushPromises();
+    expect(container.querySelector('.action-log-search')).toBeTruthy();
+    (toggle as HTMLElement).click();
+    await flushPromises();
+    expect(container.querySelector('.action-log-search')).toBeNull();
+  });
+
+  test('pressing "/" opens the bar', async () => {
+    const {container} = render(RepoActionView, {props: defaultTestProps});
+    await flushPromises();
+    await fireEvent.keyDown(document.body, {key: '/'});
+    await flushPromises();
+    expect(container.querySelector('.action-log-search')).toBeTruthy();
+  });
+
+  test('"/" typed inside an input does not open the bar', async () => {
+    const {container} = render(RepoActionView, {props: defaultTestProps});
+    await flushPromises();
+    const input = document.createElement('input');
+    document.body.append(input);
+    input.focus();
+    await fireEvent.keyDown(input, {key: '/'});
+    await flushPromises();
+    expect(container.querySelector('.action-log-search')).toBeNull();
+    input.remove();
+  });
+
+  test('Esc closes the bar and focus returns to the toggle button', async () => {
+    const {container} = render(RepoActionView, {props: defaultTestProps});
+    await flushPromises();
+    const toggle = container.querySelector('.job-info-header-right > button.btn') as HTMLElement;
+    toggle.click();
+    await flushPromises();
+    expect(container.querySelector('.action-log-search')).toBeTruthy();
+    const input = container.querySelector('.action-log-search-input');
+    await fireEvent.keyDown(input, {key: 'Escape'});
+    await flushPromises();
+    expect(container.querySelector('.action-log-search')).toBeNull();
+    expect(document.activeElement).toEqual(toggle);
+  });
+});
+
+function setupFailedStep(lines = [{index: 1, message: 'all ok', timestamp: 0}, {index: 2, message: 'error: boom', timestamp: 1}], jobStatus = 'success') {
+  Object.defineProperty(document.documentElement, 'lang', {value: 'en'});
+  const fetchSpy = vi.spyOn(global, 'fetch').mockImplementation((url, opts) => {
+    if (String(url).endsWith('/artifacts')) {
+      return Promise.resolve({ok: true, json: vi.fn().mockResolvedValue({artifacts: []})} as unknown as Response);
+    }
+    const stepsLog_value = [];
+    for (const cursor of JSON.parse(String(opts.body ?? '{}')).logCursors ?? []) {
+      if (cursor.expanded) stepsLog_value.push({step: cursor.step, cursor: 0, lines});
+    }
+    return Promise.resolve({
+      ok: true,
+      json: vi.fn().mockResolvedValue({
+        state: {
+          run: {done: true, status: 'success', estimatedOutcome: 'success', commit: {pusher: {}}},
+          currentJob: {
+            summaries: [],
+            title: 'test',
+            steps: [
+              {summary: 'Step one', duration: '1s', status: 'success'},
+              {summary: 'Step two', duration: '1s', status: 'failure'},
+            ],
+          },
+        },
+        logs: {stepsLog: stepsLog_value},
+      }),
+    } as unknown as Response);
+  });
+  return {fetchSpy, jobStatus};
+}
+
+function failedStepProps() {
+  return {
+    ...defaultTestProps,
+    initialJobData: {
+      state: {
+        run: {done: true, status: 'success', estimatedOutcome: 'failure', commit: {pusher: {}}},
+        currentJob: {
+          summaries: [],
+          title: 'test',
+          steps: [
+            {summary: 'Step one', duration: '1s', status: 'success'},
+            {summary: 'Step two', duration: '1s', status: 'failure'},
+          ],
+        },
+      },
+      logs: {stepsLog: []},
+    },
+  };
+}
+
+describe('log features', () => {
+  test('jump button hidden without a failed step and shown with one', async () => {
+    const {container, unmount} = render(RepoActionView, {props: defaultTestProps});
+    await flushPromises();
+    expect(container.querySelector('button[aria-label="Jump to first error"]')).toBeNull();
+    unmount();
+
+    setupFailedStep();
+    const r = render(RepoActionView, {props: failedStepProps()});
+    await flushPromises();
+    expect(r.container.querySelector('button[aria-label="Jump to first error"]')).toBeTruthy();
+  });
+
+  test('jump to first error expands collapsed step and sets hash to first error line', async () => {
+    setupFailedStep();
+    const {container} = render(RepoActionView, {props: failedStepProps()});
+    await flushPromises();
+    (container.querySelector('button[aria-label="Jump to first error"]') as HTMLElement).click();
+    await vi.waitFor(() => expect(container.querySelector('#jobstep-1-2 .log-msg')?.textContent).toEqual('error: boom'));
+    expect(window.location.hash).toEqual('#jobstep-1-2');
+  });
+
+  test('jump to first error falls back to last line when no error text matches', async () => {
+    setupFailedStep([{index: 1, message: 'all ok', timestamp: 0}, {index: 2, message: 'still fine', timestamp: 1}]);
+    const {container} = render(RepoActionView, {props: failedStepProps()});
+    await flushPromises();
+    (container.querySelector('button[aria-label="Jump to first error"]') as HTMLElement).click();
+    await vi.waitFor(() => expect(window.location.hash).toEqual('#jobstep-1-2'));
+  });
+
+  test('auto-expand expands first failed step on initial load when done and no hash', async () => {
+    setupFailedStep();
+    const {container} = render(RepoActionView, {props: failedStepProps()});
+    await vi.waitFor(() => expect(container.querySelector('#jobstep-1-1 .log-msg')).toBeTruthy());
+  });
+
+  test('no auto-expand when a hash is present', async () => {
+    setupFailedStep();
+    window.location.hash = '#jobstep-0-1';
+    const {container} = render(RepoActionView, {props: failedStepProps()});
+    await flushPromises();
+    expect(container.querySelector('#jobstep-1-1 .log-msg')).toBeNull();
+    window.location.hash = '';
+  });
+
+  test('expand all and collapse all via gear menu', async () => {
+    setupFailedStep();
+    const {container} = render(RepoActionView, {props: failedStepProps()});
+    await flushPromises();
+    (container.querySelector('.job-gear-dropdown .btn') as HTMLElement).click();
+    await flushPromises();
+    (buttonText(container, 'Expand all steps')[0]).click();
+    await vi.waitFor(() => expect(container.querySelector('#jobstep-0-1 .log-msg')).toBeTruthy());
+    (container.querySelector('.job-gear-dropdown .btn') as HTMLElement).click();
+    await flushPromises();
+    (buttonText(container, 'Collapse all steps')[0]).click();
+    await flushPromises();
+    expect(container.querySelector<HTMLElement>('#jobstep-0-1')?.closest('.job-step-section').querySelector<HTMLElement>('.job-step-logs').style.display).toEqual('none');
+  });
 });
