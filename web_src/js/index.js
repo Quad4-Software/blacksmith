@@ -143,6 +143,9 @@ onDomReady(() => {
   if (document.getElementById('dashboard-repo-list')) {
     import('./features/dashboard-repo-list.ts').then(({initDashboardRepoList}) => initDashboardRepoList());
   }
+  if (document.querySelector('.flex-container-nav .ui.vertical.menu')) {
+    import('./features/settings-nav.ts').then(({initSettingsNav}) => initSettingsNav());
+  }
 
   initNotificationCount();
   initNotificationsTable();
