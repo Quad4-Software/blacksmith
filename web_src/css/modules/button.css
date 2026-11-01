@@ -92,6 +92,7 @@
 /* button-row is a simple helper made to improve consistency of fomantic buttons
  * placed in a row. It provides gap and cancels out fomantic's margins */
 .button-row {
+  flex-wrap: wrap;
   gap: var(--button-spacing);
 }
 
