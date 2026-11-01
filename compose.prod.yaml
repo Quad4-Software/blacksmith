@@ -248,10 +248,10 @@ services:
     security_opt:
       - no-new-privileges:true
 
-  # Crow CI server + agent. Blacksmith side: create an OAuth2 app
+  # Blacksmith CI server + agent. Blacksmith side: create an OAuth2 app
   # named Blacksmith CI (Settings -> Applications) with redirect
   # ${CROW_HOST}/authorize, then set CROW_FORGEJO_CLIENT and
-  # CROW_FORGEJO_SECRET in .env. Crow logs in with forge accounts
+  # CROW_FORGEJO_SECRET in .env. Blacksmith CI logs in with forge accounts
   # and receives repo webhooks automatically. CROW_HOST must be
   # the public CI URL and ROOT_URL the public forge URL so the
   # authorize redirect never shows localhost.

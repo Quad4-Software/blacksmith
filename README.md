@@ -31,8 +31,8 @@ deployments.
   controls are hidden instead of dead.
 - **Cap captcha.** Optional self-hosted proof-of-work captcha
   (trycap.dev) on registration and login.
-- **Crow CI.** Optional server + agent profile, OAuth-wired to the
-  forge.
+- **Blacksmith CI.** Optional server + agent profile, OAuth-wired to
+  the forge. Built on the Crow CI engine.
 - **CI published.** GitHub Actions builds all images and pushes to
   ghcr.io with zstd-compressed layers.
 
@@ -92,7 +92,7 @@ Then open http://localhost:3000 to finish the installer.
 - `valkey` - cache/session/queue + captcha backend
 - `postgres` - optional (`--profile db`)
 - `cap` - self-hosted trycap.dev captcha (`--profile captcha`)
-- `crow-server`/`crow-agent` - Crow CI (`--profile crow`)
+- `crow-server`/`crow-agent` - Blacksmith CI (`--profile crow`)
 - `backup` - encrypted restic (`--profile backup`)
 - `updater` - wud auto-update (`--profile updater`)
 
@@ -107,12 +107,12 @@ podman compose -f compose.prod.yaml \
 SSH clone is bound to localhost by default (`SSH_BIND`) and only
 accepts authorized keys.
 
-### Crow CI
+### Blacksmith CI
 
 Enable with `--profile crow`, then create an OAuth2 app in
 Blacksmith (Settings -> Applications) with redirect
 `${CROW_HOST}/authorize` and set `CROW_FORGEJO_CLIENT` /
-`CROW_FORGEJO_SECRET` in `.env`. Users log into Crow with their
+`CROW_FORGEJO_SECRET` in `.env`. Users log into Blacksmith CI with their
 forge account and repos get webhooks automatically.
 
 For rootless podman + systemd, install `contrib/quadlets/blacksmith.container`
