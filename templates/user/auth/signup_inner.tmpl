@@ -46,7 +46,7 @@
 				{{template "user/auth/captcha" .}}
 
 				<div class="inline field">
-					<button class="ui primary button tw-w-full">
+					<button class="ui primary button tw:w-full">
 						{{if .LinkAccountMode}}
 							{{ctx.Locale.Tr "auth.oauth_signup_submit"}}
 						{{else}}
@@ -63,7 +63,7 @@
 
 {{if not .LinkAccountMode}}
 <div class="ui container fluid">
-	<div class="ui attached segment header top tw-flex tw-flex-col tw-items-center">
+	<div class="ui attached segment header top tw:flex tw:flex-col tw:items-center">
 		<div class="field">
 			{{ctx.Locale.Tr "auth.hint_login" (printf "%s/user/login" AppSubUrl)}}
 		</div>

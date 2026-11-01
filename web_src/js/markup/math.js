@@ -11,8 +11,8 @@ export async function renderMath() {
   if (!els.length) return;
 
   const [{default: katex}] = await Promise.all([
-    import(/* webpackChunkName: "katex" */'katex/dist/katex.js'),
-    import(/* webpackChunkName: "katex" */'katex/dist/katex.css'),
+    import('katex/dist/katex.js'),
+    import('katex/dist/katex.css'),
   ]);
 
   const MAX_CHARS = 1000;

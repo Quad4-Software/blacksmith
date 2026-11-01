@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import {GET} from '../modules/fetch.ts';
+import {assetUrlPrefix} from '../modules/asset-url.ts';
 import {toggleElem} from '../utils/dom.ts';
 
 const {appSubUrl, notificationSettings, assetVersionEncoded} = window.config;
@@ -36,7 +37,7 @@ async function receiveUpdateCount(event) {
     const data = JSON.parse(event.data);
 
     for (const count of document.querySelectorAll('.notification_count')) {
-      count.classList.toggle('tw-hidden', data.Count === 0);
+      count.classList.toggle('tw:hidden', data.Count === 0);
       count.textContent = `${data.Count}`;
     }
     await updateNotificationTable();
@@ -64,7 +65,7 @@ export function initNotificationCount() {
 
   if (notificationSettings.EventSourceUpdateTime > 0 && window.EventSource && window.SharedWorker) {
     // Try to connect to the event source via the shared worker first
-    const worker = new SharedWorker(`${__webpack_public_path__}js/eventsource.sharedworker.js?v=${assetVersionEncoded}`, 'notification-worker');
+    const worker = new SharedWorker(`${assetUrlPrefix()}/js/eventsource.sharedworker.js?v=${assetVersionEncoded}`, 'notification-worker');
     worker.addEventListener('error', (event) => {
       console.error('worker error', event);
     });

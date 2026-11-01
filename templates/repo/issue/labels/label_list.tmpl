@@ -3,7 +3,7 @@
 	<div class="ui right">
 		<div class="ui secondary menu">
 			<!-- Sort -->
-			<div class="item ui jump dropdown tw-py-2">
+			<div class="item ui jump dropdown tw:py-2">
 				<span class="text">
 					{{ctx.Locale.Tr "repo.issues.filter_sort"}}
 				</span>
@@ -42,9 +42,9 @@
 					<a class="open-issues" href="{{$.RepoLink}}/issues?labels={{.ID}}">{{svg "octicon-issue-opened"}} {{ctx.Locale.Tr "repo.issues.label_open_issues" .NumOpenIssues}}</a>
 				{{end}}
 			</div>
-			<div class="label-operation tw-flex">
+			<div class="label-operation tw:flex">
 				{{template "repo/issue/labels/label_archived" .}}
-				<div class="tw-flex tw-ml-auto">
+				<div class="tw:flex tw:ml-auto">
 					{{if or ($.PageIsOrgSettingsLabels) (and (not $.Repository.IsArchived) (or $.CanWriteIssues $.CanWritePulls))}}
 						<a class="edit-label-button" href="#" data-id="{{.ID}}" data-title="{{.Name}}" {{if .Exclusive}}data-exclusive{{end}} {{if gt .ArchivedUnix 0}}data-is-archived{{end}} data-num-issues="{{.NumIssues}}" data-description="{{.Description}}" data-color={{.Color}}>{{svg "octicon-pencil"}} {{ctx.Locale.Tr "repo.issues.label_edit"}}</a>
 						<a class="delete-button" href="#" data-url="{{$.Link}}/delete" data-id="{{.ID}}" data-modal-id="delete-label">{{svg "octicon-trash"}} {{ctx.Locale.Tr "repo.issues.label_delete"}}</a>

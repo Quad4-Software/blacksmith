@@ -243,7 +243,7 @@ func TestRepoForkToOrg(t *testing.T) {
 }
 
 func TestForkListPrivateRepo(t *testing.T) {
-	forkItemSelector := ".tw-flex.tw-items-center.tw-py-2"
+	forkItemSelector := ".tw\\:flex.tw\\:items-center.tw\\:py-2"
 
 	onApplicationRun(t, func(t *testing.T, u *url.URL) {
 		session := loginUser(t, "user5")

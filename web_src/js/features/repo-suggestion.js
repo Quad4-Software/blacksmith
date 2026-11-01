@@ -12,7 +12,7 @@ export function syncSuggestionBatchUI() {
   // batch commit/discard controls until the batch is emptied.
   const active = batch.size > 0;
   for (const btn of document.querySelectorAll('.apply-suggestion-single')) {
-    btn.classList.toggle('tw-hidden', active);
+    btn.classList.toggle('tw:hidden', active);
   }
   for (const btn of document.querySelectorAll('.add-suggestion-batch')) {
     const inBatch = batch.has(btn.getAttribute('data-comment-id'));
@@ -20,10 +20,10 @@ export function syncSuggestionBatchUI() {
     // solid primary while offering "Add", outlined once queued ("Remove")
     btn.classList.toggle('basic', inBatch);
   }
-  document.querySelector('#review-box')?.classList.toggle('tw-hidden', active);
+  document.querySelector('#review-box')?.classList.toggle('tw:hidden', active);
   const bar = document.querySelector('#suggestion-batch-bar');
   if (!bar) return;
-  bar.classList.toggle('tw-hidden', !active);
+  bar.classList.toggle('tw:hidden', !active);
   const count = bar.querySelector('.batch-count');
   if (count) count.textContent = String(batch.size);
 }

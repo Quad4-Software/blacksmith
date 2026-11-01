@@ -17,12 +17,12 @@
 			<tbody>
 				{{range .Notices}}
 					<tr>
-						<td><div class="ui checkbox tw-flex" data-id="{{.ID}}"><input type="checkbox"></div></td>
+						<td><div class="ui checkbox tw:flex" data-id="{{.ID}}"><input type="checkbox"></div></td>
 						<td>{{.ID}}</td>
 						<td>{{ctx.Locale.Tr .TrStr}}</td>
 						<!-- the extra span here is important for auto ellipsis to work: -->
 						<td class="notice-description"><span>{{.Description}}</span></td>
-						<td class="tw-whitespace-nowrap">{{DateUtils.AbsoluteShort .CreatedUnix}}</td>
+						<td class="tw:whitespace-nowrap">{{DateUtils.AbsoluteShort .CreatedUnix}}</td>
 						<td>
 							<button type="button" class="ui text primary btn" aria-label="{{ctx.Locale.Tr "admin.notices.view_details" .ID}}" command="show-modal" commandfor="notice-detail-{{.ID}}">{{svg "octicon-note" 16}}</button>
 							<dialog id="notice-detail-{{.ID}}" class="modal detail-modal" closedby="any">
@@ -37,7 +37,7 @@
 						</td>
 					</tr>
 				{{else}}
-					<tr><td class="tw-text-center" colspan="6">{{ctx.Locale.Tr "repo.pulls.no_results"}}</td></tr>
+					<tr><td class="tw:text-center" colspan="6">{{ctx.Locale.Tr "repo.pulls.no_results"}}</td></tr>
 				{{end}}
 			</tbody>
 			{{if .Notices}}
@@ -45,7 +45,7 @@
 						<tr>
 							<th></th>
 							<th colspan="5">
-								<form class="tw-float-right" method="post" action="{{AppSubUrl}}/admin/notices/empty">
+								<form class="tw:float-right" method="post" action="{{AppSubUrl}}/admin/notices/empty">
 									<button type="submit" class="ui red small button">{{ctx.Locale.Tr "admin.notices.delete_all"}}</button>
 								</form>
 								<div class="ui floating upward dropdown small button">{{/* TODO: Make this dropdown accessible */}}

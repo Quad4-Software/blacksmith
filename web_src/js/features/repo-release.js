@@ -75,7 +75,7 @@ function initAddExternalLinkButton() {
 
     const newAttachment = attachmentTemplate.cloneNode(true);
     newAttachment.id = `attachment-N${newAttachmentCount}`;
-    newAttachment.classList.remove('tw-hidden');
+    newAttachment.classList.remove('tw:hidden');
 
     const attachmentName = newAttachment.querySelector(
       'input[name="attachment-template-new-name"]',

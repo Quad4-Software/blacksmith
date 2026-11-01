@@ -1,8 +1,8 @@
 // @watch start
 // templates/repo/actions/**
 // web_src/css/actions.css
-// web_src/js/components/ActionRunStatus.vue
-// web_src/js/components/RepoActionView.vue
+// web_src/js/components/ActionRunStatus.svelte
+// web_src/js/components/RepoActionView.svelte
 // modules/actions/**
 // modules/structs/workflow.go
 // routers/api/v1/repo/action.go

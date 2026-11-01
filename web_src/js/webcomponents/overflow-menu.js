@@ -4,7 +4,7 @@ import {isDocumentFragmentOrElementNode} from '../utils/dom.ts';
 import octiconKebabHorizontal from '../../../public/assets/img/svg/octicon-kebab-horizontal.svg';
 
 window.customElements.define('overflow-menu', class extends HTMLElement {
-  updateItems = throttle(100, () => { // eslint-disable-line unicorn/consistent-function-scoping
+  updateItems = throttle(100, () => {
     if (!this.tippyContent) {
       const div = document.createElement('div');
       div.classList.add('tippy-target');
@@ -127,7 +127,7 @@ window.customElements.define('overflow-menu', class extends HTMLElement {
 
     // create button initially
     const btn = document.createElement('button');
-    btn.classList.add('overflow-menu-button', 'btn', 'tw-px-2', 'hover:tw-text-text-dark');
+    btn.classList.add('overflow-menu-button', 'btn', 'tw:px-2', 'tw:hover:text-text-dark');
     btn.setAttribute('aria-label', window.config.i18n.more_items);
     btn.innerHTML = octiconKebabHorizontal;
     this.append(btn);

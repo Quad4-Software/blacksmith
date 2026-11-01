@@ -3,7 +3,7 @@
 
 // @watch start
 // web_src/js/features/contributors.js
-// web_src/js/components/RepoContributors.vue
+// web_src/js/components/RepoContributors.svelte
 // templates/repo/*
 // @watch end
 

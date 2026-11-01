@@ -6,7 +6,7 @@
 		<div class="ui comments">
 			<div class="comment">
 				{{ctx.AvatarUtils.Avatar .SignedUser 40}}
-				<div class="ui segment content tw-my-0">
+				<div class="ui segment content tw:my-0">
 					<div class="field">
 						<input name="title" class="js-autofocus-end" id="issue_title" placeholder="{{ctx.Locale.Tr "repo.milestones.title"}}" value="{{if .TitleQuery}}{{.TitleQuery}}{{else if .IssueTemplateTitle}}{{.IssueTemplateTitle}}{{else}}{{.title}}{{end}}" required maxlength="255" autocomplete="off">
 						{{if .PageIsComparePull}}
@@ -59,7 +59,7 @@
 			<span class="text flex-text-block">
 				<strong>{{ctx.Locale.Tr "repo.issues.new.milestone"}}</strong>
 				{{if .HasIssuesOrPullsWritePermission}}
-					{{svg "octicon-gear" 16 "tw-ml-1"}}
+					{{svg "octicon-gear" 16 "tw:ml-1"}}
 				{{end}}
 			</span>
 			<div class="menu">
@@ -67,11 +67,11 @@
 			</div>
 		</div>
 		<div class="ui select-milestone list">
-			<span class="no-select item {{if .Milestone}}tw-hidden{{end}}">{{ctx.Locale.Tr "repo.issues.new.no_milestone"}}</span>
+			<span class="no-select item {{if .Milestone}}tw:hidden{{end}}">{{ctx.Locale.Tr "repo.issues.new.no_milestone"}}</span>
 			<div class="selected">
 				{{if .Milestone}}
 					<a class="item muted sidebar-item-link" href="{{.RepoLink}}/issues?milestone={{.Milestone.ID}}">
-						{{svg "octicon-milestone" 18 "tw-mr-2"}}
+						{{svg "octicon-milestone" 18 "tw:mr-2"}}
 						{{.Milestone.Name}}
 					</a>
 				{{end}}
@@ -86,7 +86,7 @@
 			<span class="text flex-text-block">
 				<strong>{{ctx.Locale.Tr "repo.issues.new.projects"}}</strong>
 				{{if .HasIssuesOrPullsWritePermission}}
-					{{svg "octicon-gear" 16 "tw-ml-1"}}
+					{{svg "octicon-gear" 16 "tw:ml-1"}}
 				{{end}}
 			</span>
 			<div class="menu">
@@ -109,7 +109,7 @@
 						</div>
 						{{range .OpenProjects}}
 							<a class="item muted sidebar-item-link" data-id="{{.ID}}" data-href="{{.Link ctx}}">
-								{{svg .IconName 16 "tw-mr-2"}}{{.Title}}
+								{{svg .IconName 16 "tw:mr-2"}}{{.Title}}
 							</a>
 						{{end}}
 					{{end}}
@@ -120,7 +120,7 @@
 						</div>
 						{{range .ClosedProjects}}
 							<a class="item muted sidebar-item-link" data-id="{{.ID}}" data-href="{{.Link ctx}}">
-								{{svg .IconName 16 "tw-mr-2"}}{{.Title}}
+								{{svg .IconName 16 "tw:mr-2"}}{{.Title}}
 							</a>
 						{{end}}
 					{{end}}
@@ -128,11 +128,11 @@
 			</div>
 		</div>
 		<div class="ui select-project list">
-			<span class="no-select item {{if .Project}}tw-hidden{{end}}">{{ctx.Locale.Tr "repo.issues.new.no_projects"}}</span>
+			<span class="no-select item {{if .Project}}tw:hidden{{end}}">{{ctx.Locale.Tr "repo.issues.new.no_projects"}}</span>
 			<div class="selected">
 				{{if .Project}}
 					<a class="item muted sidebar-item-link" href="{{.Project.Link ctx}}">
-						{{svg .Project.IconName 16 "tw-mr-2"}}{{.Project.Title}}
+						{{svg .Project.IconName 16 "tw:mr-2"}}{{.Project.Title}}
 					</a>
 				{{end}}
 			</div>

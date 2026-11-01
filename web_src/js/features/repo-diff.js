@@ -115,7 +115,7 @@ function initRepoDiffConversationForm() {
         const extra = parseInt(holderEl.getAttribute('data-extra-lines-count')) || 0;
         const displayIdx = parseInt(idx) + extra;
         for (const el of document.querySelectorAll(`[data-path="${path}"] .add-code-comment[data-side="${side}"][data-idx="${displayIdx}"]`)) {
-          el.classList.add('tw-invisible');
+          el.classList.add('tw:invisible');
         }
       }
       let selector;
@@ -125,7 +125,7 @@ function initRepoDiffConversationForm() {
         selector = `[data-path="${path}"] .add-code-comment[data-side="${side}"][data-idx="${idx}"]`;
       }
       for (const el of document.querySelectorAll(selector)) {
-        el.classList.add('tw-invisible');
+        el.classList.add('tw:invisible');
       }
       $newConversationHolder.find('.ui.dropdown').dropdown();
       initCompReactionSelector($newConversationHolder);
@@ -170,7 +170,7 @@ export function initRepoDiffConversationNav() {
   // Previous/Next code review conversation
   $(document).on('click', '.previous-conversation', (e) => {
     const $conversation = $(e.currentTarget).closest('.comment-code-cloud');
-    const $conversations = $('.comment-code-cloud:not(.tw-hidden)');
+    const $conversations = $('.comment-code-cloud').filter((_, el) => !el.classList.contains('tw:hidden'));
     const index = $conversations.index($conversation);
     const previousIndex = index > 0 ? index - 1 : $conversations.length - 1;
     const $previousConversation = $conversations.eq(previousIndex);
@@ -179,7 +179,7 @@ export function initRepoDiffConversationNav() {
   });
   $(document).on('click', '.next-conversation', (e) => {
     const $conversation = $(e.currentTarget).closest('.comment-code-cloud');
-    const $conversations = $('.comment-code-cloud:not(.tw-hidden)');
+    const $conversations = $('.comment-code-cloud').filter((_, el) => !el.classList.contains('tw:hidden'));
     const index = $conversations.index($conversation);
     const nextIndex = index < $conversations.length - 1 ? index + 1 : 0;
     const $nextConversation = $conversations.eq(nextIndex);

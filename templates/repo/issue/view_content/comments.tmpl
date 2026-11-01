@@ -25,10 +25,10 @@
 				</a>
 			{{end}}
 				<div class="content comment-container">
-					<div class="ui top attached header comment-header tw-flex tw-items-center tw-justify-between" role="heading" aria-level="3">
-						<div class="comment-header-left tw-flex tw-items-center">
+					<div class="ui top attached header comment-header tw:flex tw:items-center tw:justify-between" role="heading" aria-level="3">
+						<div class="comment-header-left tw:flex tw:items-center">
 							{{if .OriginalAuthor}}
-								<span class="text black tw-font-semibold tw-mr-1">
+								<span class="text black tw:font-semibold tw:mr-1">
 									{{svg (MigrationIcon $.Repository.GetOriginalURLHostname)}}
 									{{.OriginalAuthor}}
 								</span>
@@ -50,7 +50,7 @@
 								</span>
 							{{end}}
 						</div>
-						<div class="comment-header-right actions tw-flex tw-items-center">
+						<div class="comment-header-right actions tw:flex tw:items-center">
 							{{template "repo/issue/view_content/show_role" dict "ShowRole" .ShowRole "IsPull" .Issue.IsPull}}
 							{{if not $.Repository.IsArchived}}
 								{{template "repo/issue/view_content/add_reaction" dict "ctxData" $ "ActionURL" (printf "%s/comments/%d/reactions" $.RepoLink .ID)}}
@@ -66,8 +66,8 @@
 								<span class="no-content">{{ctx.Locale.Tr "repo.issues.no_content"}}</span>
 							{{end}}
 						</div>
-						<div id="issuecomment-{{.ID}}-raw" class="raw-content tw-hidden">{{.Content}}</div>
-						<div class="edit-content-zone tw-hidden" data-update-url="{{$.RepoLink}}/comments/{{.ID}}" data-content-version="{{.ContentVersion}}" data-context="{{$.RepoLink}}" data-attachment-url="{{$.RepoLink}}/comments/{{.ID}}/attachments"></div>
+						<div id="issuecomment-{{.ID}}-raw" class="raw-content tw:hidden">{{.Content}}</div>
+						<div class="edit-content-zone tw:hidden" data-update-url="{{$.RepoLink}}/comments/{{.ID}}" data-content-version="{{.ContentVersion}}" data-context="{{$.RepoLink}}" data-attachment-url="{{$.RepoLink}}/comments/{{.ID}}/attachments"></div>
 						{{if .Attachments}}
 							{{template "repo/issue/view_content/attachments" dict "Attachments" .Attachments "RenderedContent" .RenderedContent}}
 						{{end}}
@@ -80,7 +80,7 @@
 			</div>
 		{{else if eq .Type 1}}
 			<div class="timeline-item event" id="{{.HashTag}}">
-				<span class="badge tw-bg-green tw-text-white">{{svg "octicon-dot-fill"}}</span>
+				<span class="badge tw:bg-green tw:text-white">{{svg "octicon-dot-fill"}}</span>
 				{{if not .OriginalAuthor}}
 					{{template "shared/user/avatarlink" dict "user" .Poster}}
 				{{end}}
@@ -95,7 +95,7 @@
 			</div>
 		{{else if eq .Type 2}}
 			<div class="timeline-item event" id="{{.HashTag}}">
-				<span class="badge tw-bg-red tw-text-white">{{svg "octicon-circle-slash"}}</span>
+				<span class="badge tw:bg-red tw:text-white">{{svg "octicon-circle-slash"}}</span>
 				{{if not .OriginalAuthor}}
 					{{template "shared/user/avatarlink" dict "user" .Poster}}
 				{{end}}
@@ -110,7 +110,7 @@
 			</div>
 		{{else if eq .Type 28}}
 			<div class="timeline-item event" id="{{.HashTag}}">
-				<span class="badge tw-bg-purple tw-text-white">{{svg "octicon-git-merge"}}</span>
+				<span class="badge tw:bg-purple tw:text-white">{{svg "octicon-git-merge"}}</span>
 				{{if not .OriginalAuthor}}
 					{{template "shared/user/avatarlink" dict "user" .Poster}}
 				{{end}}
@@ -405,7 +405,7 @@
 						{{ctx.AvatarUtils.Avatar .Poster 40}}
 					</a>
 					{{end}}
-					<span class="badge{{if eq .Review.Type 1}} tw-bg-green tw-text-white{{else if eq .Review.Type 3}} tw-bg-red tw-text-white{{end}}">{{svg (printf "octicon-%s" .Review.Type.Icon)}}</span>
+					<span class="badge{{if eq .Review.Type 1}} tw:bg-green tw:text-white{{else if eq .Review.Type 3}} tw:bg-red tw:text-white{{end}}">{{svg (printf "octicon-%s" .Review.Type.Icon)}}</span>
 					<span class="text grey muted-links">
 						{{template "repo/issue/view_content/comments_authorlink" dict "ctxData" $ "comment" .}}
 						{{if eq .Review.Type 1}}
@@ -425,8 +425,8 @@
 				{{if or .Content .Attachments}}
 				<div class="timeline-item comment">
 					<div class="content comment-container">
-						<div class="ui top attached header comment-header tw-flex tw-items-center tw-justify-between">
-							<div class="comment-header-left tw-flex tw-items-center">
+						<div class="ui top attached header comment-header tw:flex tw:items-center tw:justify-between">
+							<div class="comment-header-left tw:flex tw:items-center">
 								{{if gt .Poster.ID 0}}
 									<a class="inline-timeline-avatar" href="{{.Poster.HomeLink}}">
 										{{ctx.AvatarUtils.Avatar .Poster 24}}
@@ -434,7 +434,7 @@
 								{{end}}
 								<span class="text grey muted-links">
 									{{if .OriginalAuthor}}
-										<span class="text black tw-font-semibold">
+										<span class="text black tw:font-semibold">
 											{{svg (MigrationIcon $.Repository.GetOriginalURLHostname)}}
 											{{.OriginalAuthor}}
 										</span>
@@ -447,7 +447,7 @@
 									{{ctx.Locale.Tr "repo.issues.review.left_comment"}}
 								</span>
 							</div>
-							<div class="comment-header-right actions tw-flex tw-items-center">
+							<div class="comment-header-right actions tw:flex tw:items-center">
 								{{template "repo/issue/view_content/show_role" dict "ShowRole" .ShowRole "IsPull" .Issue.IsPull}}
 								{{if not $.Repository.IsArchived}}
 									{{template "repo/issue/view_content/add_reaction" dict "ctxData" $ "ActionURL" (printf "%s/comments/%d/reactions" $.RepoLink .ID)}}
@@ -463,8 +463,8 @@
 									<span class="no-content">{{ctx.Locale.Tr "repo.issues.no_content"}}</span>
 								{{end}}
 							</div>
-							<div id="issuecomment-{{.ID}}-raw" class="raw-content tw-hidden">{{.Content}}</div>
-							<div class="edit-content-zone tw-hidden" data-update-url="{{$.RepoLink}}/comments/{{.ID}}" data-content-version="{{.ContentVersion}}" data-context="{{$.RepoLink}}" data-attachment-url="{{$.RepoLink}}/comments/{{.ID}}/attachments"></div>
+							<div id="issuecomment-{{.ID}}-raw" class="raw-content tw:hidden">{{.Content}}</div>
+							<div class="edit-content-zone tw:hidden" data-update-url="{{$.RepoLink}}/comments/{{.ID}}" data-content-version="{{.ContentVersion}}" data-context="{{$.RepoLink}}" data-attachment-url="{{$.RepoLink}}/comments/{{.ID}}/attachments"></div>
 							{{if .Attachments}}
 								{{template "repo/issue/view_content/attachments" dict "Attachments" .Attachments "RenderedContent" .RenderedContent}}
 							{{end}}
@@ -654,7 +654,7 @@
 				{{if .Content}}
 					<div class="timeline-item comment">
 						<div class="content">
-							<div class="ui top attached header comment-header-left tw-flex tw-items-center arrow-top">
+							<div class="ui top attached header comment-header-left tw:flex tw:items-center arrow-top">
 								{{if gt .Poster.ID 0}}
 									<a class="inline-timeline-avatar" href="{{.Poster.HomeLink}}">
 										{{ctx.AvatarUtils.Avatar .Poster 24}}
@@ -720,12 +720,12 @@
 					{{template "shared/user/authorlink" .Poster}}
 					{{$createdStr}}
 
-					<ul class="tw-list-none aggregated-actions">
+					<ul class="tw:list-none aggregated-actions">
 
 						<!-- OPEN / CLOSE -->
 						{{if and .Aggregator.PrevClosed (not .Aggregator.IsClosed)}}
 							<li>
-							<span class="badge tw-bg-green tw-text-white">{{svg "octicon-dot-fill"}}</span>
+							<span class="badge tw:bg-green tw:text-white">{{svg "octicon-dot-fill"}}</span>
 							{{if .Issue.IsPull}}
 								{{ctx.Locale.Tr "repo.pulls.reopened_at" ""}}
 							{{else}}
@@ -733,7 +733,7 @@
 							{{end}}
 							</li>
 						{{else if and (not .Aggregator.PrevClosed) .Aggregator.IsClosed}}
-							<span class="badge tw-bg-red tw-text-white">{{svg "octicon-circle-slash"}}</span>
+							<span class="badge tw:bg-red tw:text-white">{{svg "octicon-circle-slash"}}</span>
 							<li>
 							{{if .Issue.IsPull}}
 								{{ctx.Locale.Tr "repo.pulls.closed_at" ""}}

@@ -203,7 +203,7 @@ func TestActionViewsView(t *testing.T) {
 
 			htmlDoc := NewHTMLParser(t, resp.Body)
 			selector := "#repo-action-view"
-			// Verify key properties going into the `repo-action-view` to initialize the Vue component.
+			// Verify key properties going into the `repo-action-view` to initialize the Svelte component.
 			htmlDoc.AssertAttrEqual(t, selector, "data-run-index", strconv.FormatInt(testCase.runIndex, 10))
 			htmlDoc.AssertAttrEqual(t, selector, "data-job-index", strconv.FormatInt(testCase.jobIndex, 10))
 			htmlDoc.AssertAttrEqual(t, selector, "data-attempt-number", strconv.FormatInt(testCase.attempt, 10))
@@ -238,7 +238,7 @@ func TestActionViewsViewAttemptOutOfRange(t *testing.T) {
 
 	htmlDoc := NewHTMLParser(t, resp.Body)
 	selector := "#repo-action-view"
-	// Verify key properties going into the `repo-action-view` to initialize the Vue component.
+	// Verify key properties going into the `repo-action-view` to initialize the Svelte component.
 	htmlDoc.AssertAttrEqual(t, selector, "data-run-index", "190")
 	htmlDoc.AssertAttrEqual(t, selector, "data-job-index", "0")
 	htmlDoc.AssertAttrEqual(t, selector, "data-attempt-number", "100")

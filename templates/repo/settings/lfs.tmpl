@@ -17,7 +17,7 @@
 					{{range .LFSFiles}}
 						<tr>
 							<td>
-								<a href="{{$.Link}}/show/{{.Oid}}" title="{{.Oid}}" class="ui brown button tw-font-mono">
+								<a href="{{$.Link}}/show/{{.Oid}}" title="{{.Oid}}" class="ui brown button tw:font-mono">
 									{{ShortSha .Oid}}
 								</a>
 							</td>
@@ -32,7 +32,7 @@
 						</tr>
 					{{else}}
 						<tr>
-							<td colspan="4" class="tw-text-center">{{ctx.Locale.Tr "repo.settings.lfs_no_lfs_files"}}</td>
+							<td colspan="4" class="tw:text-center">{{ctx.Locale.Tr "repo.settings.lfs_no_lfs_files"}}</td>
 						</tr>
 					{{end}}
 				</tbody>

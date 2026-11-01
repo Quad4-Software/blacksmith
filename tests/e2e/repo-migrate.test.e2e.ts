@@ -11,8 +11,8 @@ test.use({user: 'user2'});
 test('Migration type selection screen', async ({page}) => {
   await page.goto('/repo/migrate');
 
-  await expect(page.locator('script[src*="/js/webcomponents.js"]')).toHaveAttribute('defer', '');
-  await expect(page.locator('script[src*="/js/index.js"]')).toHaveAttribute('defer', '');
+  await expect(page.locator('script[src*="/js/webcomponents.js"]')).toHaveAttribute('type', 'module');
+  await expect(page.locator('script[src*="/js/index.js"]')).toHaveAttribute('type', 'module');
 
   // For branding purposes, it is desired that `gitea-` prefixes in SVGs are
   // replaced with something like `productlogo-`.

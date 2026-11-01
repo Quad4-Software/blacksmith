@@ -1,4 +1,5 @@
 import htmx from 'htmx.org';
+import './htmx-expose.ts';
 import {showErrorToast} from './modules/toast.ts';
 
 // https://github.com/bigskysoftware/idiomorph#htmx
@@ -7,6 +8,15 @@ import 'idiomorph/dist/idiomorph-ext.js';
 // https://htmx.org/reference/#config
 htmx.config.requestClass = 'is-loading';
 htmx.config.scrollIntoViewOnBoost = false;
+
+// idiomorph 0.8 refuses to morph an element that has an id into one without that id.
+// Fomantic dropdown menus get generated aria ids at runtime, which would make every morph replace the menu
+// and orphan the initialized dropdown, so these ids are dropped before the swap.
+document.body.addEventListener('htmx:beforeSwap', (event: CustomEvent) => {
+  const target: Element | undefined = event.detail?.target;
+  if (!target) return;
+  for (const el of target.querySelectorAll('[id^="_aria_auto_id_"]')) el.removeAttribute('id');
+});
 
 // https://htmx.org/events/#htmx:sendError
 document.body.addEventListener('htmx:sendError', (event: CustomEvent) => {

@@ -92,4 +92,18 @@
 
 @import "./helpers.css";
 @import "./nojs.css";
-@tailwind utilities;
+@import "tailwindcss/theme.css" prefix(tw);
+@import "./tailwind-theme.css";
+@import "tailwindcss/utilities.css" prefix(tw) important;
+
+@custom-variant hover (&:hover);
+
+@source "../../templates/**/*.tmpl";
+@source "../js/**/*.{js,ts,svelte}";
+@source "../../models/avatars/avatar.go";
+@source "../../modules/markup/file_preview.go";
+@source "../../modules/markup/sanitizer.go";
+@source "../../services/auth/source/oauth2/*.go";
+@source "../../routers/web/repo/{view,blame,issue_content_history}.go";
+@source not "../../templates/swagger/v1_json.tmpl";
+@source not "../../templates/user/auth/oidc_wellknown.tmpl";

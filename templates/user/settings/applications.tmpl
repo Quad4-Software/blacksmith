@@ -22,22 +22,22 @@
 						<details>
 							<summary><span class="flex-item-title">{{.Token.Name}}</span></summary>
 							{{if .Token.ResourceAllRepos}}
-								<p class="tw-my-1">{{ctx.Locale.Tr "settings.repo_and_org_access"}}:</p>
+								<p class="tw:my-1">{{ctx.Locale.Tr "settings.repo_and_org_access"}}:</p>
 								{{if .Token.DisplayPublicOnly}}
 									{{ctx.Locale.Tr "settings.permissions_public_only"}}
 								{{else}}
 									{{ctx.Locale.Tr "settings.permissions_access_all"}}
 								{{end}}
 							{{else}}
-								<p class="tw-my-1">{{ctx.Locale.Tr "settings.specific_repo_access"}}:</p>
-								<ul class="tw-my-1">
+								<p class="tw:my-1">{{ctx.Locale.Tr "settings.specific_repo_access"}}:</p>
+								<ul class="tw:my-1">
 									{{range .Repositories}}
 										<li><a href="{{.HTMLURL}}">{{.FullName}}</a></li>
 									{{end}}
 								</ul>
 							{{end}}
-							<p class="tw-my-1">{{ctx.Locale.Tr "settings.permissions_list"}}</p>
-							<ul class="tw-my-1">
+							<p class="tw:my-1">{{ctx.Locale.Tr "settings.permissions_list"}}</p>
+							<ul class="tw:my-1">
 							{{range .Token.Scope.StringSlice}}
 								{{if (ne . $.AccessTokenScopePublicOnly)}}
 									<li>{{.}}</li>
@@ -51,11 +51,11 @@
 					</div>
 					<div class="flex-item-trailing">
 							<button class="ui primary tiny button delete-button" data-modal-id="regenerate-token" data-url="{{$.Link}}/tokens/regenerate" data-id="{{.Token.ID}}">
-								{{svg "octicon-issue-reopened" 16 "tw-mr-1"}}
+								{{svg "octicon-issue-reopened" 16 "tw:mr-1"}}
 								{{ctx.Locale.Tr "settings.regenerate_token"}}
 							</button>
 							<button class="ui red tiny button delete-button" data-modal-id="delete-token" data-url="{{$.Link}}/tokens/delete" data-id="{{.Token.ID}}">
-								{{svg "octicon-trash" 16 "tw-mr-1"}}
+								{{svg "octicon-trash" 16 "tw:mr-1"}}
 								{{ctx.Locale.Tr "settings.delete_token"}}
 							</button>
 					</div>
@@ -72,7 +72,7 @@
 
 <div class="ui g-modal-confirm delete modal" id="regenerate-token">
 	<div class="header">
-		{{svg "octicon-issue-reopened" 16 "tw-mr-1"}}
+		{{svg "octicon-issue-reopened" 16 "tw:mr-1"}}
 		{{ctx.Locale.Tr "settings.access_token_regeneration"}}
 	</div>
 	<div class="content">

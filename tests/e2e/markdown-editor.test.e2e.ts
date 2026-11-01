@@ -796,7 +796,7 @@ test('Persistent monospace preference across multiple editors', async ({page}) =
   const checkMonospacePreferenceAcrossEditors = async () => {
     const editors = page.locator('.markdown-text-editor');
     for (const editor of await editors.all()) {
-      await expect(editor).toHaveClass(/tw-font-mono/);
+      await expect(editor).toHaveClass(/tw:font-mono/);
     }
   };
   await checkMonospacePreferenceAcrossEditors();

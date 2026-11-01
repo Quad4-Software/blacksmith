@@ -1,5 +1,4 @@
 interface Window {
-  __webpack_public_path__: string;
   config?: {
     // These are set in template/base/head_script.tmpl
     readonly appUrl: string;
@@ -10,6 +9,8 @@ interface Window {
     readonly customEmojis: ReadonlySet<string>;
     readonly mentionValues: readonly MentionValue[];
   }
+  // set by web_src/js/htmx-expose.ts for htmx extensions
+  htmx?: unknown;
 }
 
 interface LocaleStrings {
@@ -45,13 +46,8 @@ type CodeMirrorSearch = typeof import('@codemirror/search');
 type CodeMirrorState = typeof import('@codemirror/state');
 type CodeMirrorView = typeof import('@codemirror/view');
 
-declare module '*.vue' {
-  import Vue from 'vue';
-  export default Vue;
-}
-
 declare module '*.svg' {
-  // webpack imports SVG files source-wise as strings via `type: asset/source`
+  // vite imports SVG files source-wise as strings via vite-string-plugin
   const svg: string;
   export default svg;
 }

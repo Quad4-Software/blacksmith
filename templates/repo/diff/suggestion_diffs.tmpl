@@ -2,10 +2,10 @@
 {{$root := .root}}
 {{$batchMode := .batchMode}}
 {{range $suggestion := SuggestionDiffs ctx $comment}}
-	<div class="suggestion-diff tw-hidden" data-comment-id="{{$comment.ID}}">
+	<div class="suggestion-diff tw:hidden" data-comment-id="{{$comment.ID}}">
 		{{template "repo/diff/suggestion_diff" dict "file" (index $suggestion.Diff.Files 0)}}
 		{{with $root}}{{if .HeadBranchIsEditable}}
-			<div class="tw-flex tw-items-center tw-gap-2 tw-mt-2">
+			<div class="tw:flex tw:items-center tw:gap-2 tw:mt-2">
 				<button type="button" class="ui tiny basic button show-modal{{if eq $batchMode "active"}} apply-suggestion-single{{end}}"
 					data-modal="#apply-suggestion-modal"
 					data-modal-form.action="{{.RepoLink}}/pulls/{{.Issue.Index}}/files/reviews/apply_suggestion"

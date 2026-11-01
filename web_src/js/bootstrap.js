@@ -2,13 +2,23 @@
 // to make sure the error handler always works, we should never import `window.config`, because
 // some user's custom template breaks it.
 
-// This sets up the URL prefix used in webpack's chunk loading.
-// This file must be imported before any lazy-loading is being attempted.
-__webpack_public_path__ = `${window.config?.assetUrlPrefix ?? '/assets'}/`;
+import {assetUrlPrefix} from './modules/asset-url.ts';
+
+// Firefox rejects dynamic imports that are still loading when the user navigates away, which is not an actual error.
+let isNavigatingAway = false;
+window.addEventListener('beforeunload', () => {
+  isNavigatingAway = true;
+});
+window.addEventListener('pagehide', () => {
+  isNavigatingAway = true;
+});
+window.addEventListener('unhandledrejection', (event) => {
+  if (isNavigatingAway && /dynamically imported module|Unable to preload/.test(event.reason?.message)) event.preventDefault();
+});
 
 // Ignore external and some known internal errors that we are unable to currently fix.
 function shouldIgnoreError(err) {
-  const assetBaseUrl = String(new URL(__webpack_public_path__, window.location.origin));
+  const assetBaseUrl = String(new URL(`${assetUrlPrefix()}/`, window.location.origin));
 
   if (!(err instanceof Error)) return false;
   // If the error stack trace does not include the base URL of our script assets, it likely came
@@ -26,7 +36,7 @@ export function showGlobalErrorMessage(msg) {
   let msgDiv = pageContent.querySelector(`.js-global-error[data-global-error-msg-compact="${msgCompact}"]`);
   if (!msgDiv) {
     const el = document.createElement('div');
-    el.innerHTML = `<div class="ui container negative message center aligned js-global-error tw-mt-[15px] tw-whitespace-pre-line"></div>`;
+    el.innerHTML = `<div class="ui container negative message center aligned js-global-error tw:mt-[15px] tw:whitespace-pre-line"></div>`;
     msgDiv = el.childNodes[0];
   }
   // merge duplicated messages into "the message (count)" format

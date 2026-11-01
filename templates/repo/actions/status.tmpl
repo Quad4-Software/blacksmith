@@ -1,5 +1,5 @@
-<!-- This template should be kept the same as web_src/js/components/ActionRunStatus.vue
-	Please also update the vue file above if this template is modified.
+<!-- This template should be kept the same as web_src/js/components/ActionRunStatus.svelte
+	Please also update the svelte file above if this template is modified.
 	action status accepted: success, skipped, waiting, blocked, running, failure, cancelled, unknown
 -->
 {{- $size := 16 -}}
@@ -12,7 +12,7 @@
 {{- $className = .className -}}
 {{- end -}}
 
-<span class="tw-flex tw-items-center" data-tooltip-content="{{ctx.Locale.Tr (printf "actions.status.%s" .status)}}">
+<span class="tw:flex tw:items-center" data-tooltip-content="{{ctx.Locale.Tr (printf "actions.status.%s" .status)}}">
 {{if eq .status "success"}}
 	{{svg "octicon-check-circle-fill" $size (printf "text green %s" $className)}}
 {{else if eq .status "skipped"}}

@@ -57,10 +57,10 @@
 				</li>
 				<li class="sample-group">
 					<h2>Inline / Plain:</h2>
-					<div class="tw-my-1">
-						<button class="btn tw-p-2">Plain button</button>
-						<button class="btn interact-fg tw-p-2">Plain button with interact fg</button>
-						<button class="btn interact-bg tw-p-2">Plain button with interact bg</button>
+					<div class="tw:my-1">
+						<button class="btn tw:p-2">Plain button</button>
+						<button class="btn interact-fg tw:p-2">Plain button with interact fg</button>
+						<button class="btn interact-bg tw:p-2">Plain button with interact bg</button>
 					</div>
 				</li>
 			</ul>
@@ -92,8 +92,8 @@
 
 	<div>
 		<h1>Loading</h1>
-		<div class="is-loading loading-icon-2px tw-border tw-border-secondary tw-py-1"><span>loading ...</span></div>
-		<div class="is-loading tw-border tw-border-secondary tw-py-4">
+		<div class="is-loading loading-icon-2px tw:border tw:border-secondary tw:py-1"><span>loading ...</span></div>
+		<div class="is-loading tw:border tw:border-secondary tw:py-4">
 			<p>loading ...</p>
 			<p>loading ...</p>
 			<p>loading ...</p>
@@ -141,7 +141,7 @@
 		<div><absolute-date date="2024-03-11" year="" day="numeric" month="numeric"></absolute-date></div>
 		<div><absolute-date date="2024-03-11" year="" day="numeric" month="numeric" weekday="long"></absolute-date></div>
 		<div><absolute-date date="2024-03-11T19:00:00-05:00" year="" day="numeric" month="numeric" weekday="long"></absolute-date></div>
-		<div class="tw-text-text-light-2">relative-time: <relative-time format="datetime" datetime="2024-03-11" year="" day="numeric" month="numeric"></relative-time></div>
+		<div class="tw:text-text-light-2">relative-time: <relative-time format="datetime" datetime="2024-03-11" year="" day="numeric" month="numeric"></relative-time></div>
 	</div>
 
 	<div>
@@ -312,9 +312,9 @@
 
 	<h1>Tailwind CSS Demo</h1>
 	<div>
-		<button class="{{if true}}tw-bg-red{{end}} tw-p-5 tw-border tw-rounded hover:tw-bg-blue active:tw-bg-yellow">Button</button>
+		<button class="{{if true}}tw:bg-red{{end}} tw:p-5 tw:border tw:rounded tw:hover:bg-blue tw:active:bg-yellow">Button</button>
 	</div>
 
-	<script src="{{AssetUrlPrefix}}/js/demo.js?v={{AssetVersion}}"></script>
+	<script type="module" src="{{AssetUrlPrefix}}/js/demo.js?v={{AssetVersion}}"></script>
 </div>
 {{template "base/footer" .}}

@@ -1,11 +1,11 @@
-import {createApp} from 'vue';
+import {mount} from 'svelte';
 import {translateMonth, translateDay} from '../utils.ts';
 
 export async function initHeatmap() {
   const el = document.getElementById('user-heatmap');
   if (!el) return;
 
-  const {default: ActivityHeatmap} = await import(/* webpackChunkName: "activity-heatmap" */'../components/ActivityHeatmap.vue');
+  const {default: ActivityHeatmap} = await import('../components/ActivityHeatmap.svelte');
   try {
     const heatmap = {};
     for (const {contributions, timestamp} of JSON.parse(el.getAttribute('data-heatmap-data'))) {
@@ -30,8 +30,7 @@ export async function initHeatmap() {
       less: el.getAttribute('data-locale-less'),
     };
 
-    const View = createApp(ActivityHeatmap, {values, locale});
-    View.mount(el);
+    mount(ActivityHeatmap, {target: el, props: {values, locale}});
     el.classList.remove('is-loading');
   } catch (err) {
     console.error('Heatmap failed to load', err);

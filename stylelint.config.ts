@@ -21,6 +21,13 @@ export default {
   ],
   overrides: [
     {
+      files: ['**/*.svelte'],
+      customSyntax: 'postcss-html',
+      rules: {
+        'selector-pseudo-class-no-unknown': [true, {ignorePseudoClasses: ['global']}],
+      },
+    },
+    {
       files: ['**/chroma/*', '**/codemirror/*', '**/standalone/*', '**/console.css', 'font_i18n.css'],
       rules: {
         'scale-unlimited/declaration-strict-value': null,
@@ -31,10 +38,6 @@ export default {
       rules: {
         'block-no-empty': null,
       },
-    },
-    {
-      files: ['**/*.vue'],
-      customSyntax: 'postcss-html',
     },
     {
       files: '**/*.tmpl',
@@ -131,7 +134,7 @@ export default {
     'at-rule-allowed-list': null,
     'at-rule-disallowed-list': null,
     'at-rule-empty-line-before': null,
-    'at-rule-no-unknown': [true, {ignoreAtRules: ['tailwind']}],
+    'at-rule-no-unknown': [true, {ignoreAtRules: ['tailwind', 'theme', 'utility', 'source', 'custom-variant', 'plugin', 'variant', 'reference', 'import']}],
     'at-rule-no-vendor-prefix': true,
     'at-rule-property-required-list': null,
     'block-no-empty': true,
@@ -211,7 +214,7 @@ export default {
     'no-duplicate-selectors': true,
     'no-empty-source': true,
     'no-invalid-double-slash-comments': true,
-    'no-invalid-position-at-import-rule': [true, {ignoreAtRules: ['tailwind']}],
+    'no-invalid-position-at-import-rule': [true, {ignoreAtRules: ['tailwind', 'theme', 'source', 'import']}],
     'no-irregular-whitespace': true,
     'no-unknown-animations': null,
     'no-unknown-custom-properties': null,

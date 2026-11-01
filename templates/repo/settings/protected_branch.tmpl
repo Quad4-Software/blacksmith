@@ -92,7 +92,7 @@
 				<label>
 					{{ctx.Locale.Tr "repo.settings.protect_required_approvals"}}
 					<input name="required_approvals" type="number" value="{{.Rule.RequiredApprovals}}">
-					<span class="help tw-ml-0">{{ctx.Locale.Tr "repo.settings.protect_required_approvals_desc"}}</span>
+					<span class="help tw:ml-0">{{ctx.Locale.Tr "repo.settings.protect_required_approvals_desc"}}</span>
 				</label>
 				<fieldset>
 					<label>
@@ -169,7 +169,7 @@
 								<tr>
 									<td>
 										<span>{{.}}</span>
-										<span class="status-check-matched-mark tw-hidden" data-status-check="{{.}}">{{ctx.Locale.Tr "repo.settings.protect_status_check_matched"}}</span>
+										<span class="status-check-matched-mark tw:hidden" data-status-check="{{.}}">{{ctx.Locale.Tr "repo.settings.protect_status_check_matched"}}</span>
 									</td>
 								</tr>
 							{{else}}

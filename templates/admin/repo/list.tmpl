@@ -47,13 +47,13 @@
 						<tr>
 							<td>{{.ID}}</td>
 							<td>
-								<a class="tw-break-anywhere" href="{{.Owner.HomeLink}}">{{.Owner.Name}}</a>
+								<a class="tw:break-anywhere" href="{{.Owner.HomeLink}}">{{.Owner.Name}}</a>
 								{{if .Owner.Visibility.IsPrivate}}
 									<span class="text gold">{{svg "octicon-lock"}}</span>
 								{{end}}
 							</td>
 							<td>
-								<a class="tw-break-anywhere" href="{{.Link}}">{{.Name}}</a>
+								<a class="tw:break-anywhere" href="{{.Link}}">{{.Name}}</a>
 								{{if .IsArchived}}
 									<span class="ui basic label">{{ctx.Locale.Tr "repo.desc.archived"}}</span>
 								{{end}}
@@ -87,7 +87,7 @@
 							<td><a class="delete-button" href="" data-url="{{$.Link}}/delete?page={{$.Page.Paginater.Current}}&sort={{$.SortType}}" data-id="{{.ID}}" data-name="{{.Name}}" data-modal-id="delete-repo">{{svg "octicon-trash"}}</a></td>
 						</tr>
 					{{else}}
-						<tr><td class="tw-text-center" colspan="12">{{ctx.Locale.Tr "repo.pulls.no_results"}}</td></tr>
+						<tr><td class="tw:text-center" colspan="12">{{ctx.Locale.Tr "repo.pulls.no_results"}}</td></tr>
 					{{end}}
 				</tbody>
 			</table>

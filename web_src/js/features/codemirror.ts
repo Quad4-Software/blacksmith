@@ -38,13 +38,13 @@ export async function createCodemirror(
   filename: string,
   editorOpts: EditorOptions,
 ): Promise<CodemirrorEditor> {
-  const codemirrorView = await import(/* webpackChunkName: "codemirror" */ '@codemirror/view');
-  const codemirrorCommands = await import(/* webpackChunkName: "codemirror" */ '@codemirror/commands');
-  const codemirrorState = await import(/* webpackChunkName: "codemirror" */ '@codemirror/state');
-  const codemirrorSearch = await import(/* webpackChunkName: "codemirror" */ '@codemirror/search');
-  const codemirrorLanguage = await import(/* webpackChunkName: "codemirror" */ '@codemirror/language');
-  const codemirrorAutocomplete = await import(/* webpackChunkName: "codemirror" */ '@codemirror/autocomplete');
-  const {tags: t} = await import(/* webpackChunkName: "codemirror" */ '@lezer/highlight');
+  const codemirrorView = await import('@codemirror/view');
+  const codemirrorCommands = await import('@codemirror/commands');
+  const codemirrorState = await import('@codemirror/state');
+  const codemirrorSearch = await import('@codemirror/search');
+  const codemirrorLanguage = await import('@codemirror/language');
+  const codemirrorAutocomplete = await import('@codemirror/autocomplete');
+  const {tags: t} = await import('@lezer/highlight');
 
   const languageDescriptions = languages(codemirrorLanguage);
   const code = codemirrorLanguage.LanguageDescription.matchFilename(

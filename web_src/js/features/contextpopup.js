@@ -1,4 +1,4 @@
-import {createApp} from 'vue';
+import {mount} from 'svelte';
 import {parseIssueHref} from '../utils.ts';
 import {createTippy} from '../modules/tippy.js';
 
@@ -19,11 +19,9 @@ export async function attachRefIssueContextPopup(refIssues) {
     const el = document.createElement('div');
     refIssue.parentNode.insertBefore(el, refIssue.nextSibling);
 
-    const {default: ContextPopup} = await import(/* webpackChunkName: "context-popup" */'../components/ContextPopup.vue');
-    const view = createApp(ContextPopup);
-
+    const {default: ContextPopup} = await import('../components/ContextPopup.svelte');
     try {
-      view.mount(el);
+      mount(ContextPopup, {target: el});
     } catch (err) {
       console.error(err);
       el.textContent = 'ContextPopup failed to load';

@@ -49,7 +49,7 @@ const issueSuggestions = debouncePromise(300, async (text, key) => {
     const li = document.createElement('li');
     li.setAttribute('role', 'option');
     li.setAttribute('data-value', `${issue.is_pr ? '!' : '#'}${issue.number}`);
-    li.classList.add('tw-flex', 'tw-gap-2');
+    li.classList.add('tw:flex', 'tw:gap-2');
 
     const icon = svg(getIssueIcon(issue), 16, ['text', getIssueColor(issue)].join(' '));
     li.append(createElementFromHTML(icon));

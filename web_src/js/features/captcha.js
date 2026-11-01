@@ -34,7 +34,7 @@ export async function initCaptcha() {
       break;
     }
     case 'm-captcha': {
-      const {default: mCaptcha} = await import(/* webpackChunkName: "mcaptcha-vanilla-glue" */'@mcaptcha/vanilla-glue');
+      const {default: mCaptcha} = await import('@mcaptcha/vanilla-glue');
       mCaptcha.INPUT_NAME = 'm-captcha-response';
       const instanceURL = captchaEl.getAttribute('data-instance-url');
 

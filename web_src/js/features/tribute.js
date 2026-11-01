@@ -36,7 +36,7 @@ function makeCollections({mentions, emoji}) {
       menuItemTemplate: (item) => {
         return `
           <div class="tribute-item">
-            <img src="${htmlEscape(item.original.avatar)}" class="tw-mr-2"/>
+            <img src="${htmlEscape(item.original.avatar)}" class="tw:mr-2"/>
             <span class="name">${htmlEscape(item.original.name)}</span>
             ${item.original.fullname && item.original.fullname !== '' ? `<span class="fullname">${htmlEscape(item.original.fullname)}</span>` : ''}
           </div>
@@ -49,7 +49,7 @@ function makeCollections({mentions, emoji}) {
 }
 
 export async function attachTribute(element, {mentions, emoji} = {}) {
-  const {default: Tribute} = await import(/* webpackChunkName: "tribute" */'tributejs');
+  const {default: Tribute} = await import('tributejs');
   const collections = makeCollections({mentions, emoji});
   const tribute = new Tribute({collection: collections, noMatchTemplate: ''});
   tribute.attach(element);

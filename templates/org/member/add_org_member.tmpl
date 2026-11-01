@@ -23,7 +23,7 @@
 			<div class="content">
 				<div class="field">
 					<label>{{ctx.Locale.Tr "members.user"}}</label>
-					<div id="search-user-box" class="ui search tw-mr-2"{{if .IsEmailInviteEnabled}} data-allow-email="true" data-allow-email-description="{{ctx.Locale.Tr "org.teams.invite_team_member" $.Team.Name}}"{{end}}>
+					<div id="search-user-box" class="ui search tw:mr-2"{{if .IsEmailInviteEnabled}} data-allow-email="true" data-allow-email-description="{{ctx.Locale.Tr "org.teams.invite_team_member" $.Team.Name}}"{{end}}>
 						<div class="ui input">
 							<input class="prompt" name="uname" placeholder="{{ctx.Locale.Tr "search.user_kind"}}" autocomplete="off" required>
 						</div>

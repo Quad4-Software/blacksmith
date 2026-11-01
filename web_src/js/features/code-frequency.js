@@ -1,20 +1,22 @@
-import {createApp} from 'vue';
+import {mount} from 'svelte';
 
 export async function initRepoCodeFrequency() {
   const el = document.getElementById('repo-code-frequency-chart');
   if (!el) return;
 
-  const {default: RepoCodeFrequency} = await import(/* webpackChunkName: "code-frequency-graph" */'../components/RepoCodeFrequency.vue');
+  const {default: RepoCodeFrequency} = await import('../components/RepoCodeFrequency.svelte');
   try {
-    const View = createApp(RepoCodeFrequency, {
-      locale: {
-        loadingTitle: el.getAttribute('data-locale-loading-title'),
-        loadingTitleFailed: el.getAttribute('data-locale-loading-title-failed'),
-        loadingInfo: el.getAttribute('data-locale-loading-info'),
-        codeFrequencyTitle: el.getAttribute('data-locale-code-frequency-title'),
+    mount(RepoCodeFrequency, {
+      target: el,
+      props: {
+        locale: {
+          loadingTitle: el.getAttribute('data-locale-loading-title'),
+          loadingTitleFailed: el.getAttribute('data-locale-loading-title-failed'),
+          loadingInfo: el.getAttribute('data-locale-loading-info'),
+          codeFrequencyTitle: el.getAttribute('data-locale-code-frequency-title'),
+        },
       },
     });
-    View.mount(el);
   } catch (err) {
     console.error('RepoCodeFrequency failed to load', err);
     el.textContent = el.getAttribute('data-locale-component-failed-to-load');

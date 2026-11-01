@@ -8,10 +8,10 @@
 		{{template "shared/user/avatarlink" dict "user" .Poster}}
 	{{end}}
 	<div class="content comment-container">
-		<div class="ui top attached header comment-header tw-flex tw-items-center tw-justify-between">
-			<div class="comment-header-left tw-flex tw-items-center">
+		<div class="ui top attached header comment-header tw:flex tw:items-center tw:justify-between">
+			<div class="comment-header-left tw:flex tw:items-center">
 				{{if .OriginalAuthor}}
-					<span class="text black tw-font-semibold tw-mr-1">
+					<span class="text black tw:font-semibold tw:mr-1">
 						{{svg (MigrationIcon $.root.Repository.GetOriginalURLHostname)}}
 						{{.OriginalAuthor}}
 					</span>
@@ -30,7 +30,7 @@
 					</span>
 				{{end}}
 			</div>
-			<div class="comment-header-right actions tw-flex tw-items-center">
+			<div class="comment-header-right actions tw:flex tw:items-center">
 				{{if gt .ExtraLinesCount 0}}
 					<span class="ui label">Lines {{.UnsignedLine}}-{{.UnsignedDisplayLine}}</span>
 				{{end}}
@@ -61,8 +61,8 @@
 			</div>
 			{{$comment := .}}
 			{{template "repo/diff/suggestion_diffs" dict "comment" $comment "root" $.root "batchMode" "active"}}
-			<div id="issuecomment-{{.ID}}-raw" class="raw-content tw-hidden">{{.Content}}</div>
-			<div class="edit-content-zone tw-hidden" data-update-url="{{$.root.RepoLink}}/comments/{{.ID}}" data-content-version="{{.ContentVersion}}" data-context="{{$.root.RepoLink}}" data-attachment-url="{{$.root.RepoLink}}/comments/{{.ID}}/attachments" data-batch-mode="active"{{if gt .Line 0}} data-suggestion-side="proposed" data-suggestion-line="{{.UnsignedLine}}" data-suggestion-extra-lines="{{.ExtraLinesCount}}" data-suggestion-path="{{.TreePath}}"{{end}}></div>
+			<div id="issuecomment-{{.ID}}-raw" class="raw-content tw:hidden">{{.Content}}</div>
+			<div class="edit-content-zone tw:hidden" data-update-url="{{$.root.RepoLink}}/comments/{{.ID}}" data-content-version="{{.ContentVersion}}" data-context="{{$.root.RepoLink}}" data-attachment-url="{{$.root.RepoLink}}/comments/{{.ID}}/attachments" data-batch-mode="active"{{if gt .Line 0}} data-suggestion-side="proposed" data-suggestion-line="{{.UnsignedLine}}" data-suggestion-extra-lines="{{.ExtraLinesCount}}" data-suggestion-path="{{.TreePath}}"{{end}}></div>
 			{{if .Attachments}}
 				{{template "repo/issue/view_content/attachments" dict "Attachments" .Attachments "RenderedContent" .RenderedContent}}
 			{{end}}

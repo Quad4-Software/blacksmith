@@ -58,10 +58,10 @@
 						{{SortArrow "online" "offline" .SortType false}}
 					</th>
 					<th scope="col">
-						<span class="tw-sr-only">{{ctx.Locale.Tr "actions.runners.list_runners.edit_column"}}</span>
+						<span class="tw:sr-only">{{ctx.Locale.Tr "actions.runners.list_runners.edit_column"}}</span>
 					</th>
 					<th scope="col">
-						<span class="tw-sr-only">{{ctx.Locale.Tr "actions.runners.list_runners.delete_column"}}</span>
+						<span class="tw:sr-only">{{ctx.Locale.Tr "actions.runners.list_runners.delete_column"}}</span>
 					</th>
 				</tr>
 			</thead>
@@ -69,10 +69,10 @@
 				{{range .Runners}}
 				<tr>
 					<td>
-						<div class="tw-font-medium"><a href="{{$.Link}}/{{.ID}}" class="runner-action-link" tabindex="0">{{.Name}}</a></div>
-						<div class="tw-mt-1">{{.UUID}}</div>
+						<div class="tw:font-medium"><a href="{{$.Link}}/{{.ID}}" class="runner-action-link" tabindex="0">{{.Name}}</a></div>
+						<div class="tw:mt-1">{{.UUID}}</div>
 					</td>
-					<td class="tw-flex tw-items-start tw-flex-wrap tw-gap-2">
+					<td class="tw:flex tw:items-start tw:flex-wrap tw:gap-2">
 						{{if gt (len .AgentLabels) 0}}
 							{{range .AgentLabels}}
 							<div class="ui label special">{{.}}</div>
@@ -89,7 +89,7 @@
 						{{end}}
 					</td>
 					<td>
-						<div class="tw-flex tw-items-center tw-gap-x-2">
+						<div class="tw:flex tw:items-center tw:gap-x-2">
 							{{if .IsActive}}
 								<div class="indicator-active">
 									<div></div>
@@ -108,12 +108,12 @@
 							</div>
 						</div>
 					</td>
-					<td class="tw-text-right">
+					<td class="tw:text-right">
 						{{if .Editable $.RunnerOwnerID $.RunnerRepoID}}
 							<a href="{{$.Link}}/{{.ID}}/edit" class="runner-action-link" tabindex="0" aria-label="{{ctx.Locale.Tr "actions.runners.list_runners.edit_button_aria" .Name}}" data-tooltip-content="{{ctx.Locale.Tr "actions.runners.list_runners.edit_button"}}">{{svg "octicon-pencil"}}</a>
 						{{end}}
 					</td>
-					<td class="tw-text-right">
+					<td class="tw:text-right">
 						{{if .Editable $.RunnerOwnerID $.RunnerRepoID}}
 							<button class="delete-button runner-delete-link" aria-label="{{ctx.Locale.Tr "actions.runners.list_runners.delete_button_aria" .Name}}" data-url="{{$.Link}}/{{.ID}}/delete" data-modal-id="runner-delete-modal" data-tooltip-content="{{ctx.Locale.Tr "actions.runners.list_runners.delete_button"}}">{{svg "octicon-trash"}}</button>
 						{{end}}
@@ -123,7 +123,7 @@
 			</tbody>
 		</table>
 		{{else}}
-		<div class="tw-flex tw-p-4">
+		<div class="tw:flex tw:p-4">
 			{{ctx.Locale.Tr "actions.runners.none"}}
 		</div>
 		{{end}}

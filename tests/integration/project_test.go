@@ -633,7 +633,7 @@ func TestProjectWebProjects(t *testing.T) {
 			// 			<div class="milestone-header">
 			//				<h3>
 			// [...]
-			//					<a class="muted tw-break-anywhere" href="{{.Link ctx}}">{{.Title}}</a>
+			//					<a class="muted tw:break-anywhere" href="{{.Link ctx}}">{{.Title}}</a>
 			//				</h3>
 			//			</div>
 			// [...]
@@ -798,7 +798,7 @@ func TestProjectWebProjectsQueryParams(t *testing.T) {
 			// template: templates/projects/list.tmpl
 			// template lines:
 			// {{if and $.CanWriteProjects (not $.Repository.IsArchived)}}
-			// 	<div class="tw-flex tw-justify-between tw-mb-4 tw-gap-2">
+			// 	<div class="tw:flex tw:justify-between tw:mb-4 tw:gap-2">
 			// 		<div class="switch list-header-toggle">
 			// 			<a class="item{{if not .IsShowClosed}} active{{end}}" href="?state=open&q={{$.Keyword}}">
 			// [...]
@@ -812,11 +812,11 @@ func TestProjectWebProjectsQueryParams(t *testing.T) {
 			// {{end}}
 
 			// "Open" is active
-			doc.AssertElement(t, ".tw-flex.tw-justify-between.tw-mb-4.tw-gap-2 .switch.list-header-toggle a.active[href='?state=open&q=test']", true)
+			doc.AssertElement(t, ".tw\\:flex.tw\\:justify-between.tw\\:mb-4.tw\\:gap-2 .switch.list-header-toggle a.active[href='?state=open&q=test']", true)
 
 			// "Closed" is not active
-			doc.AssertElement(t, ".tw-flex.tw-justify-between.tw-mb-4.tw-gap-2 .switch.list-header-toggle a.active[href='?state=closed&q=test']", false)
-			doc.AssertElement(t, ".tw-flex.tw-justify-between.tw-mb-4.tw-gap-2 .switch.list-header-toggle a[href='?state=closed&q=test']", true)
+			doc.AssertElement(t, ".tw\\:flex.tw\\:justify-between.tw\\:mb-4.tw\\:gap-2 .switch.list-header-toggle a.active[href='?state=closed&q=test']", false)
+			doc.AssertElement(t, ".tw\\:flex.tw\\:justify-between.tw\\:mb-4.tw\\:gap-2 .switch.list-header-toggle a[href='?state=closed&q=test']", true)
 
 			// input
 
@@ -857,7 +857,7 @@ func TestProjectWebProjectsQueryParams(t *testing.T) {
 			// [...]
 			// 	</form>
 			// 	<!-- Sort -->
-			// 	<div class="ui secondary menu tw-mt-0">
+			// 	<div class="ui secondary menu tw:mt-0">
 			// [...]
 			// 		<div class="menu">
 			// 			<a class="{{if eq .SortType "oldest"}}active {{end}}item" href="?q={{$.Keyword}}&sort=oldest&state={{$.State}}">{{ctx.Locale.Tr "issues.search.sort.oldest"}}</a>
@@ -869,15 +869,15 @@ func TestProjectWebProjectsQueryParams(t *testing.T) {
 			// </div>
 
 			// "Oldest" is active
-			doc.AssertElement(t, ".list-header .ui.secondary.menu.tw-mt-0 .menu a.active.item[href='?q=test&sort=oldest&state=open']", true)
+			doc.AssertElement(t, ".list-header .ui.secondary.menu.tw\\:mt-0 .menu a.active.item[href='?q=test&sort=oldest&state=open']", true)
 
 			// "Recently updated" is not active
-			doc.AssertElement(t, ".list-header .ui.secondary.menu.tw-mt-0 .menu a.active.item[href='?q=test&sort=recentupdate&state=open']", false)
-			doc.AssertElement(t, ".list-header .ui.secondary.menu.tw-mt-0 .menu a.item[href='?q=test&sort=recentupdate&state=open']", true)
+			doc.AssertElement(t, ".list-header .ui.secondary.menu.tw\\:mt-0 .menu a.active.item[href='?q=test&sort=recentupdate&state=open']", false)
+			doc.AssertElement(t, ".list-header .ui.secondary.menu.tw\\:mt-0 .menu a.item[href='?q=test&sort=recentupdate&state=open']", true)
 
 			// "Least recently updated" is not active
-			doc.AssertElement(t, ".list-header .ui.secondary.menu.tw-mt-0 .menu a.active.item[href='?q=test&sort=leastupdate&state=open']", false)
-			doc.AssertElement(t, ".list-header .ui.secondary.menu.tw-mt-0 .menu a.item[href='?q=test&sort=leastupdate&state=open']", true)
+			doc.AssertElement(t, ".list-header .ui.secondary.menu.tw\\:mt-0 .menu a.active.item[href='?q=test&sort=leastupdate&state=open']", false)
+			doc.AssertElement(t, ".list-header .ui.secondary.menu.tw\\:mt-0 .menu a.item[href='?q=test&sort=leastupdate&state=open']", true)
 		})
 	}
 
@@ -1072,7 +1072,7 @@ func TestProjectWebCreateProject(t *testing.T) {
 				//		<li class="milestone-card">
 				// 			<div class="milestone-header">
 				// [...]
-				// 					<a class="muted tw-break-anywhere" href="{{.Link ctx}}">{{.Title}}</a>
+				// 					<a class="muted tw:break-anywhere" href="{{.Link ctx}}">{{.Title}}</a>
 				// [...]
 				//			</div>
 				// [...]
@@ -1085,7 +1085,7 @@ func TestProjectWebCreateProject(t *testing.T) {
 				//	{{end}}
 				// [...]
 				// </div>
-				s := doc.Find(".milestone-list li .milestone-header .muted.tw-break-anywhere").
+				s := doc.Find(".milestone-list li .milestone-header .muted.tw\\:break-anywhere").
 					FilterFunction(func(i int, s *goquery.Selection) bool {
 						return s.Text() == opts.Title
 					})
@@ -1410,21 +1410,21 @@ func TestProjectWebDeleteProjectColumn(t *testing.T) {
 			// template lines:
 			// <div role="main" class="page-content status-page-500">
 			// [...]
-			// 	<div class="ui container tw-my-8">
+			// 	<div class="ui container tw:my-8">
 			// 		{{if .ErrorMsg}}
 			// 			<p>{{ctx.Locale.Tr "error.occurred"}}:</p>
-			// 			<pre class="tw-whitespace-pre-wrap tw-break-all">{{.ErrorMsg}}</pre>
+			// 			<pre class="tw:whitespace-pre-wrap tw:break-all">{{.ErrorMsg}}</pre>
 			// 		{{end}}
 			// [...]
 			// 	</div>
 			// </div>
 			doc := NewHTMLParser(t, resp.Body)
 			assert.Contains(t,
-				doc.Find(".page-content.status-page-500 .ui.container.tw-my-8 p").Text(),
+				doc.Find(".page-content.status-page-500 .ui.container.tw\\:my-8 p").Text(),
 				translation.NewLocale("en-US").Tr("error.occurred"),
 			)
 			assert.Contains(t,
-				doc.Find(".page-content.status-page-500 .ui.container.tw-my-8 pre.tw-whitespace-pre-wrap.tw-break-all").Text(),
+				doc.Find(".page-content.status-page-500 .ui.container.tw\\:my-8 pre.tw\\:whitespace-pre-wrap.tw\\:break-all").Text(),
 				"column ID must not be empty",
 			)
 		})
@@ -1555,21 +1555,21 @@ func TestProjectWebCreateColumnInProject(t *testing.T) {
 			// template lines:
 			// <div role="main" class="page-content status-page-500">
 			// [...]
-			// 	<div class="ui container tw-my-8">
+			// 	<div class="ui container tw:my-8">
 			// 		{{if .ErrorMsg}}
 			// 			<p>{{ctx.Locale.Tr "error.occurred"}}:</p>
-			// 			<pre class="tw-whitespace-pre-wrap tw-break-all">{{.ErrorMsg}}</pre>
+			// 			<pre class="tw:whitespace-pre-wrap tw:break-all">{{.ErrorMsg}}</pre>
 			// 		{{end}}
 			// [...]
 			// 	</div>
 			// </div>
 			doc := NewHTMLParser(t, resp.Body)
 			assert.Contains(t,
-				doc.Find(".page-content.status-page-500 .ui.container.tw-my-8 p").Text(),
+				doc.Find(".page-content.status-page-500 .ui.container.tw\\:my-8 p").Text(),
 				translation.NewLocale("en-US").Tr("error.occurred"),
 			)
 			assert.Contains(t,
-				doc.Find(".page-content.status-page-500 .ui.container.tw-my-8 pre.tw-whitespace-pre-wrap.tw-break-all").Text(),
+				doc.Find(".page-content.status-page-500 .ui.container.tw\\:my-8 pre.tw\\:whitespace-pre-wrap.tw\\:break-all").Text(),
 				"bad color code: bad color",
 			)
 		})
@@ -1722,21 +1722,21 @@ func TestProjectWebEditProjectColumn(t *testing.T) {
 			// template lines:
 			// <div role="main" class="page-content status-page-500">
 			// [...]
-			// 	<div class="ui container tw-my-8">
+			// 	<div class="ui container tw:my-8">
 			// 		{{if .ErrorMsg}}
 			// 			<p>{{ctx.Locale.Tr "error.occurred"}}:</p>
-			// 			<pre class="tw-whitespace-pre-wrap tw-break-all">{{.ErrorMsg}}</pre>
+			// 			<pre class="tw:whitespace-pre-wrap tw:break-all">{{.ErrorMsg}}</pre>
 			// 		{{end}}
 			// [...]
 			// 	</div>
 			// </div>
 			doc := NewHTMLParser(t, resp.Body)
 			assert.Contains(t,
-				doc.Find(".page-content.status-page-500 .ui.container.tw-my-8 p").Text(),
+				doc.Find(".page-content.status-page-500 .ui.container.tw\\:my-8 p").Text(),
 				translation.NewLocale("en-US").Tr("error.occurred"),
 			)
 			assert.Contains(t,
-				doc.Find(".page-content.status-page-500 .ui.container.tw-my-8 pre.tw-whitespace-pre-wrap.tw-break-all").Text(),
+				doc.Find(".page-content.status-page-500 .ui.container.tw\\:my-8 pre.tw\\:whitespace-pre-wrap.tw\\:break-all").Text(),
 				"column ID must not be empty",
 			)
 		})
@@ -1770,21 +1770,21 @@ func TestProjectWebEditProjectColumn(t *testing.T) {
 			// template lines:
 			// <div role="main" class="page-content status-page-500">
 			// [...]
-			// 	<div class="ui container tw-my-8">
+			// 	<div class="ui container tw:my-8">
 			// 		{{if .ErrorMsg}}
 			// 			<p>{{ctx.Locale.Tr "error.occurred"}}:</p>
-			// 			<pre class="tw-whitespace-pre-wrap tw-break-all">{{.ErrorMsg}}</pre>
+			// 			<pre class="tw:whitespace-pre-wrap tw:break-all">{{.ErrorMsg}}</pre>
 			// 		{{end}}
 			// [...]
 			// 	</div>
 			// </div>
 			doc := NewHTMLParser(t, resp.Body)
 			assert.Contains(t,
-				doc.Find(".page-content.status-page-500 .ui.container.tw-my-8 p").Text(),
+				doc.Find(".page-content.status-page-500 .ui.container.tw\\:my-8 p").Text(),
 				translation.NewLocale("en-US").Tr("error.occurred"),
 			)
 			assert.Contains(t,
-				doc.Find(".page-content.status-page-500 .ui.container.tw-my-8 pre.tw-whitespace-pre-wrap.tw-break-all").Text(),
+				doc.Find(".page-content.status-page-500 .ui.container.tw\\:my-8 pre.tw\\:whitespace-pre-wrap.tw\\:break-all").Text(),
 				"bad color code: bad color",
 			)
 		})
@@ -1897,21 +1897,21 @@ func TestProjectWebSetDefaultProjectColumn(t *testing.T) {
 			// template lines:
 			// <div role="main" class="page-content status-page-500">
 			// [...]
-			// 	<div class="ui container tw-my-8">
+			// 	<div class="ui container tw:my-8">
 			// 		{{if .ErrorMsg}}
 			// 			<p>{{ctx.Locale.Tr "error.occurred"}}:</p>
-			// 			<pre class="tw-whitespace-pre-wrap tw-break-all">{{.ErrorMsg}}</pre>
+			// 			<pre class="tw:whitespace-pre-wrap tw:break-all">{{.ErrorMsg}}</pre>
 			// 		{{end}}
 			// [...]
 			// 	</div>
 			// </div>
 			doc := NewHTMLParser(t, resp.Body)
 			assert.Contains(t,
-				doc.Find(".page-content.status-page-500 .ui.container.tw-my-8 p").Text(),
+				doc.Find(".page-content.status-page-500 .ui.container.tw\\:my-8 p").Text(),
 				translation.NewLocale("en-US").Tr("error.occurred"),
 			)
 			assert.Contains(t,
-				doc.Find(".page-content.status-page-500 .ui.container.tw-my-8 pre.tw-whitespace-pre-wrap.tw-break-all").Text(),
+				doc.Find(".page-content.status-page-500 .ui.container.tw\\:my-8 pre.tw\\:whitespace-pre-wrap.tw\\:break-all").Text(),
 				"column ID must not be empty",
 			)
 		})
@@ -2035,21 +2035,21 @@ func TestProjectWebMoveIssues(t *testing.T) {
 			// template lines:
 			// <div role="main" class="page-content status-page-500">
 			// [...]
-			// 	<div class="ui container tw-my-8">
+			// 	<div class="ui container tw:my-8">
 			// 		{{if .ErrorMsg}}
 			// 			<p>{{ctx.Locale.Tr "error.occurred"}}:</p>
-			// 			<pre class="tw-whitespace-pre-wrap tw-break-all">{{.ErrorMsg}}</pre>
+			// 			<pre class="tw:whitespace-pre-wrap tw:break-all">{{.ErrorMsg}}</pre>
 			// 		{{end}}
 			// [...]
 			// 	</div>
 			// </div>
 			doc := NewHTMLParser(t, resp.Body)
 			assert.Contains(t,
-				doc.Find(".page-content.status-page-500 .ui.container.tw-my-8 p").Text(),
+				doc.Find(".page-content.status-page-500 .ui.container.tw\\:my-8 p").Text(),
 				translation.NewLocale("en-US").Tr("error.occurred"),
 			)
 			assert.Contains(t,
-				doc.Find(".page-content.status-page-500 .ui.container.tw-my-8 pre.tw-whitespace-pre-wrap.tw-break-all").Text(),
+				doc.Find(".page-content.status-page-500 .ui.container.tw\\:my-8 pre.tw\\:whitespace-pre-wrap.tw\\:break-all").Text(),
 				"column ID must not be empty",
 			)
 		})

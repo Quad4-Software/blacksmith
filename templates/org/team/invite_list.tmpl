@@ -1,6 +1,6 @@
 <div class="flex-list invitation-list">
 	{{range .Invites}}
-		<div class="flex-item tw-items-center">
+		<div class="flex-item tw:items-center">
 			{{if .InvitedUser}}
 				<div class="flex-item-leading">
 					<a href="{{.InvitedUser.HomeLink}}">{{ctx.AvatarUtils.Avatar .InvitedUser 32}}</a>

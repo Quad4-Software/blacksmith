@@ -33,7 +33,7 @@
 		{{- end -}}
 	{{- end -}}
 	<div class="ui segment choose branch">
-		<a class="tw-mr-2" href="{{$.HeadRepo.Link}}/compare/{{PathEscapeSegments $.HeadBranch}}{{$.CompareSeparator}}{{if not $.PullRequestCtx.SameRepo}}{{PathEscape $.BaseName}}/{{PathEscape $.Repository.Name}}:{{end}}{{PathEscapeSegments $.BaseBranch}}" title="{{ctx.Locale.Tr "repo.pulls.switch_head_and_base"}}">{{svg "octicon-git-compare"}}</a>
+		<a class="tw:mr-2" href="{{$.HeadRepo.Link}}/compare/{{PathEscapeSegments $.HeadBranch}}{{$.CompareSeparator}}{{if not $.PullRequestCtx.SameRepo}}{{PathEscape $.BaseName}}/{{PathEscape $.Repository.Name}}:{{end}}{{PathEscapeSegments $.BaseBranch}}" title="{{ctx.Locale.Tr "repo.pulls.switch_head_and_base"}}">{{svg "octicon-git-compare"}}</a>
 		<div class="ui floating filter dropdown" data-no-results="{{ctx.Locale.Tr "repo.pulls.no_results"}}">
 			<div class="ui basic small button">
 				<span class="text">{{if $.PageIsComparePull}}{{ctx.Locale.Tr "repo.pulls.compare_base"}}{{else}}{{ctx.Locale.Tr "repo.compare.compare_base"}}{{end}}: {{$BaseCompareName}}:{{$.BaseBranch}}</span>
@@ -72,7 +72,7 @@
 						{{end}}
 					{{end}}
 				</div>
-				<div class="scrolling menu reference-list-menu base-tag-list tw-hidden">
+				<div class="scrolling menu reference-list-menu base-tag-list tw:hidden">
 					{{range .Tags}}
 						<div class="item {{if eq $.BaseBranch .}}selected{{end}}" data-url="{{$.RepoLink}}/compare/{{PathEscapeSegments .}}{{$.CompareSeparator}}{{if not $.PullRequestCtx.SameRepo}}{{PathEscape $.HeadUser.Name}}/{{PathEscape $.HeadRepo.Name}}:{{end}}{{PathEscapeSegments $.HeadBranch}}">{{$BaseCompareName}}:{{.}}</div>
 					{{end}}
@@ -133,7 +133,7 @@
 						{{end}}
 					{{end}}
 				</div>
-				<div class="scrolling menu reference-list-menu head-tag-list tw-hidden">
+				<div class="scrolling menu reference-list-menu head-tag-list tw:hidden">
 					{{range .HeadTags}}
 						<div class="{{if eq $.HeadBranch .}}selected{{end}} item" data-url="{{$.RepoLink}}/compare/{{PathEscapeSegments $.BaseBranch}}{{$.CompareSeparator}}{{if not $.PullRequestCtx.SameRepo}}{{PathEscape $.HeadUser.Name}}/{{PathEscape $.HeadRepo.Name}}:{{end}}{{PathEscapeSegments .}}">{{$HeadCompareName}}:{{.}}</div>
 					{{end}}
@@ -160,10 +160,10 @@
 	{{if .IsNothingToCompare}}
 		{{if and $.IsSigned $.AllowEmptyPr (not .Repository.IsArchived) .PageIsComparePull}}
 			<div class="ui segment">{{ctx.Locale.Tr "repo.pulls.nothing_to_compare_and_allow_empty_pr"}}</div>
-			<div class="ui info message show-form-container {{if .Flash}}tw-hidden{{end}}">
+			<div class="ui info message show-form-container {{if .Flash}}tw:hidden{{end}}">
 				<button class="ui button primary show-form">{{ctx.Locale.Tr "repo.pulls.new"}}</button>
 			</div>
-			<div class="pullrequest-form {{if not .Flash}}tw-hidden{{end}}">
+			<div class="pullrequest-form {{if not .Flash}}tw:hidden{{end}}">
 				{{template "repo/issue/new_form" .}}
 			</div>
 		{{else if and .HeadIsBranch .BaseIsBranch}}
@@ -193,11 +193,11 @@
 			</div>
 		{{else}}
 			{{if and $.IsSigned (not .Repository.IsArchived)}}
-				<div class="ui info message show-form-container {{if .Flash}}tw-hidden{{end}}">
+				<div class="ui info message show-form-container {{if .Flash}}tw:hidden{{end}}">
 					<button class="ui button primary show-form">{{ctx.Locale.Tr "repo.pulls.new"}}</button>
 				</div>
 			{{else if .Repository.IsArchived}}
-				<div class="ui warning message tw-text-center">
+				<div class="ui warning message tw:text-center">
 					{{if .Repository.ArchivedUnix.IsZero}}
 						{{ctx.Locale.Tr "repo.archive.title"}}
 					{{else}}
@@ -205,12 +205,12 @@
 					{{end}}
 				</div>
 			{{else}}
-				<div class="ui warning message tw-mb-4">
+				<div class="ui warning message tw:mb-4">
 					{{ctx.Locale.Tr "repo.pulls.sign_in_require" .SignInLink}}
 				</div>
 			{{end}}
 			{{if $.IsSigned}}
-				<div class="pullrequest-form {{if not .Flash}}tw-hidden{{end}}">
+				<div class="pullrequest-form {{if not .Flash}}tw:hidden{{end}}">
 					{{template "repo/issue/new_form" .}}
 				</div>
 			{{end}}

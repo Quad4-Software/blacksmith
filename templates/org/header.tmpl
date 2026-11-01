@@ -1,7 +1,7 @@
-<div class="ui container tw-flex tw-gap-x-4">
+<div class="ui container tw:flex tw:gap-x-4">
 	{{ctx.AvatarUtils.Avatar .Org 100 "org-avatar"}}
-	<div id="org-info" class="tw-flex tw-flex-col">
-		<div class="org-header tw-flex">
+	<div id="org-info" class="tw:flex tw:flex-col">
+		<div class="org-header tw:flex">
 			<div class="org-title">
 				<h1>{{.Org.DisplayName}}</h1>
 				<span class="org-visibility">
@@ -9,7 +9,7 @@
 					{{if .Org.Visibility.IsPrivate}}<span class="ui large horizontal label">{{ctx.Locale.Tr "org.settings.visibility.private_shortname"}}</span>{{end}}
 				</span>
 			</div>
-			<span class="button-sequence tw-items-center tw-ml-auto tw-whitespace-nowrap">
+			<span class="button-sequence tw:items-center tw:ml-auto tw:whitespace-nowrap">
 				{{if .Funding}}
 					{{template "shared/donation_button" .}}
 				{{end}}
@@ -47,7 +47,7 @@
 			</span>
 		</div>
 		{{if .RenderedDescription}}<div class="render-content markup">{{.RenderedDescription}}</div>{{end}}
-		<div class="text light meta tw-mt-1">
+		<div class="text light meta tw:mt-1">
 			{{if .Org.Location}}<div class="flex-text-block">{{svg "octicon-location"}} <span>{{.Org.Location}}</span></div>{{end}}
 			{{if .Org.Website}}<div class="flex-text-block">{{svg "octicon-link"}} <a class="muted" target="_blank" rel="noopener noreferrer me" href="{{.Org.Website}}">{{.Org.Website}}</a></div>{{end}}
 			{{if .IsSigned}}

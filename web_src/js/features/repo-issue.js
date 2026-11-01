@@ -14,7 +14,7 @@ const {appSubUrl} = window.config;
 // if there are draft comments, confirm before reloading, to avoid losing comments
 export function reloadConfirmDraftComment() {
   const commentTextareas = [
-    document.querySelector('.edit-content-zone:not(.tw-hidden) textarea'),
+    document.querySelector('.edit-content-zone:not(.tw\\:hidden) textarea'),
     document.querySelector('#comment-form textarea'),
   ];
   for (const textarea of commentTextareas) {
@@ -145,9 +145,9 @@ export function initRepoIssueCommentDelete() {
           // on the Conversation page, there is no parent "tr", so no need to do anything for "add-code-comment"
           if (lineType) {
             if (lineType === 'same') {
-              document.querySelector(`[data-path="${path}"] .add-code-comment[data-idx="${idx}"]`).classList.remove('tw-invisible');
+              document.querySelector(`[data-path="${path}"] .add-code-comment[data-idx="${idx}"]`).classList.remove('tw:invisible');
             } else {
-              document.querySelector(`[data-path="${path}"] .add-code-comment[data-side="${side}"][data-idx="${idx}"]`).classList.remove('tw-invisible');
+              document.querySelector(`[data-path="${path}"] .add-code-comment[data-side="${side}"][data-idx="${idx}"]`).classList.remove('tw:invisible');
             }
           }
           conversationHolder.remove();
@@ -935,11 +935,11 @@ export function initRepoIssueAssignMe() {
         for (const item of selectorList.querySelectorAll('.item')) {
           if (item.getAttribute('data-id') === selectMe.getAttribute('data-id')) {
             item.classList.add('checked');
-            item.querySelector('.octicon-check').classList.remove('tw-invisible');
+            item.querySelector('.octicon-check').classList.remove('tw:invisible');
           }
         }
-        document.querySelector(selectMe.getAttribute('data-id-selector')).classList.remove('tw-hidden');
-        noSelect.classList.add('tw-hidden');
+        document.querySelector(selectMe.getAttribute('data-id-selector')).classList.remove('tw:hidden');
+        noSelect.classList.add('tw:hidden');
         document.querySelector(selectorList.getAttribute('data-id')).value = selectMe.getAttribute('data-id');
         return false;
       }

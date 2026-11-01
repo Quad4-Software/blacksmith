@@ -8,7 +8,7 @@
 				<div class="ui header">
 					<a class="file-revisions-btn ui basic button" title="{{ctx.Locale.Tr "repo.wiki.back_to_wiki"}}" href="{{.RepoLink}}/wiki/{{.PageURL}}">{{if .revision}}<span>{{.revision}}</span> {{end}}{{svg "octicon-home"}}</a>
 					{{$title}}
-					<div class="ui sub header tw-break-anywhere">
+					<div class="ui sub header tw:break-anywhere">
 						{{$timeSince := DateUtils.TimeSince .Author.When}}
 						{{ctx.Locale.Tr "repo.wiki.last_commit_info" .Author.Name $timeSince}}
 					</div>
@@ -22,7 +22,7 @@
 			</div>
 		</div>
 		<h2 class="ui top header">{{ctx.Locale.Tr "repo.wiki.wiki_page_revisions"}}</h2>
-		<div class="tw-mt-4">
+		<div class="tw:mt-4">
 			<h4 class="ui top attached header">
 				<div class="ui stackable grid">
 					<div class="sixteen wide column">

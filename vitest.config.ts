@@ -1,5 +1,6 @@
 import {defineConfig} from 'vitest/config';
-import vuePlugin from '@vitejs/plugin-vue';
+import {svelte} from '@sveltejs/vite-plugin-svelte';
+import {svelteTesting} from '@testing-library/svelte/vite';
 import {stringPlugin} from 'vite-string-plugin';
 
 export default defineConfig({
@@ -15,8 +16,14 @@ export default defineConfig({
     watch: false,
     mockReset: true,
   },
+  resolve: {
+    conditions: ['browser'],
+  },
   plugins: [
+    svelteTesting(),
     stringPlugin(),
-    vuePlugin(),
+    svelte({
+      dynamicCompileOptions: ({filename}) => filename.includes('node_modules') ? undefined : {runes: true},
+    }),
   ],
 });

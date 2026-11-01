@@ -1417,7 +1417,7 @@ func TestIssueLabelList(t *testing.T) {
 	defer tests.PrepareTestEnv(t)()
 	// The label list should always be present. When no labels are selected, .no-select is visible, otherwise hidden.
 	labelListSelector := ".labels.list .labels-list"
-	hiddenClass := "tw-hidden"
+	hiddenClass := `tw\:hidden`
 
 	t.Run("Test label list", func(t *testing.T) {
 		defer tests.PrintCurrentTest(t)()

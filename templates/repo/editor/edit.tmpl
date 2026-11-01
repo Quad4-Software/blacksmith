@@ -36,7 +36,7 @@
 					<button class="secondary button" id="editor-find" type="button">{{svg "octicon-search"}}<span class="text not-mobile">Search</span></button>
 				</div>
 				<div class="ui bottom active tab segment" data-tab="write">
-					<textarea id="edit_area" name="content" class="tw-hidden" data-id="repo-{{.Repository.Name}}-{{.TreePath}}"
+					<textarea id="edit_area" name="content" class="tw:hidden" data-id="repo-{{.Repository.Name}}-{{.TreePath}}"
 						data-url="{{.Repository.Link}}/markup"
 						data-context="{{.RepoLink}}"
 						data-previewable-extensions="{{.PreviewableExtensions}}"
@@ -47,7 +47,7 @@
 					{{ctx.Locale.Tr "loading"}}
 				</div>
 				<div class="ui bottom tab segment diff edit-diff" data-tab="diff">
-					<div class="tw-p-16"></div>
+					<div class="tw:p-16"></div>
 				</div>
 			</div>
 			{{template "repo/editor/commit_form" .}}

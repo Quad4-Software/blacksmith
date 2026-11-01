@@ -360,7 +360,7 @@ func (p *FilePreview) CreateHTML(locale translation.Locale) *html.Node {
 		warning := &html.Node{
 			Type: html.ElementNode,
 			Data: atom.Div.String(),
-			Attr: []html.Attribute{{Key: "class", Val: "ui warning message tw-text-left"}},
+			Attr: []html.Attribute{{Key: "class", Val: "ui warning message tw:text-left"}},
 		}
 		warning.AppendChild(&html.Node{
 			Type: html.TextNode,

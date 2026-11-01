@@ -7,7 +7,7 @@
 	<div class="ui attached segment">
 		{{if .Reports}}
 		<div class="flex-list">
-			<div class="flex-item tw-items-center">
+			<div class="flex-item tw:items-center">
 				<div class="flex-item-leading">
 					<span class="inline">Type</span>
 				</div>
@@ -34,11 +34,11 @@
 						{{end}}
 					</div>
 					<div class="flex-items-inline">
-						<span class="item tw-mr-2">
+						<span class="item tw:mr-2">
 							{{svg "octicon-calendar"}}
 							{{DateUtils.TimeSince .CreatedUnix}}
 						</span>
-						<span class="item tw-mr-2">
+						<span class="item tw:mr-2">
 							{{svg "octicon-report"}}
 							{{if .ReporterName}}<a href="{{AppSubUrl}}/{{.ReporterName}}">{{.ReporterName}}</a>{{else}}{{$.GhostUserName}}{{end}}
 						</span>
@@ -56,9 +56,9 @@
 				{{$postURL := print AppSubUrl "/admin/abuse_reports/act"}}
 
 				<div class="flex-item-trailing">
-					<div class="flex-item-main tw-max-w-12 sm:tw-max-w-60">
-						<a class="flex-item-trailing tw-p-1" href="{{AppSubUrl}}/admin/moderation/reports/type/{{.ContentType}}/id/{{.ContentID}}">
-							<span class="tw-text-16 tw-font-semibold">{{.ReportedTimes}}</span>{{svg "octicon-report" "tw-ml-2"}}
+					<div class="flex-item-main tw:max-w-12 tw:sm:max-w-60">
+						<a class="flex-item-trailing tw:p-1" href="{{AppSubUrl}}/admin/moderation/reports/type/{{.ContentType}}/id/{{.ContentID}}">
+							<span class="tw:text-16 tw:font-semibold">{{.ReportedTimes}}</span>{{svg "octicon-report" "tw:ml-2"}}
 						</a>
 						<div class="button-sequence"
 								hx-target="{{$reportDivSelector}}" hx-indicator="{{$reportDivSelector}}"
@@ -121,7 +121,7 @@
 			{{end}}
 		</div>
 		{{else}}
-			<p class="tw-text-center">{{ctx.Locale.Tr "admin.moderation.no_open_reports"}}</p>
+			<p class="tw:text-center">{{ctx.Locale.Tr "admin.moderation.no_open_reports"}}</p>
 		{{end}}
 	</div>
 </div>
