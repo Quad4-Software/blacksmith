@@ -14,34 +14,54 @@
 			</div>
 		{{end}}
 		<h4 class="ui top attached header">
-			{{ctx.Locale.Tr "admin.dashboard.operations"}}
-		</h4>
-		<div class="ui attached table segment">
-			<form method="post" action="{{AppSubUrl}}/admin">
-				<table class="ui very basic table tw:mt-0 tw:px-4">
-					<tbody>
-						{{range .Entries}}
-							<tr>
-								<td>{{ctx.Locale.Tr (printf "admin.dashboard.%s" .)}}</td>
-								<td class="text right">
-									<button type="submit" class="primary button" name="op" value="{{.}}">
-										{{svg "octicon-play"}} {{ctx.Locale.Tr "admin.dashboard.operation_run"}}
-									</button>
-								</td>
-							</tr>
-						{{end}}
-					</tbody>
-				</table>
-			</form>
-		</div>
-
-		<h4 class="ui top attached header">
 			{{ctx.Locale.Tr "admin.dashboard.system_status"}}
 		</h4>
 		{{/* TODO: make these stats work in multi-server deployments, likely needs per-server stats in DB */}}
 		<div class="no-loading-indicator tw:hidden"></div>
-		<div hx-get="{{$.Link}}/system_status" hx-swap="morph:innerHTML" hx-trigger="every 5s" hx-indicator=".no-loading-indicator" class="ui attached table segment">
+		<div hx-get="{{$.Link}}/system_status" hx-swap="morph:innerHTML" hx-trigger="every 5s" hx-indicator=".no-loading-indicator" class="ui attached segment">
 			{{template "admin/system_status" .}}
+		</div>
+
+		<h4 class="ui top attached header">
+			{{ctx.Locale.Tr "admin.dashboard.operations"}}
+		</h4>
+		<div class="ui attached segment">
+			<form method="post" action="{{AppSubUrl}}/admin">
+				<div class="admin-op-grid">
+					{{range .Entries}}
+						<div class="admin-op-card">
+							<div class="admin-op-title">{{ctx.Locale.Tr (printf "admin.dashboard.%s" .)}}</div>
+							{{if StringUtils.HasPrefix . "delete"}}
+								<button type="button" class="danger button show-modal" data-modal="#admin-op-modal-{{.}}">
+									{{svg "octicon-play"}} {{ctx.Locale.Tr "admin.dashboard.operation_run"}}
+								</button>
+							{{else}}
+								<button type="submit" class="primary button" name="op" value="{{.}}">
+									{{svg "octicon-play"}} {{ctx.Locale.Tr "admin.dashboard.operation_run"}}
+								</button>
+							{{end}}
+						</div>
+					{{end}}
+				</div>
+			</form>
+			{{range .Entries}}{{if StringUtils.HasPrefix . "delete"}}
+			<dialog class="modal" id="admin-op-modal-{{.}}">
+				<article>
+					<header>{{ctx.Locale.Tr "admin.dashboard.op_confirm_title"}}</header>
+					<div class="content">
+						<p>{{ctx.Locale.Tr "admin.dashboard.op_confirm_body" (ctx.Locale.Tr (printf "admin.dashboard.%s" .))}}</p>
+					</div>
+					<form method="post" action="{{AppSubUrl}}/admin">
+						<div class="actions">
+							<button type="button" class="cancel button">{{ctx.Locale.Tr "modal.cancel"}}</button>
+							<button type="submit" class="ui red button ok" name="op" value="{{.}}">
+								{{ctx.Locale.Tr "admin.dashboard.operation_run"}}
+							</button>
+						</div>
+					</form>
+				</article>
+			</dialog>
+			{{end}}{{end}}
 		</div>
 	</div>
 {{template "admin/layout_footer" .}}

@@ -70,3 +70,145 @@
     overflow-inline: auto;
   }
 }
+
+/* dashboard summary cards */
+.admin-status-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.75rem;
+  margin-block-end: 1rem;
+}
+
+.admin-status-card {
+  padding: 0.75rem 1rem;
+  background: var(--color-box-body);
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--border-radius);
+}
+
+.admin-status-label {
+  color: var(--color-text-light-2);
+  font-size: 0.8em;
+  margin-block-end: 0.25rem;
+}
+
+.admin-status-value {
+  font-size: 1.3em;
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+/* definition list inside the polled region */
+.admin-status-dl {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 0 1.5rem;
+}
+
+.admin-status-dl dt,
+.admin-status-dl dd {
+  overflow-wrap: anywhere;
+}
+
+.admin-status-dl dt {
+  color: var(--color-text-light-2);
+  padding-block: 0.3rem;
+}
+
+.admin-status-dl dd {
+  margin: 0;
+  padding-block: 0.3rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.admin-status-dl .divider {
+  grid-column: 1 / -1;
+  border-block-start: 1px solid var(--color-secondary);
+  margin-block: 0.25rem;
+}
+
+/* operations cards */
+.admin-op-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 0.75rem;
+}
+
+.admin-op-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--border-radius);
+}
+
+.admin-op-title {
+  font-weight: var(--font-weight-medium);
+}
+
+/* admin table polish */
+.admin-setting-content table thead th {
+  color: var(--color-text-light-2);
+  border-block-end: 1px solid var(--color-secondary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.admin-setting-content table td,
+.admin-setting-content table th {
+  padding: 0.45rem 0.6rem;
+}
+
+.admin-setting-content table tbody tr:hover {
+  background: var(--color-hover);
+}
+
+.admin-setting-content table td:first-child,
+.admin-setting-content table td.center.aligned,
+.admin-setting-content table td.right.aligned {
+  font-variant-numeric: tabular-nums;
+}
+
+.admin-setting-content table td .svg.octicon-check {
+  color: var(--color-green);
+}
+
+.admin-setting-content table td .svg.octicon-x {
+  color: var(--color-text-light-2);
+}
+
+.admin-setting-content table td > a.icon,
+.admin-setting-content table td > a:has(> svg:only-child) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--border-radius);
+  color: var(--color-text-light-2);
+}
+
+.admin-setting-content table td > a.icon:hover,
+.admin-setting-content table td > a:has(> svg:only-child):hover {
+  background: var(--color-hover);
+  color: var(--color-text);
+}
+
+.admin-setting-content table td > a.icon:focus-visible,
+.admin-setting-content table td > a:has(> svg:only-child):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+/* table toolbar wraps on mobile */
+.admin-setting-content .table-toolbar,
+.admin-setting-content form:has(+ table) .tw\:flex {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 767.98px) {
+  .admin-setting-content .ui.attached.table.segment {
+    overflow-inline: auto;
+  }
+}
