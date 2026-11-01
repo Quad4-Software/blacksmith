@@ -60,6 +60,7 @@ import {initUserAuthWebAuthn, initUserAuthWebAuthnRegister} from './features/use
 import {initRepoRelease, initRepoReleaseNew} from './features/repo-release.js';
 import {initAddOrgMemberButton} from './features/add-org-member.ts';
 import {initCompSearchUserBox} from './features/comp/SearchUserBox.js';
+import {initCommandPalette} from './features/command-palette.ts';
 import {initInstall} from './features/install.js';
 import {initCompWebHookEditor} from './features/comp/WebHookEditor.js';
 import {initRepoBranchButton} from './features/repo-branch.ts';
@@ -109,6 +110,7 @@ onDomReady(() => {
   initCommonIssueListQuickGoto();
 
   initCompSearchUserBox();
+  initCommandPalette();
   initCompWebHookEditor();
 
   initInstall();

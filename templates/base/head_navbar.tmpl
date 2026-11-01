@@ -20,6 +20,7 @@
 				</div>
 			</a>
 			{{end}}
+			<button class="item tw:w-auto ui icon mini button tw:p-2 tw:m-0" type="button" data-command-palette-open aria-label="{{ctx.Locale.Tr "command_palette.title"}}">{{svg "octicon-search"}}</button>
 			<button class="item tw:w-auto ui icon mini button tw:p-2 tw:m-0" id="navbar-expand-toggle" aria-label="{{ctx.Locale.Tr "toggle_menu"}}">{{svg "octicon-three-bars"}}</button>
 		</div>
 
@@ -60,6 +61,7 @@
 		{{if .IsSigned}}
 			<form id="logout-user-action" action="{{AppSubUrl}}/user/logout" method="POST" class="tw:hidden"></form>
 		{{end}}
+		<button class="item not-mobile tw:mx-0" type="button" data-command-palette-open data-tooltip-content="{{ctx.Locale.Tr "command_palette.tooltip"}}" aria-label="{{ctx.Locale.Tr "command_palette.title"}}">{{svg "octicon-search"}}</button>
 		{{if and .IsSigned .HideNavbarLinks}}
 			{{/* Limited dropdown that for when account action is required, like change password or add 2FA */}}
 			<div class="dialog-dropdown">
