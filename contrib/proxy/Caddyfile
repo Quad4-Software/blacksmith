@@ -66,4 +66,11 @@
 	reverse_proxy blacksmith:3000 {
 		header_up X-Real-IP {remote_host}
 	}
+
+	handle_errors {
+		@upstream-err expression `{http.error.status_code} in [502, 503, 504]`
+		rewrite @upstream-err /errors/{http.error.status_code}.html
+		root * /etc/caddy
+		file_server
+	}
 }

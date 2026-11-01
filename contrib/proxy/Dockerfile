@@ -22,6 +22,7 @@ RUN apk add --no-cache ca-certificates-bundle
 
 COPY --from=build /usr/bin/caddy /usr/bin/caddy
 COPY contrib/proxy/Caddyfile /etc/caddy/Caddyfile
+COPY contrib/proxy/errors /etc/caddy/errors
 
 USER 65532:65532
 

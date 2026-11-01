@@ -70,6 +70,7 @@ func (ctx *Context) RedirectToFirst(location ...string) string {
 
 const (
 	tplStatus404 base.TplName = "status/404"
+	tplStatus403 base.TplName = "status/403"
 	tplStatus500 base.TplName = "status/500"
 )
 
@@ -211,4 +212,26 @@ func (ctx *Context) NotFoundOrServerError(logMsg string, errCheck func(error) bo
 		return
 	}
 	ctx.serverErrorInternal(logMsg, logErr)
+}
+
+// Error responds with the given error code. For 403 it renders the 403
+// status page when the client accepts HTML, keeping plain text otherwise.
+func (ctx *Context) Error(status int, contents ...string) {
+	if status != http.StatusForbidden {
+		ctx.Base.Error(status, contents...)
+		return
+	}
+	showHTML := false
+	for _, part := range ctx.Req.Header["Accept"] {
+		if strings.Contains(part, "text/html") {
+			showHTML = true
+			break
+		}
+	}
+	if !showHTML {
+		ctx.Base.Error(status, contents...)
+		return
+	}
+	ctx.Data["Title"] = ctx.Locale.TrString("error403_title")
+	ctx.HTML(http.StatusForbidden, tplStatus403)
 }

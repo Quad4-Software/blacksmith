@@ -1,11 +1,13 @@
 {{template "base/head" .}}
 <div role="main" aria-label="{{.Title}}" class="page-content ui {{if .IsRepo}}repository{{end}}">
 	{{if .IsRepo}}{{template "repo/header" .}}{{end}}
-	<div class="ui container center">
-		<h1 style="margin-top: 100px" class="error-code">413</h1>
-		<p>{{ctx.Locale.Tr "error413"}}</p>
-		<div class="divider"></div>
-		<br>
+	<div class="status-page">
+		<h1 class="error-code">413</h1>
+		<h2 class="status-page-title">{{ctx.Locale.Tr "error413_title"}}</h2>
+		<p class="status-page-text">{{ctx.Locale.Tr "error413"}}</p>
+		<div class="status-page-actions">
+			<a class="ui button" href="{{AppSubUrl}}/">{{ctx.Locale.Tr "home"}}</a>
+		</div>
 	</div>
 </div>
 {{template "base/footer" .}}

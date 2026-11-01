@@ -128,6 +128,7 @@ active sessions.
 | `Dockerfile` | rootless multi-stage chainguard build |
 | `compose.prod.yaml` | production stack |
 | `contrib/proxy/` | caddy + coraza + crowdsec-bouncer build and Caddyfile |
+| `contrib/proxy/errors/` | static 502/503/504 error pages served by the proxy |
 | `contrib/crowdsec/` | acquisition + appsec config |
 | `contrib/backup/` | encrypted restic sidecar |
 | `contrib/quadlets/` | podman systemd units with autoupdate |

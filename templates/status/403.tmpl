@@ -1,0 +1,13 @@
+{{template "base/head" .}}
+<div role="main" aria-label="{{.Title}}" class="page-content ui">
+	<div class="status-page">
+		<h1 class="error-code">403</h1>
+		<h2 class="status-page-title">{{ctx.Locale.Tr "error403_title"}}</h2>
+		<p class="status-page-text">{{ctx.Locale.Tr "error403"}}</p>
+		<div class="status-page-actions">
+			<a class="ui button" href="{{AppSubUrl}}/">{{ctx.Locale.Tr "home"}}</a>
+			{{if .IsSigned}}{{else}}<a class="ui button" href="{{AppSubUrl}}/user/login">{{ctx.Locale.Tr "sign_in"}}</a>{{end}}
+		</div>
+	</div>
+</div>
+{{template "base/footer" .}}
