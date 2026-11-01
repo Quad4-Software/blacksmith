@@ -9,6 +9,7 @@
 
 <script lang="ts">
   import {GET} from '../modules/fetch.ts';
+  import {svgParseOuterInner} from '../svg.ts';
   import {navigate} from '../modules/command-palette-navigate.ts';
   import {rankItems, type MatchResult} from '../modules/command-palette-match.ts';
   import SvgIcon from './SvgIcon.svelte';
@@ -17,6 +18,7 @@
   interface Command {
     label: string;
     href: string;
+    icon?: Parameters<typeof svgParseOuterInner>[0];
   }
 
   interface Group {
@@ -91,31 +93,31 @@
     const signedIn = !!document.querySelector('#logout-user-action');
     const admin = !!document.querySelector('.navbar-right a[href$="/admin"], #navbar a[href$="/admin"]');
     const cmds: Command[] = [
-      {label: t('command_palette.dashboard', 'Dashboard'), href: `${appSubUrl}/`},
-      {label: t('command_palette.issues', 'Issues'), href: `${appSubUrl}/issues`},
-      {label: t('command_palette.pull_requests', 'Pull requests'), href: `${appSubUrl}/pulls`},
-      {label: t('command_palette.milestones', 'Milestones'), href: `${appSubUrl}/milestones`},
+      {label: t('command_palette.dashboard', 'Dashboard'), href: `${appSubUrl}/`, icon: 'octicon-home'},
+      {label: t('command_palette.issues', 'Issues'), href: `${appSubUrl}/issues`, icon: 'octicon-issue-opened'},
+      {label: t('command_palette.pull_requests', 'Pull requests'), href: `${appSubUrl}/pulls`, icon: 'octicon-git-pull-request'},
+      {label: t('command_palette.milestones', 'Milestones'), href: `${appSubUrl}/milestones`, icon: 'octicon-milestone'},
     ];
     if (signedIn) {
-      cmds.push({label: t('command_palette.notifications', 'Notifications'), href: `${appSubUrl}/notifications`});
+      cmds.push({label: t('command_palette.notifications', 'Notifications'), href: `${appSubUrl}/notifications`, icon: 'octicon-bell'});
     }
     cmds.push(
-      {label: t('command_palette.explore_repos', 'Explore repositories'), href: `${appSubUrl}/explore/repos`},
-      {label: t('command_palette.explore_users', 'Explore users'), href: `${appSubUrl}/explore/users`},
-      {label: t('command_palette.explore_orgs', 'Explore organizations'), href: `${appSubUrl}/explore/organizations`},
+      {label: t('command_palette.explore_repos', 'Explore repositories'), href: `${appSubUrl}/explore/repos`, icon: 'octicon-search'},
+      {label: t('command_palette.explore_users', 'Explore users'), href: `${appSubUrl}/explore/users`, icon: 'octicon-search'},
+      {label: t('command_palette.explore_orgs', 'Explore organizations'), href: `${appSubUrl}/explore/organizations`, icon: 'octicon-search'},
     );
     if (signedIn) {
       cmds.push(
-        {label: t('command_palette.create_repo', 'Create repository'), href: `${appSubUrl}/repo/create`},
-        {label: t('command_palette.new_migration', 'New migration'), href: `${appSubUrl}/repo/migrate`},
-        {label: t('command_palette.new_org', 'New organization'), href: `${appSubUrl}/org/create`},
-        {label: t('command_palette.user_settings', 'User settings'), href: `${appSubUrl}/user/settings`},
+        {label: t('command_palette.create_repo', 'Create repository'), href: `${appSubUrl}/repo/create`, icon: 'octicon-plus'},
+        {label: t('command_palette.new_migration', 'New migration'), href: `${appSubUrl}/repo/migrate`, icon: 'octicon-plus'},
+        {label: t('command_palette.new_org', 'New organization'), href: `${appSubUrl}/org/create`, icon: 'octicon-plus'},
+        {label: t('command_palette.user_settings', 'User settings'), href: `${appSubUrl}/user/settings`, icon: 'octicon-gear'},
       );
     } else {
-      cmds.push({label: t('command_palette.sign_in', 'Sign in / Register'), href: `${appSubUrl}/user/login`});
+      cmds.push({label: t('command_palette.sign_in', 'Sign in / Register'), href: `${appSubUrl}/user/login`, icon: 'octicon-sign-in'});
     }
     if (admin) {
-      cmds.push({label: t('command_palette.site_admin', 'Site administration'), href: `${appSubUrl}/admin`});
+      cmds.push({label: t('command_palette.site_admin', 'Site administration'), href: `${appSubUrl}/admin`, icon: 'octicon-shield-lock'});
     }
     return cmds;
   }
@@ -127,7 +129,8 @@
       clone.querySelectorAll('.ui.small.label, svg').forEach((el) => el.remove());
       const label = clone.textContent?.replace(/\s+/g, ' ').trim();
       const href = sanitizeUrl(a.getAttribute('href') ?? '');
-      if (label && href) out.push({label, href});
+      const icon = (a.querySelector('svg')?.getAttribute('class')?.split(/\s+/).find((c) => c.startsWith('octicon-')) ?? 'octicon-code') as Parameters<typeof svgParseOuterInner>[0];
+      if (label && href) out.push({label, href, icon});
     }
     return out;
   }
@@ -199,19 +202,19 @@
           fetchGroup(`${appSubUrl}/api/v1/repos/search?q=${enc}&limit=6`, t('command_palette.repositories', 'Repositories'),
             (x) => {
               const href = toRelative(x.html_url, x.full_name);
-              return href ? {label: String(x.full_name ?? x.name ?? href), href} : null;
+              return href ? {label: String(x.full_name ?? x.name ?? href), href, icon: 'octicon-repo'} : null;
             }),
           fetchGroup(`${appSubUrl}/api/v1/users/search?q=${enc}&limit=4`, t('command_palette.users', 'Users'),
             (x) => {
               const href = toRelative(x.html_url, x.login);
-              return href ? {label: String(x.login ?? x.username ?? href), href} : null;
+              return href ? {label: String(x.login ?? x.username ?? href), href, icon: 'octicon-person'} : null;
             }),
         ];
         if (slug) {
           tasks.push(fetchGroup(`${appSubUrl}/api/v1/repos/${slug}/issues?q=${enc}&type=all&state=all&limit=6`, t('command_palette.repo_issues', 'Issues and pull requests'),
             (x) => {
               const href = toRelative(x.html_url);
-              return href ? {label: `#${x.number} ${x.title ?? ''}`.trim(), href} : null;
+              return href ? {label: `#${x.number} ${x.title ?? ''}`.trim(), href, icon: x.pull_request ? 'octicon-git-pull-request' : 'octicon-issue-opened'} : null;
             }));
         }
         await Promise.all(tasks);
@@ -349,7 +352,7 @@
               onmousemove={() => { activeIndex = idx; }}
               onmousedown={() => openItem(entry.item)}
             >
-              <SvgIcon name="octicon-search" size={16} class="command-palette-item-icon"/>
+              <SvgIcon name={entry.item.icon ?? 'octicon-search'} size={16} class="command-palette-item-icon"/>
               <span class="command-palette-item-label">
                 {#each segments(entry.item.label, entry.match.indexes) as seg, si (si)}
                   {#if seg.match}<mark>{seg.text}</mark>{:else}{seg.text}{/if}
@@ -360,10 +363,10 @@
         {/each}
       </div>
       <div class="command-palette-footer">
-        <span>&uarr;&darr; {t('command_palette.hint_navigate', 'to navigate')}</span>
-        <span>&crarr; {t('command_palette.hint_open', 'to open')}</span>
-        <span>Ctrl+&crarr; {t('command_palette.hint_new_tab', 'new tab')}</span>
-        <span>Esc {t('command_palette.hint_close', 'to close')}</span>
+        <span><kbd>Up</kbd><kbd>Down</kbd> {t('command_palette.hint_navigate', 'to navigate')}</span>
+        <span><kbd>Enter</kbd> {t('command_palette.hint_open', 'to open')}</span>
+        <span><kbd>Ctrl</kbd>+<kbd>Enter</kbd> {t('command_palette.hint_new_tab', 'new tab')}</span>
+        <span><kbd>Esc</kbd> {t('command_palette.hint_close', 'to close')}</span>
       </div>
     </div>
   </div>
@@ -452,6 +455,14 @@
   padding: 0.5em 1em;
   color: var(--color-text-light-2);
   font-size: 0.9em;
+}
+
+.command-palette-footer kbd {
+  padding: 0 0.3em;
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--border-radius);
+  background: var(--color-box-body);
+  font: inherit;
 }
 
 .command-palette-footer {

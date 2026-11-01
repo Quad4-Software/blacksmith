@@ -109,7 +109,23 @@ describe('getColorIndex', () => {
 
 describe('ActivityHeatmap', () => {
   afterEach(() => {
+    vi.useRealTimers();
     vi.restoreAllMocks();
+  });
+
+  test.each([
+    ['sunday', new Date(2026, 10, 1, 12)],
+    ['wednesday', new Date(2026, 10, 4, 12)],
+    ['saturday', new Date(2026, 9, 31, 12)],
+  ])('renders the expected square count when today is a %s', (_name, today) => {
+    vi.useFakeTimers();
+    vi.setSystemTime(today);
+    const {container, unmount} = render(ActivityHeatmap, {props: {values: [], locale}});
+    const squares = container.querySelectorAll('rect.vch__day__square');
+    const start = new Date(today);
+    start.setDate(start.getDate() - 365);
+    expect(squares.length).toEqual(366 + start.getDay());
+    unmount();
   });
 
   test('renders total text, labels, squares and legend', () => {
@@ -124,8 +140,9 @@ describe('ActivityHeatmap', () => {
     expect(dayLabels).toEqual(['Mon', 'Wed', 'Fri']);
 
     const squares = container.querySelectorAll('rect.vch__day__square');
-    expect(squares.length).toBeGreaterThanOrEqual(365);
-    expect(squares.length).toBeLessThanOrEqual(371);
+    const start = new Date();
+    start.setDate(start.getDate() - 365);
+    expect(squares.length).toEqual(366 + start.getDay());
 
     const legend = container.querySelector('.vch__legend .vch__legend');
     expect(legend.textContent).toContain('Less');
