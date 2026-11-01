@@ -1,4 +1,4 @@
-// bootstrap module must be the first one to be imported, it handles webpack lazy-loading and global errors
+// bootstrap module must be the first one to be imported, it handles asset URLs and global errors
 import './bootstrap.js';
 
 import {initGlobalCopyToClipboardListener} from './features/clipboard.js';

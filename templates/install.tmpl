@@ -9,7 +9,7 @@
 				{{template "base/alert" .}}
 
 				<form class="ui form" action="{{AppSubUrl}}/" method="post">
-					<p class="tw-mt-0">{{ctx.Locale.Tr "install.docker_helper" (AppDocsURL "admin/installation/docker/")}}</p>
+					<p class="tw:mt-0">{{ctx.Locale.Tr "install.docker_helper" (AppDocsURL "admin/installation/docker/")}}</p>
 
 					<!-- Database Settings -->
 					<h4 class="ui dividing header">{{ctx.Locale.Tr "install.db_title"}}</h4>
@@ -28,7 +28,7 @@
 						</div>
 					</div>
 
-					<div class="tw-mt-4 tw-hidden" data-db-setting-for="common-host">
+					<div class="tw:mt-4 tw:hidden" data-db-setting-for="common-host">
 						<div class="inline required field {{if .Err_DbSetting}}error{{end}}">
 							<label for="db_host">{{ctx.Locale.Tr "install.host"}}</label>
 							<input id="db_host" name="db_host" value="{{.db_host}}">
@@ -47,7 +47,7 @@
 						</div>
 					</div>
 
-					<div class="tw-mt-4 tw-hidden" data-db-setting-for="postgres">
+					<div class="tw:mt-4 tw:hidden" data-db-setting-for="postgres">
 						<div class="inline required field">
 							<label>{{ctx.Locale.Tr "install.ssl_mode"}}</label>
 							<div class="ui selection database type dropdown">
@@ -68,7 +68,7 @@
 						</div>
 					</div>
 
-					<div class="tw-mt-4 tw-hidden" data-db-setting-for="sqlite3">
+					<div class="tw:mt-4 tw:hidden" data-db-setting-for="sqlite3">
 						<div class="inline required field {{if or .Err_DbPath .Err_DbSetting}}error{{end}}">
 							<label for="db_path">{{ctx.Locale.Tr "install.path"}}</label>
 							<input id="db_path" name="db_path" value="{{.db_path}}">
@@ -172,7 +172,7 @@
 
 					<!-- Email -->
 					<details class="collapsible optional field">
-						<summary class="tw-py-2{{if .Err_SMTP}} text red{{end}}">
+						<summary class="tw:py-2{{if .Err_SMTP}} text red{{end}}">
 							{{ctx.Locale.Tr "install.email_title"}}
 						</summary>
 						<div class="inline field">
@@ -212,7 +212,7 @@
 
 					<!-- Server and other services -->
 					<details class="collapsible optional field">
-						<summary class="tw-py-2">
+						<summary class="tw:py-2">
 							{{ctx.Locale.Tr "install.server_service_title"}}
 						</summary>
 						<div class="inline field">
@@ -301,7 +301,7 @@
 
 					<!-- Admin -->
 					<details class="collapsible optional field">
-						<summary class="tw-py-2{{if .Err_Admin}} text red{{end}}">
+						<summary class="tw:py-2{{if .Err_Admin}} text red{{end}}">
 							{{ctx.Locale.Tr "install.admin_title"}}
 						</summary>
 						<p class="center">{{ctx.Locale.Tr "install.admin_setting.description"}}</p>
@@ -332,7 +332,7 @@
 						<div class="right-content">
 							{{ctx.Locale.Tr "install.env_config_keys_prompt"}}
 						</div>
-						<div class="right-content tw-mt-2">
+						<div class="right-content tw:mt-2">
 							{{range .EnvConfigKeys}}<span class="ui label">{{.}}</span>{{end}}
 						</div>
 					</div>
@@ -340,7 +340,7 @@
 
 					<p>{{ctx.Locale.Tr "install.config_location_hint"}} {{.CustomConfFile}}</p>
 					<div class="inline field">
-						<div class="tw-mt-4 tw-mb-2 tw-text-center">
+						<div class="tw:mt-4 tw:mb-2 tw:text-center">
 							<button class="ui primary button">{{ctx.Locale.Tr "install.install_btn_confirm"}}</button>
 						</div>
 					</div>
@@ -349,5 +349,5 @@
 		</div>
 	</div>
 </div>
-<img class="tw-hidden" src="{{AssetUrlPrefix}}/img/forgejo-loading.svg" alt="{{ctx.Locale.Tr "loading"}}" width="256" height="256">
+<img class="tw:hidden" src="{{AssetUrlPrefix}}/img/forgejo-loading.svg" alt="{{ctx.Locale.Tr "loading"}}" width="256" height="256">
 {{template "base/footer" .}}

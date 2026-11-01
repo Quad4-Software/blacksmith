@@ -52,7 +52,7 @@
 					</div>
 				</div>
 
-				<div class="required non-local field {{if .Err_LoginName}}error{{end}} {{if eq .User.LoginSource 0}}tw-hidden{{end}}">
+				<div class="required non-local field {{if .Err_LoginName}}error{{end}} {{if eq .User.LoginSource 0}}tw:hidden{{end}}">
 					<label for="login_name">{{ctx.Locale.Tr "admin.users.auth_login_name"}}</label>
 					<input id="login_name" name="login_name" value="{{.User.LoginName}}" autofocus>
 				</div>
@@ -71,7 +71,7 @@
 					</div>
 					<span class="help">{{ctx.Locale.Tr "settings.keep_email_private_popup" .User.GetPlaceholderEmail}}</span>
 				</div>
-				<div class="local field {{if .Err_Password}}error{{end}} {{if not (or (.User.IsLocal) (.User.IsOAuth2))}}tw-hidden{{end}}">
+				<div class="local field {{if .Err_Password}}error{{end}} {{if not (or (.User.IsLocal) (.User.IsOAuth2))}}tw:hidden{{end}}">
 					<label for="password">{{ctx.Locale.Tr "password"}}</label>
 					<input id="password" name="password" type="password" autocomplete="new-password">
 					<p class="help">{{ctx.Locale.Tr "admin.users.password_helper"}}</p>
@@ -147,42 +147,42 @@
 						<label>{{ctx.Locale.Tr "admin.users.is_activated"}}</label>
 						<input name="active" type="checkbox" {{if .User.IsActive}}checked{{end}}>
 					</div>
-					<span class="help tw-block">{{ctx.Locale.Tr "admin.users.activated.description"}}</span>
+					<span class="help tw:block">{{ctx.Locale.Tr "admin.users.activated.description"}}</span>
 				</div>
 				<div class="inline field">
 					<div class="ui checkbox">
 						<label>{{ctx.Locale.Tr "admin.users.prohibit_login"}}</label>
 						<input name="prohibit_login" type="checkbox" {{if .User.ProhibitLogin}}checked{{end}} {{if (eq .User.ID .SignedUserID)}}disabled{{end}}>
 					</div>
-					<span class="help tw-block">{{ctx.Locale.Tr "admin.users.block.description"}}</span>
+					<span class="help tw:block">{{ctx.Locale.Tr "admin.users.block.description"}}</span>
 				</div>
 				<div class="inline field">
 					<div class="ui checkbox">
 						<label>{{ctx.Locale.Tr "admin.users.is_admin"}}</label>
 						<input name="admin" type="checkbox" {{if .User.IsAdmin}}checked{{end}}>
 					</div>
-					<span class="help tw-block">{{ctx.Locale.Tr "admin.users.admin.description"}}</span>
+					<span class="help tw:block">{{ctx.Locale.Tr "admin.users.admin.description"}}</span>
 				</div>
 				<div class="inline field">
 					<div class="ui checkbox">
 						<label>{{ctx.Locale.Tr "admin.users.is_restricted"}}</label>
 						<input name="restricted" type="checkbox" {{if .User.IsRestricted}}checked{{end}}>
 					</div>
-					<span class="help tw-block">{{ctx.Locale.Tr "admin.users.restricted.description"}}</span>
+					<span class="help tw:block">{{ctx.Locale.Tr "admin.users.restricted.description"}}</span>
 				</div>
-				<div class="inline field {{if DisableGitHooks}}tw-hidden{{end}}">
+				<div class="inline field {{if DisableGitHooks}}tw:hidden{{end}}">
 					<div class="ui checkbox">
 						<label>{{ctx.Locale.Tr "admin.users.allow_git_hook"}}</label>
 						<input name="allow_git_hook" type="checkbox" {{if .User.CanEditGitHook}}checked{{end}} {{if DisableGitHooks}}disabled{{end}}>
 					</div>
-					<span class="help tw-block">{{ctx.Locale.Tr "admin.users.allow_git_hook_tooltip"}}</span>
+					<span class="help tw:block">{{ctx.Locale.Tr "admin.users.allow_git_hook_tooltip"}}</span>
 				</div>
-				<div class="inline field {{if or (DisableImportLocal) (.DisableMigrations)}}tw-hidden{{end}}">
+				<div class="inline field {{if or (DisableImportLocal) (.DisableMigrations)}}tw:hidden{{end}}">
 					<div class="ui checkbox">
 						<label>{{ctx.Locale.Tr "admin.users.allow_import_local"}}</label>
 						<input name="allow_import_local" type="checkbox" {{if .User.CanImportLocal}}checked{{end}} {{if DisableImportLocal}}disabled{{end}}>
 					</div>
-					<span class="help tw-block">{{ctx.Locale.Tr "admin.users.local_import.description"}}</span>
+					<span class="help tw:block">{{ctx.Locale.Tr "admin.users.local_import.description"}}</span>
 				</div>
 				{{if not .DisableRegularOrgCreation}}
 				<div class="inline field">
@@ -190,7 +190,7 @@
 						<label>{{ctx.Locale.Tr "admin.users.allow_create_organization"}}</label>
 						<input name="allow_create_organization" type="checkbox" {{if .User.CanCreateOrganization}}checked{{end}}>
 					</div>
-					<span class="help tw-block">{{ctx.Locale.Tr "admin.users.organization_creation.description"}}</span>
+					<span class="help tw:block">{{ctx.Locale.Tr "admin.users.organization_creation.description"}}</span>
 				</div>
 				{{end}}
 
@@ -225,7 +225,7 @@
 						<label>{{ctx.Locale.Tr "settings.lookup_avatar_by_mail"}}</label>
 					</div>
 				</div>
-				<div class="field tw-pl-4 {{if .Err_Gravatar}}error{{end}}">
+				<div class="field tw:pl-4 {{if .Err_Gravatar}}error{{end}}">
 					<label for="gravatar">Avatar {{ctx.Locale.Tr "email"}}</label>
 					<input id="gravatar" name="gravatar" value="{{.User.AvatarEmail}}">
 				</div>
@@ -238,7 +238,7 @@
 					</div>
 				</div>
 
-				<div class="inline field tw-pl-4">
+				<div class="inline field tw:pl-4">
 					<label for="new-avatar">{{ctx.Locale.Tr "settings.choose_new_avatar"}}</label>
 					<input id="new-avatar" name="avatar" aria-describedby="new-avatar-description" type="file" accept="image/png,image/jpeg,image/gif,image/webp">
 					<br/><span id="new-avatar-description" class=help>{{ctx.Locale.Tr "avatar.constraints_hint" (ctx.Locale.TrSize .MaxAvatarFileSize) .MaxAvatarWidth .MaxAvatarHeight}}</span>

@@ -3,8 +3,8 @@ export async function renderAsciicast() {
   if (!els.length) return;
 
   const [player] = await Promise.all([
-    import(/* webpackChunkName: "asciinema-player" */'asciinema-player'),
-    import(/* webpackChunkName: "asciinema-player" */'asciinema-player/dist/bundle/asciinema-player.css'),
+    import('asciinema-player'),
+    import('asciinema-player/dist/bundle/asciinema-player.css'),
   ]);
 
   for (const el of els) {

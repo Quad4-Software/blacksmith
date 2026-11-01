@@ -1,4 +1,4 @@
-import {createApp} from 'vue';
+import {mount} from 'svelte';
 
 export async function initDashboardRepoList() {
   const el = document.getElementById('dashboard-repo-list');
@@ -6,7 +6,10 @@ export async function initDashboardRepoList() {
     return;
   }
 
-  const {default: DashboardRepoList} = await import(/* webpackChunkName: "dashboard-repo-list" */'../components/DashboardRepoList.vue');
-  const dashboardList = createApp(DashboardRepoList);
-  dashboardList.mount(el);
+  const {default: DashboardRepoList} = await import('../components/DashboardRepoList.svelte');
+  el.textContent = '';
+  mount(DashboardRepoList, {
+    target: el,
+    props: window.config.pageData.dashboardRepoList as Record<string, unknown>,
+  });
 }

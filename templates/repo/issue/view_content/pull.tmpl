@@ -39,9 +39,9 @@
 		<div class="ui attached segment merge-section {{if not $.LatestCommitStatus}}no-header{{end}} flex-items-block">
 			{{if .Issue.PullRequest.HasMerged}}
 				{{if .IsPullBranchDeletable}}
-					<div class="item item-section text tw-flex-1">
+					<div class="item item-section text tw:flex-1">
 						<div>
-							<h3 class="tw-mb-2">
+							<h3 class="tw:mb-2">
 								{{ctx.Locale.Tr "repo.pulls.merged_success"}}
 							</h3>
 							<div class="merge-section-info">
@@ -55,9 +55,9 @@
 				{{end}}
 				{{template "repo/pulls/trust" .}}
 			{{else if .Issue.IsClosed}}
-				<div class="item item-section text tw-flex-1">
+				<div class="item item-section text tw:flex-1">
 					<div>
-						<h3 class="tw-mb-2">{{ctx.Locale.Tr "repo.pulls.closed"}}</h3>
+						<h3 class="tw:mb-2">{{ctx.Locale.Tr "repo.pulls.closed"}}</h3>
 						<div class="merge-section-info">
 							{{if .IsPullRequestBroken}}
 								{{ctx.Locale.Tr "repo.pulls.cant_reopen_deleted_branch"}}
@@ -91,7 +91,7 @@
 				</div>
 			{{else if .IsPullWorkInProgress}}
 				<div class="item toggle-wip" data-title="{{.Issue.Title}}" data-wip-prefixes="{{JsonUtils.EncodeToString .PullRequestWorkInProgressPrefixes}}" data-update-url="{{.Issue.Link}}/title">
-					<div class="flex-text-inline tw-flex-1">
+					<div class="flex-text-inline tw:flex-1">
 						{{svg "octicon-x"}}
 						{{ctx.Locale.Tr "repo.pulls.cannot_merge_work_in_progress"}}
 					</div>

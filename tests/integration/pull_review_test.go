@@ -2844,7 +2844,7 @@ func (tester *PullRequestCommentPlacementTester) replySuggestionComment(parent *
 func TestPullReviewSuggestionRender(t *testing.T) {
 	onApplicationRun(t, func(t *testing.T, u *url.URL) {
 		suggestionContainer := func(comment *issues_model.Comment) string {
-			return fmt.Sprintf(`class="suggestion-diff tw-hidden" data-comment-id="%d"`, comment.ID)
+			return fmt.Sprintf(`class="suggestion-diff tw:hidden" data-comment-id="%d"`, comment.ID)
 		}
 
 		t.Run("single line", func(t *testing.T) {
@@ -3035,7 +3035,7 @@ func TestPullReviewApplySuggestion(t *testing.T) {
 			// no longer re-render the suggestion's before/after diff (nor its Apply button)
 			req := NewRequest(t, "GET", fmt.Sprintf("/%s/%s/pulls/%d/files", tester.repo.OwnerName, tester.repo.Name, tester.pr.Index))
 			body := tester.session.MakeRequest(t, req, http.StatusOK).Body.String()
-			assert.NotContains(t, body, fmt.Sprintf(`class="suggestion-diff tw-hidden" data-comment-id="%d"`, comment.ID))
+			assert.NotContains(t, body, fmt.Sprintf(`class="suggestion-diff tw:hidden" data-comment-id="%d"`, comment.ID))
 
 			// applying a suggestion addresses the comment, so its conversation is marked resolved
 			resolved := unittest.AssertExistsAndLoadBean(t, &issues_model.Comment{ID: comment.ID})

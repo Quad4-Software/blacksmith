@@ -5,7 +5,7 @@
 	</h4>
 	{{if .Reports}}
 	<div class="ui attached segment">
-		<div class="flex-item tw-items-center">
+		<div class="flex-item tw:items-center">
 			<div class="flex-item-leading">
 				{{svg .ContentTypeIconName 24}}
 			</div>
@@ -25,11 +25,11 @@
 			<div class="flex-item">
 				<div class="flex-item-main">
 					<div class="flex-items-inline">
-						<span class="item tw-mr-2">
+						<span class="item tw:mr-2">
 							{{svg "octicon-calendar"}}
 							{{DateUtils.AbsoluteShort .CreatedUnix}}
 						</span>
-						<span class="item tw-mr-2">
+						<span class="item tw:mr-2">
 							{{svg "octicon-report"}}
 							{{if .ReporterName}}<a href="/{{.ReporterName}}">{{.ReporterName}}</a>{{else}}{{$.GhostUserName}}{{end}}
 						</span>
@@ -58,7 +58,7 @@
 			{{end}}
 		</div>
 		{{else}}
-		<p class="tw-text-center">{{ctx.Locale.Tr "admin.moderation.no_open_reports"}}</p>
+		<p class="tw:text-center">{{ctx.Locale.Tr "admin.moderation.no_open_reports"}}</p>
 		{{end}}
 	</div>
 </div>

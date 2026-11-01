@@ -13,7 +13,7 @@
 			</a>
 		</button>
 		<dialog popover id="watch-options-dropdown">
-			<form class="ui form tw-p-3" hx-target="#watch-button" method="post" hx-post="{{$.RepoLink}}/action/watch/select" action="{{$.RepoLink}}/action/watch/select" hx-swap="outerHTML">
+			<form class="ui form tw:p-3" hx-target="#watch-button" method="post" hx-post="{{$.RepoLink}}/action/watch/select" action="{{$.RepoLink}}/action/watch/select" hx-swap="outerHTML">
 				<fieldset>
 					<label>
 						<input type="checkbox" name="watch_issues" value="true" {{if $.RepoWatchSelection.Issues}}checked{{end}}>
@@ -31,7 +31,7 @@
 						{{ctx.Locale.Tr "repo.watch.releases"}}
 						<span class="help">{{ctx.Locale.Tr "repo.watch.releases.hint"}}</span>
 					</label>
-					<div class="small button-sequence tw-mt-3">
+					<div class="small button-sequence tw:mt-3">
 						<button type="submit" class="primary button">{{ctx.Locale.Tr "save"}}</button>
 						{{if $.RepoWatchSelection.IsWatching}}
 							<button type="button" class="secondary button" hx-post="{{$.RepoLink}}/action/unwatch" hx-target="#watch-button" hx-swap="outerHTML">

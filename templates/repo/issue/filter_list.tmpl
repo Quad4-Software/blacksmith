@@ -59,8 +59,8 @@
 				{{ctx.Locale.Tr "repo.issues.new.open_projects"}}
 			</div>
 			{{range .OpenProjects}}
-				<a rel="nofollow" class="{{if $.ProjectID}}{{if eq $.ProjectID .ID}}active selected{{end}}{{end}} item tw-flex" href="?q={{$.Keyword}}&type={{$.ViewType}}&sort={{$.SortType}}&state={{$.State}}&labels={{$.SelectLabels}}&milestone={{$.MilestoneID}}&project={{.ID}}&assignee={{$.AssigneeID}}&poster={{$.PosterID}}{{if $.ShowArchivedLabels}}&archived=true{{end}}">
-					{{svg .IconName 16 "tw-mr-2 tw-shrink-0"}}<span class="gt-ellipsis">{{.Title}}</span>
+				<a rel="nofollow" class="{{if $.ProjectID}}{{if eq $.ProjectID .ID}}active selected{{end}}{{end}} item tw:flex" href="?q={{$.Keyword}}&type={{$.ViewType}}&sort={{$.SortType}}&state={{$.State}}&labels={{$.SelectLabels}}&milestone={{$.MilestoneID}}&project={{.ID}}&assignee={{$.AssigneeID}}&poster={{$.PosterID}}{{if $.ShowArchivedLabels}}&archived=true{{end}}">
+					{{svg .IconName 16 "tw:mr-2 tw:shrink-0"}}<span class="gt-ellipsis">{{.Title}}</span>
 				</a>
 			{{end}}
 		{{end}}
@@ -71,7 +71,7 @@
 			</div>
 			{{range .ClosedProjects}}
 				<a rel="nofollow" class="{{if $.ProjectID}}{{if eq $.ProjectID .ID}}active selected{{end}}{{end}} item" href="?q={{$.Keyword}}&type={{$.ViewType}}&sort={{$.SortType}}&state={{$.State}}&labels={{$.SelectLabels}}&milestone={{$.MilestoneID}}&project={{.ID}}&assignee={{$.AssigneeID}}&poster={{$.PosterID}}{{if $.ShowArchivedLabels}}&archived=true{{end}}">
-					{{svg .IconName 16 "tw-mr-2"}}{{.Title}}
+					{{svg .IconName 16 "tw:mr-2"}}{{.Title}}
 				</a>
 			{{end}}
 		{{end}}
@@ -113,7 +113,7 @@
 		<a rel="nofollow" class="{{if eq .AssigneeID -1}}active selected {{end}}item" href="?q={{$keyword}}&type={{$.ViewType}}&sort={{$.SortType}}&state={{$.State}}&labels={{.SelectLabels}}&milestone={{$.MilestoneID}}&project={{$.ProjectID}}&assignee=-1&poster={{$.PosterID}}{{if $.ShowArchivedLabels}}&archived=true{{end}}">{{ctx.Locale.Tr "repo.issues.filter_assginee_no_assignee"}}</a>
 		<div class="divider"></div>
 		{{range .Assignees}}
-			<a rel="nofollow" class="{{if eq $.AssigneeID .ID}}active selected{{end}} item tw-flex" href="?q={{$keyword}}&type={{$.ViewType}}&sort={{$.SortType}}&state={{$.State}}&labels={{$.SelectLabels}}&milestone={{$.MilestoneID}}&project={{$.ProjectID}}&assignee={{.ID}}&poster={{$.PosterID}}{{if $.ShowArchivedLabels}}&archived=true{{end}}">
+			<a rel="nofollow" class="{{if eq $.AssigneeID .ID}}active selected{{end}} item tw:flex" href="?q={{$keyword}}&type={{$.ViewType}}&sort={{$.SortType}}&state={{$.State}}&labels={{$.SelectLabels}}&milestone={{$.MilestoneID}}&project={{$.ProjectID}}&assignee={{.ID}}&poster={{$.PosterID}}{{if $.ShowArchivedLabels}}&archived=true{{end}}">
 				{{ctx.AvatarUtils.Avatar . 20}}{{template "repo/search_name" .}}
 			</a>
 		{{end}}

@@ -1,7 +1,7 @@
 {{template "repo/settings/layout_head" (dict "ctxData" . "pageClass" "repository settings edit")}}
 	<div class="repo-setting-content">
 		{{if .Repository.IsArchived}}
-			<div class="ui warning message tw-text-center">
+			<div class="ui warning message tw:text-center">
 				{{ctx.Locale.Tr "repo.settings.archive.tagsettings_unavailable"}}
 			</div>
 		{{else}}
@@ -105,7 +105,7 @@
 										</td>
 										<td class="right aligned">
 											<a class="ui tiny primary button" href="{{$.RepoLink}}/settings/tags/{{.ID}}">{{ctx.Locale.Tr "edit"}}</a>
-											<form class="tw-inline-block" action="{{$.RepoLink}}/settings/tags/delete" method="post">
+											<form class="tw:inline-block" action="{{$.RepoLink}}/settings/tags/delete" method="post">
 												<input type="hidden" name="id" value="{{.ID}}">
 												<button class="ui tiny red button">{{ctx.Locale.Tr "remove"}}</button>
 											</form>

@@ -30,7 +30,7 @@ export function renderSuggestions(container = document) {
     if (!pre) continue;
 
     pre.replaceWith(holder);
-    holder.classList.remove('tw-hidden');
+    holder.classList.remove('tw:hidden');
     // Mark done only after a successful swap, so an early call (before the code block
     // is in the DOM) can still render it on a later pass.
     holder.setAttribute('data-render-done', 'true');

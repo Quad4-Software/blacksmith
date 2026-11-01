@@ -11,7 +11,7 @@
 	</h4>
 	<div class="ui attached segment">
 		{{if .EnableInternalSignIn}}
-		<form class="ui form tw-mb-4" action="{{.SignInLink}}" method="post">
+		<form class="ui form tw:mb-4" action="{{.SignInLink}}" method="post">
 			<div class="required field {{if and (.Err_UserName) (or (not .LinkAccountMode) (and .LinkAccountMode .LinkAccountModeSignIn))}}error{{end}}">
 				<label for="user_name">{{ctx.Locale.Tr "home.uname_holder"}}</label>
 				<input id="user_name" type="text" name="user_name" value="{{.user_name}}" autofocus required autocorrect="off" autocapitalize="none">
@@ -34,7 +34,7 @@
 			{{template "user/auth/captcha" .}}
 
 			<div class="field">
-				<button class="ui primary button tw-w-full">
+				<button class="ui primary button tw:w-full">
 					{{if .LinkAccountMode}}
 						{{ctx.Locale.Tr "auth.oauth_signin_submit"}}
 					{{else}}
@@ -55,7 +55,7 @@
 <div class="ui container fluid">
 	{{template "user/auth/webauthn_error" .}}
 
-		<div class="ui attached segment header top tw-max-w-2xl tw-m-auto tw-flex tw-flex-col tw-items-center">
+		<div class="ui attached segment header top tw:max-w-2xl tw:m-auto tw:flex tw:flex-col tw:items-center">
 			{{if .ShowRegistrationButton}}
 			<div class="field">
 				{{ctx.Locale.Tr "auth.hint_register" (printf "%s/user/sign_up" AppSubUrl)}}

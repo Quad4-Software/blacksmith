@@ -1,4 +1,4 @@
-import {diffTreeStore} from '../modules/stores.js';
+import {diffTreeStore} from '../modules/stores.svelte.ts';
 import {setFileFolding} from './file-fold.js';
 import {POST} from '../modules/fetch.ts';
 

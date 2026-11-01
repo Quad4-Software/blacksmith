@@ -9,7 +9,7 @@
 					<div class="ui list">
 						{{range $dirI, $dir := .Dirs}}
 							{{$repo := index $.ReposMap $dir}}
-							<div class="item {{if not $repo}}tw-py-1{{end}}">{{/* if not repo, then there are "adapt" buttons, so the padding shouldn't be that default large*/}}
+							<div class="item {{if not $repo}}tw:py-1{{end}}">{{/* if not repo, then there are "adapt" buttons, so the padding shouldn't be that default large*/}}
 								<div class="content">
 									{{if $repo}}
 										{{if $repo.IsPrivate}}
@@ -30,11 +30,11 @@
 											<span><a href="{{$repo.BaseRepo.Link}}">{{$repo.BaseRepo.OwnerName}}/{{$repo.BaseRepo.Name}}</a></span>
 										{{end}}
 									{{else}}
-										<span class="icon tw-inline-block tw-pt-2">{{svg "octicon-file-directory-fill"}}</span>
-										<span class="name tw-inline-block tw-pt-2">{{$.ContextUser.Name}}/{{$dir}}</span>
-										<div class="tw-float-right">
+										<span class="icon tw:inline-block tw:pt-2">{{svg "octicon-file-directory-fill"}}</span>
+										<span class="name tw:inline-block tw:pt-2">{{$.ContextUser.Name}}/{{$dir}}</span>
+										<div class="tw:float-right">
 											{{if $.allowAdopt}}
-												<button class="ui button primary show-modal tw-p-2" data-modal="#adopt-unadopted-modal-{{$dirI}}"><span class="icon">{{svg "octicon-plus"}}</span><span class="label">{{ctx.Locale.Tr "repo.adopt_preexisting_label"}}</span></button>
+												<button class="ui button primary show-modal tw:p-2" data-modal="#adopt-unadopted-modal-{{$dirI}}"><span class="icon">{{svg "octicon-plus"}}</span><span class="label">{{ctx.Locale.Tr "repo.adopt_preexisting_label"}}</span></button>
 												<dialog class="modal" id="adopt-unadopted-modal-{{$dirI}}">
 													<article>
 														<header>{{ctx.Locale.Tr "repo.adopt_preexisting"}}</header>
@@ -50,7 +50,7 @@
 												</dialog>
 											{{end}}
 											{{if $.allowDelete}}
-												<button class="ui button red show-modal tw-p-2" data-modal="#delete-unadopted-modal-{{$dirI}}"><span class="icon">{{svg "octicon-x"}}</span><span class="label">{{ctx.Locale.Tr "repo.delete_preexisting_label"}}</span></button>
+												<button class="ui button red show-modal tw:p-2" data-modal="#delete-unadopted-modal-{{$dirI}}"><span class="icon">{{svg "octicon-x"}}</span><span class="label">{{ctx.Locale.Tr "repo.delete_preexisting_label"}}</span></button>
 												<dialog class="modal" id="delete-unadopted-modal-{{$dirI}}">
 													<article>
 														<header>{{ctx.Locale.Tr "repo.delete_preexisting"}}</header>
@@ -84,15 +84,15 @@
 							<div class="item">
 								<div class="content">
 									{{if .IsPrivate}}
-										{{svg "octicon-lock" 16 "tw-mr-1 iconFloat text gold"}}
+										{{svg "octicon-lock" 16 "tw:mr-1 iconFloat text gold"}}
 									{{else if .IsFork}}
-										{{svg "octicon-repo-forked" 16 "tw-mr-1 iconFloat"}}
+										{{svg "octicon-repo-forked" 16 "tw:mr-1 iconFloat"}}
 									{{else if .IsMirror}}
-										{{svg "octicon-mirror" 16 "tw-mr-1 iconFloat"}}
+										{{svg "octicon-mirror" 16 "tw:mr-1 iconFloat"}}
 									{{else if .IsTemplate}}
-										{{svg "octicon-repo-template" 16 "tw-mr-1 iconFloat"}}
+										{{svg "octicon-repo-template" 16 "tw:mr-1 iconFloat"}}
 									{{else}}
-										{{svg "octicon-repo" 16 "tw-mr-1 iconFloat"}}
+										{{svg "octicon-repo" 16 "tw:mr-1 iconFloat"}}
 									{{end}}
 									<a class="name" href="{{.Link}}">{{.OwnerName}}/{{.Name}}</a>
 									<span>{{ctx.Locale.TrSize .Size}}</span>

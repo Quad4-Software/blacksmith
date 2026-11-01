@@ -1,6 +1,6 @@
 {{range .RecentlyPushedNewBranches}}
-	<div class="ui positive message tw-flex tw-items-center tw-gap-2">
-		<div class="tw-flex-1 tw-break-anywhere">
+	<div class="ui positive message tw:flex tw:items-center tw:gap-2">
+		<div class="tw:flex-1 tw:break-anywhere">
 			{{$timeSince := DateUtils.TimeSince .CommitTime}}
 			{{$repo := .GetRepo $.Context}}
 			{{$name := .Name}}
@@ -10,7 +10,7 @@
 			{{$branchLink := (print ($repo.Link) "/src/branch/" (PathEscapeSegments .Name))}}
 			{{ctx.Locale.Tr "repo.pulls.recently_pushed_new_branches" $name $timeSince $branchLink}}
 		</div>
-		<a role="button" class="ui compact positive button tw-m-0" href="{{$.Repository.ComposeBranchCompareURL $.Repository.BaseRepo $name}}">
+		<a role="button" class="ui compact positive button tw:m-0" href="{{$.Repository.ComposeBranchCompareURL $.Repository.BaseRepo $name}}">
 			{{ctx.Locale.Tr "repo.pulls.compare_changes"}}
 		</a>
 	</div>

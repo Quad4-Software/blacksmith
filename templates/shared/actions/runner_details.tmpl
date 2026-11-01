@@ -33,7 +33,7 @@
 			{{end}}
 			<div class="item">
 				<dt>{{ctx.Locale.Tr "actions.runners.labels"}}</dt>
-				<dd class="tw-flex tw-items-start tw-flex-wrap tw-gap-2">
+				<dd class="tw:flex tw:items-start tw:flex-wrap tw:gap-2">
 					{{if gt (len .Runner.AgentLabels) 0}}
 						{{range .Runner.AgentLabels}}
 							<div class="ui label">{{.}}</div>
@@ -57,7 +57,7 @@
 			</div>
 			<div class="item">
 				<dt>{{ctx.Locale.Tr "actions.runners.status"}}</dt>
-				<dd class="tw-flex tw-items-center tw-gap-x-2">
+				<dd class="tw:flex tw:items-center tw:gap-x-2">
 					{{if .Runner.IsActive}}
 					<div class="indicator-active">
 						<div></div>
@@ -106,7 +106,7 @@
 					{{end}}
 				</dd>
 			</div>
-			<p class="tw-mt-8 tw-italic">{{ctx.Locale.Tr "actions.runners.runner_details.labels_note"}}</p>
+			<p class="tw:mt-8 tw:italic">{{ctx.Locale.Tr "actions.runners.runner_details.labels_note"}}</p>
 		</dl>
 	</div>
 

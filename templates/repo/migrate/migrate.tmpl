@@ -1,11 +1,11 @@
 {{template "base/head" .}}
 <div role="main" aria-label="{{.Title}}" class="page-content repository new migrate">
 	<div class="ui container">
-		<h2 class="tw-mt-4">{{ctx.Locale.Tr "migrate.select.title"}}</h1>
+		<h2 class="tw:mt-4">{{ctx.Locale.Tr "migrate.select.title"}}</h1>
 		{{template "repo/migrate/helper" .}}
 		<div class="migrate-entries">
 			{{range .Services}}
-				<a class="migrate-entry tw-items-center" href="{{AppSubUrl}}/repo/migrate?service_type={{.}}&org={{$.Org}}&mirror={{$.Mirror}}">
+				<a class="migrate-entry tw:items-center" href="{{AppSubUrl}}/repo/migrate?service_type={{.}}&org={{$.Org}}&mirror={{$.Mirror}}">
 					{{if eq .Name "github"}}
 						{{svg "octicon-mark-github" 184}}
 					{{else if eq .Name "bitbucketdc"}}
@@ -26,7 +26,7 @@
 		</div>
 
 		<div class="ui divider"></div>
-		<h3 class="ui top attached header tw-mt-4">{{ctx.Locale.Tr "migrate.mass_title"}}</h3>
+		<h3 class="ui top attached header tw:mt-4">{{ctx.Locale.Tr "migrate.mass_title"}}</h3>
 		<div class="ui attached segment">
 			<form class="ui form" method="post" action="{{AppSubUrl}}/repo/migrate/mass">
 				{{.CSRFTokenHTML}}

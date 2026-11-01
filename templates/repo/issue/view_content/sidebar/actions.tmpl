@@ -1,18 +1,18 @@
 {{if or .PinEnabled .Issue.IsPinned}}
-	<form class="tw-mt-1 form-fetch-action single-button-form" method="post" {{if $.NewPinAllowed}}action="{{.Issue.Link}}/pin"{{else}}data-tooltip-content="{{ctx.Locale.Tr "repo.issues.max_pinned"}}"{{end}}>
+	<form class="tw:mt-1 form-fetch-action single-button-form" method="post" {{if $.NewPinAllowed}}action="{{.Issue.Link}}/pin"{{else}}data-tooltip-content="{{ctx.Locale.Tr "repo.issues.max_pinned"}}"{{end}}>
 		<button class="fluid ui button {{if not $.NewPinAllowed}}disabled{{end}}">
 			{{if not .Issue.IsPinned}}
-				{{svg "octicon-pin" 16 "tw-mr-2"}}
+				{{svg "octicon-pin" 16 "tw:mr-2"}}
 				{{ctx.Locale.Tr "pin"}}
 			{{else}}
-				{{svg "octicon-pin-slash" 16 "tw-mr-2"}}
+				{{svg "octicon-pin-slash" 16 "tw:mr-2"}}
 				{{ctx.Locale.Tr "unpin"}}
 			{{end}}
 		</button>
 	</form>
 {{end}}
 
-<button class="tw-mt-1 fluid ui show-modal button {{if .Issue.IsLocked}} negative {{end}}" data-modal="#lock">
+<button class="tw:mt-1 fluid ui show-modal button {{if .Issue.IsLocked}} negative {{end}}" data-modal="#lock">
 	{{if .Issue.IsLocked}}
 		{{svg "octicon-key"}}
 		{{ctx.Locale.Tr "repo.issues.unlock"}}
@@ -21,7 +21,7 @@
 		{{ctx.Locale.Tr "repo.issues.lock"}}
 	{{end}}
 </button>
-<dialog class="modal tw-overflow-visible" id="lock">
+<dialog class="modal tw:overflow-visible" id="lock">
 	<article>
 		<header>
 			{{if .Issue.IsLocked}}
@@ -84,7 +84,7 @@
 		</form>
 	</article>
 </dialog>
-<button class="tw-mt-1 fluid ui show-modal button" data-modal="#sidebar-delete-issue">
+<button class="tw:mt-1 fluid ui show-modal button" data-modal="#sidebar-delete-issue">
 	{{svg "octicon-trash"}}
 	{{ctx.Locale.Tr "repo.issues.delete"}}
 </button>

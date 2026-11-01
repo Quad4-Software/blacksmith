@@ -12,8 +12,8 @@ import playwright from 'eslint-plugin-playwright';
 import vitestGlobals from 'eslint-plugin-vitest-globals';
 import wc from 'eslint-plugin-wc';
 import globals from 'globals';
-import vue from 'eslint-plugin-vue';
-import vueScopedCss from 'eslint-plugin-vue-scoped-css';
+import svelte from 'eslint-plugin-svelte';
+import svelteParser from 'svelte-eslint-parser';
 import toml from 'eslint-plugin-toml';
 import tseslint from 'typescript-eslint';
 import {defineConfig} from 'eslint/config';
@@ -21,11 +21,31 @@ import {defineConfig} from 'eslint/config';
 export default defineConfig(
   ...tseslint.configs.recommended,
   eslintPluginImportX.flatConfigs.typescript,
-  vueScopedCss.configs.recommended,
+  ...svelte.configs['flat/recommended'],
+  {
+    files: ['**/*.svelte'],
+    languageOptions: {
+      parser: svelteParser,
+      parserOptions: {
+        parser: tseslint.parser,
+      },
+    },
+    rules: {
+      'svelte/no-at-html-tags': [2],
+      'svelte/prefer-svelte-reactivity': [0],
+    },
+  },
+  {
+    files: ['**/*.svelte.ts'],
+    languageOptions: {
+      parser: tseslint.parser,
+    },
+  },
   {
     ignores: ['web_src/js/vendor', 'web_src/fomantic', 'public/assets/js', 'tests/e2e/reports/'],
   },
   {
+    files: ['**/*.{js,mjs,cjs,jsx,ts,mts,cts}'],
     plugins: {
       '@eslint-community/eslint-comments': eslintCommunityEslintPluginEslintComments,
       '@stylistic': stylisticEslintPlugin,
@@ -38,7 +58,6 @@ export default defineConfig(
       unicorn,
       playwright,
       'vitest-globals': vitestGlobals,
-      vue,
       wc,
     },
 
@@ -739,14 +758,12 @@ export default defineConfig(
       'unicorn/expiring-todo-comments': [0],
       'unicorn/explicit-length-check': [0],
       'unicorn/filename-case': [0],
-      'unicorn/import-index': [0],
       'unicorn/import-style': [0],
       'unicorn/new-for-builtins': [2],
       'unicorn/no-accessor-recursion': [2],
       'unicorn/no-abusive-eslint-disable': [0],
       'unicorn/no-anonymous-default-export': [0],
       'unicorn/no-array-callback-reference': [0],
-      'unicorn/no-array-for-each': [2],
       'unicorn/no-array-method-this-argument': [2],
       'unicorn/no-array-reduce': [2],
       'unicorn/no-await-expression-member': [0],
@@ -827,7 +844,6 @@ export default defineConfig(
       'unicorn/prefer-node-protocol': [2],
       'unicorn/prefer-number-properties': [0],
       'unicorn/prefer-object-from-entries': [2],
-      'unicorn/prefer-object-has-own': [0],
       'unicorn/prefer-optional-catch-binding': [2],
       'unicorn/prefer-prototype-methods': [0],
       'unicorn/prefer-query-selector': [0],
@@ -890,7 +906,7 @@ export default defineConfig(
     },
   },
   {
-    ignores: ['*.vue', '**/*.vue'],
+
     rules: {
       'import-x/consistent-type-specifier-style': [0],
       'import-x/default': [0],
@@ -957,7 +973,6 @@ export default defineConfig(
     files: ['web_src/**/*'],
     languageOptions: {
       globals: {
-        __webpack_public_path__: true,
         process: false,
       },
     },
@@ -1161,28 +1176,6 @@ export default defineConfig(
       'playwright/prefer-to-contain': [2],
       'playwright/prefer-to-have-length': [2],
       'playwright/require-to-throw-message': [2],
-    },
-  },
-  ...vue.configs['flat/recommended'],
-  {
-    files: ['web_src/js/components/*.vue'],
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-      },
-
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-    },
-    rules: {
-      'vue/attributes-order': [0],
-      'vue/html-closing-bracket-spacing': [2, {
-        startTag: 'never',
-        endTag: 'never',
-        selfClosingTag: 'never',
-      }],
-      'vue/max-attributes-per-line': [0],
-      'vue-scoped-css/enforce-style-type': [0],
     },
   },
   ...toml.configs['flat/recommended'],

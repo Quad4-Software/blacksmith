@@ -403,7 +403,7 @@ func TestViewTagsList(t *testing.T) {
 
 	tagNames := make([]string, 0, 5)
 	tags.Each(func(i int, s *goquery.Selection) {
-		tagNames = append(tagNames, s.Find(".tag a.tw-flex.tw-items-center").Text())
+		tagNames = append(tagNames, s.Find(".tag a.tw\\:flex.tw\\:items-center").Text())
 	})
 
 	assert.Equal(t, []string{"v1.0", "delete-tag", "v1.1"}, tagNames)

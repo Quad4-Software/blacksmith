@@ -21,11 +21,11 @@ function elementsCall<A extends unknown[]>(el: string | Element | Element[] | No
  */
 function toggleShown(el: Element, force?: boolean) {
   if (force === true) {
-    el.classList.remove('tw-hidden');
+    el.classList.remove('tw:hidden');
   } else if (force === false) {
-    el.classList.add('tw-hidden');
+    el.classList.add('tw:hidden');
   } else if (force === undefined) {
-    el.classList.toggle('tw-hidden');
+    el.classList.toggle('tw:hidden');
   } else {
     throw new Error('invalid force argument');
   }
@@ -51,7 +51,7 @@ export function toggleElem(el: string | Element | Element[] | NodeListOf<Element
 
 /** Returns `true` if the element has been forcibly hidden. */
 export function isElemHidden(el: Element): boolean {
-  return el.classList.contains('tw-hidden');
+  return el.classList.contains('tw:hidden');
 }
 
 export function resetForms(el: Element) {

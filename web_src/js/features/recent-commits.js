@@ -1,20 +1,22 @@
-import {createApp} from 'vue';
+import {mount} from 'svelte';
 
 export async function initRepoRecentCommits() {
   const el = document.getElementById('repo-recent-commits-chart');
   if (!el) return;
 
-  const {default: RepoRecentCommits} = await import(/* webpackChunkName: "recent-commits-graph" */'../components/RepoRecentCommits.vue');
+  const {default: RepoRecentCommits} = await import('../components/RepoRecentCommits.svelte');
   try {
-    const View = createApp(RepoRecentCommits, {
-      locale: {
-        loadingTitle: el.getAttribute('data-locale-loading-title'),
-        loadingTitleFailed: el.getAttribute('data-locale-loading-title-failed'),
-        recentCommitsTitle: el.getAttribute('data-locale-recent-commits-title'),
-        loadingInfo: el.getAttribute('data-locale-loading-info'),
+    mount(RepoRecentCommits, {
+      target: el,
+      props: {
+        locale: {
+          loadingTitle: el.getAttribute('data-locale-loading-title'),
+          loadingTitleFailed: el.getAttribute('data-locale-loading-title-failed'),
+          recentCommitsTitle: el.getAttribute('data-locale-recent-commits-title'),
+          loadingInfo: el.getAttribute('data-locale-loading-info'),
+        },
       },
     });
-    View.mount(el);
   } catch (err) {
     console.error('RepoRecentCommits failed to load', err);
     el.textContent = el.getAttribute('data-locale-component-failed-to-load');

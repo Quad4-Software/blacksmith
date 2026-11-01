@@ -25,7 +25,7 @@
 				{{range .Repos}}
 					<tr>
 						<td>
-							<a class="tw-break-anywhere" href="{{.Link}}">{{.Name}}</a>
+							<a class="tw:break-anywhere" href="{{.Link}}">{{.Name}}</a>
 							{{if .IsArchived}}
 								<span class="ui basic label">{{ctx.Locale.Tr "repo.desc.archived"}}</span>
 							{{end}}
@@ -45,7 +45,7 @@
 						<td>{{ctx.Locale.TrSize .LFSSize}}</td>
 					</tr>
 				{{else}}
-					<tr><td class="tw-text-center" colspan="3">{{ctx.Locale.Tr "settings.repos_none"}}</td></tr>
+					<tr><td class="tw:text-center" colspan="3">{{ctx.Locale.Tr "settings.repos_none"}}</td></tr>
 				{{end}}
 			</tbody>
 		</table>

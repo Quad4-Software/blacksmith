@@ -11,7 +11,7 @@
 			</div>
 		</h4>
 		<div class="ui attached segment">
-			<div class="{{if not .HasError}}tw-hidden{{end}} tw-mb-4" id="add-deploy-key-panel">
+			<div class="{{if not .HasError}}tw:hidden{{end}} tw:mb-4" id="add-deploy-key-panel">
 				<form class="ui form" action="{{.Link}}" method="post">
 					<div class="field">
 						{{ctx.Locale.Tr "repo.settings.deploy_key_desc"}}
@@ -30,7 +30,7 @@
 							<label for="ssh-key-is-writable">
 								{{ctx.Locale.Tr "repo.settings.is_writable"}}
 							</label>
-							<small class="tw-pl-[26px]">{{ctx.Locale.Tr "repo.settings.is_writable_info"}}</small>
+							<small class="tw:pl-[26px]">{{ctx.Locale.Tr "repo.settings.is_writable_info"}}</small>
 						</div>
 					</div>
 					<button class="ui primary button">

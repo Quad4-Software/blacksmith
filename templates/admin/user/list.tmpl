@@ -97,7 +97,7 @@
 									<span class="ui mini label">{{ctx.Locale.Tr "admin.users.remote"}}</span>
 								{{end}}
 							</td>
-							<td class="gt-ellipsis tw-max-w-48">{{.Email}}</td>
+							<td class="gt-ellipsis tw:max-w-48">{{.Email}}</td>
 							<td>{{if .IsActive}}{{svg "octicon-check"}}{{else}}{{svg "octicon-x"}}{{end}}</td>
 							<td>{{if .IsRestricted}}{{svg "octicon-check"}}{{else}}{{svg "octicon-x"}}{{end}}</td>
 							<td>{{if index $.UsersTwoFaStatus .ID}}{{svg "octicon-check"}}{{else}}{{svg "octicon-x"}}{{end}}</td>
@@ -108,14 +108,14 @@
 								<td><span>{{ctx.Locale.Tr "admin.users.never_login"}}</span></td>
 							{{end}}
 							<td>
-								<div class="tw-flex tw-gap-2">
+								<div class="tw:flex tw:gap-2">
 									<a href="{{$.Link}}/{{.ID}}" data-tooltip-content="{{ctx.Locale.Tr "admin.users.details"}}">{{svg "octicon-person"}}</a>
 									<a href="{{$.Link}}/{{.ID}}/edit" data-tooltip-content="{{ctx.Locale.Tr "edit"}}">{{svg "octicon-pencil"}}</a>
 								</div>
 							</td>
 						</tr>
 					{{else}}
-						<tr class="no-results-row"><td class="tw-text-center" colspan="9">{{ctx.Locale.Tr "repo.pulls.no_results"}}</td></tr>
+						<tr class="no-results-row"><td class="tw:text-center" colspan="9">{{ctx.Locale.Tr "repo.pulls.no_results"}}</td></tr>
 					{{end}}
 				</tbody>
 			</table>

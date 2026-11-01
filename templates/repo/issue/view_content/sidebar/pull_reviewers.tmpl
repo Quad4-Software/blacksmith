@@ -1,18 +1,18 @@
 <div class="ui assignees list">
-			<span class="no-select item {{if or .OriginalReviews .PullReviewers}}tw-hidden{{end}}">{{ctx.Locale.Tr "repo.issues.new.no_reviewers"}}</span>
+			<span class="no-select item {{if or .OriginalReviews .PullReviewers}}tw:hidden{{end}}">{{ctx.Locale.Tr "repo.issues.new.no_reviewers"}}</span>
 			<div class="selected">
 				{{range .PullReviewers}}
-					<div class="item tw-flex tw-items-center tw-py-2">
-						<div class="tw-flex tw-items-center tw-flex-1">
+					<div class="item tw:flex tw:items-center tw:py-2">
+						<div class="tw:flex tw:items-center tw:flex-1">
 							{{if .User}}
-								<a class="muted sidebar-item-link" href="{{.User.HomeLink}}">{{ctx.AvatarUtils.Avatar .User 20 "tw-mr-2"}}{{.User.GetDisplayName}}</a>
+								<a class="muted sidebar-item-link" href="{{.User.HomeLink}}">{{ctx.AvatarUtils.Avatar .User 20 "tw:mr-2"}}{{.User.GetDisplayName}}</a>
 							{{else if .Team}}
-								<span class="text">{{svg "octicon-people" 20 "tw-mr-2"}}{{$.Issue.Repo.OwnerName}}/{{.Team.Name}}</span>
+								<span class="text">{{svg "octicon-people" 20 "tw:mr-2"}}{{$.Issue.Repo.OwnerName}}/{{.Team.Name}}</span>
 							{{end}}
 						</div>
-						<div class="tw-flex tw-items-center tw-gap-2">
+						<div class="tw:flex tw:items-center tw:gap-2">
 							{{if (and $.Permission.IsAdmin (or (eq .Review.Type 1) (eq .Review.Type 3)) (not $.Issue.IsClosed) (not $.Issue.PullRequest.HasMerged))}}
-								<a href="#" class="ui muted icon tw-flex tw-items-center show-modal" data-tooltip-content="{{ctx.Locale.Tr "repo.issues.dismiss_review"}}" data-modal="#dismiss-review-modal-{{.Review.ID}}">
+								<a href="#" class="ui muted icon tw:flex tw:items-center show-modal" data-tooltip-content="{{ctx.Locale.Tr "repo.issues.dismiss_review"}}" data-modal="#dismiss-review-modal-{{.Review.ID}}">
 									{{svg "octicon-x" 20}}
 								</a>
 								<dialog class="modal" id="dismiss-review-modal-{{.Review.ID}}">
@@ -52,14 +52,14 @@
 					</div>
 				{{end}}
 				{{range .OriginalReviews}}
-					<div class="item tw-flex tw-items-center tw-py-2">
-						<div class="tw-flex tw-items-center tw-flex-1">
+					<div class="item tw:flex tw:items-center tw:py-2">
+						<div class="tw:flex tw:items-center tw:flex-1">
 							<a class="muted" href="{{$.Repository.OriginalURL}}" data-tooltip-content="{{ctx.Locale.Tr "repo.migrated_from_fake" $.Repository.GetOriginalURLHostname}}">
-								{{svg (MigrationIcon $.Repository.GetOriginalURLHostname) 20 "tw-mr-2"}}
+								{{svg (MigrationIcon $.Repository.GetOriginalURLHostname) 20 "tw:mr-2"}}
 								{{.OriginalAuthor}}
 							</a>
 						</div>
-						<div class="tw-flex tw-items-center tw-gap-2">
+						<div class="tw:flex tw:items-center tw:gap-2">
 							{{svg (printf "octicon-%s" .Type.Icon) 16 (printf "text %s" (.HTMLTypeColorName))}}
 						</div>
 					</div>

@@ -88,7 +88,7 @@ export function initRepoCommentForm() {
       'action': 'nothing', // do not hide the menu if user presses Enter
       fullTextSearch: 'exact',
       selector: {
-        unselectable: '.disabled, .filtered, .tw-hidden',
+        unselectable: '.disabled, .filtered, .tw\\:hidden',
       },
       async onHide() {
         hasUpdateAction = $listMenu.data('action') === 'update'; // Update the var
@@ -137,7 +137,7 @@ export function initRepoCommentForm() {
 
         if (this.classList.contains('checked')) {
           $(this).removeClass('checked');
-          $(this).find('.octicon-check').addClass('tw-invisible');
+          $(this).find('.octicon-check').addClass('tw:invisible');
           if (hasUpdateAction) {
             if (!($(this).data('id') in items)) {
               items[$(this).data('id')] = {
@@ -151,7 +151,7 @@ export function initRepoCommentForm() {
           }
         } else {
           $(this).addClass('checked');
-          $(this).find('.octicon-check').removeClass('tw-invisible');
+          $(this).find('.octicon-check').removeClass('tw:invisible');
           if (hasUpdateAction) {
             if (!($(this).data('id') in items)) {
               items[$(this).data('id')] = {
@@ -176,15 +176,15 @@ export function initRepoCommentForm() {
       $(this).parent().find('.item').each(function () {
         if (this.classList.contains('checked')) {
           listIds.push($(this).data('id'));
-          $($(this).data('id-selector')).removeClass('tw-hidden');
+          $($(this).data('id-selector')).removeClass('tw:hidden');
         } else {
-          $($(this).data('id-selector')).addClass('tw-hidden');
+          $($(this).data('id-selector')).addClass('tw:hidden');
         }
       });
       if (!listIds.length) {
-        $noSelect.removeClass('tw-hidden');
+        $noSelect.removeClass('tw:hidden');
       } else {
-        $noSelect.addClass('tw-hidden');
+        $noSelect.addClass('tw:hidden');
       }
       $($(this).parent().data('id')).val(listIds.join(','));
       return false;
@@ -205,7 +205,7 @@ export function initRepoCommentForm() {
 
       $(this).parent().find('.item').each(function () {
         $(this).removeClass('checked');
-        $(this).find('.octicon-check').addClass('tw-invisible');
+        $(this).find('.octicon-check').addClass('tw:invisible');
       });
 
       if (selector === 'select-reviewers-modify' || selector === 'select-assignees-modify') {
@@ -213,9 +213,9 @@ export function initRepoCommentForm() {
       }
 
       $list.find('.item').each(function () {
-        $(this).addClass('tw-hidden');
+        $(this).addClass('tw:hidden');
       });
-      $noSelect.removeClass('tw-hidden');
+      $noSelect.removeClass('tw:hidden');
       $($(this).parent().data('id')).val('');
     });
   }
@@ -252,11 +252,11 @@ export function initRepoCommentForm() {
 
       let icon = '';
       if (input_id === '#milestone_id') {
-        icon = svg('octicon-milestone', 18, 'tw-mr-2');
+        icon = svg('octicon-milestone', 18, 'tw:mr-2');
       } else if (input_id === '#project_id') {
-        icon = svg('octicon-project', 18, 'tw-mr-2');
+        icon = svg('octicon-project', 18, 'tw:mr-2');
       } else if (input_id === '#assignee_ids') {
-        icon = `<img class="ui avatar image tw-mr-2" alt="avatar" src=${$(this).data('avatar')}>`;
+        icon = `<img class="ui avatar image tw:mr-2" alt="avatar" src=${$(this).data('avatar')}>`;
       }
 
       $list.find('.selected').html(`
@@ -266,7 +266,7 @@ export function initRepoCommentForm() {
         </a>
       `);
 
-      $(`.ui${select_id}.list .no-select`).addClass('tw-hidden');
+      $(`.ui${select_id}.list .no-select`).addClass('tw:hidden');
       $(input_id).val($(this).data('id'));
     });
     $menu.find('.no-select.item').on('click', function () {
@@ -287,7 +287,7 @@ export function initRepoCommentForm() {
       }
 
       $list.find('.selected').html('');
-      $list.find('.no-select').removeClass('tw-hidden');
+      $list.find('.no-select').removeClass('tw:hidden');
       $(input_id).val('');
     });
   }
@@ -383,7 +383,7 @@ async function onEditContent(event) {
     editContentZone.innerHTML = document.getElementById('issue-comment-editor-template').innerHTML;
     // the suggestion toolbar button only makes sense for a proposed-side code comment; hide it otherwise
     if (!editContentZone.hasAttribute('data-suggestion-line')) {
-      editContentZone.querySelector('button[data-md-action="suggestion"]')?.classList.add('tw-hidden');
+      editContentZone.querySelector('button[data-md-action="suggestion"]')?.classList.add('tw:hidden');
     }
     initDisabledInputs(editContentZone);
     const dropzone = editContentZone.querySelector('.dropzone');

@@ -21,13 +21,13 @@ function lazyPromise<T>(newPromise: () => Promise<T>): () => Promise<T> {
 const loadableComponents = {
   'model-viewer': lazyPromise(() => {
     // FIXME: this causes an error when WebGL context isn't available. We may need to do some detecting on our own for this case.
-    return import(/* webpackChunkName: "model-viewer" */ '@google/model-viewer');
+    return import('@google/model-viewer');
   }),
   'pdf-object': lazyPromise(() => {
-    return import(/* webpackChunkName: "pdf-object" */ './pdf-object.ts');
+    return import('./pdf-object.ts');
   }),
   'citation-information': lazyPromise(() => {
-    return import(/* webpackChunkName: "citation-information" */ './citation-information.ts');
+    return import('./citation-information.ts');
   }),
 } as const;
 

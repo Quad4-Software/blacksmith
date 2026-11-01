@@ -3,7 +3,7 @@
 	<div class="ui attached segment">
 		<div class="ui form">
 			<div class="field">
-				<label>{{svg "octicon-terminal" 16 "tw-mr-2"}}{{ctx.Locale.Tr "packages.container.pull"}}</label>
+				<label>{{svg "octicon-terminal" 16 "tw:mr-2"}}{{ctx.Locale.Tr "packages.container.pull"}}</label>
 				{{if eq .PackageDescriptor.Metadata.Type "helm"}}
 				<div class="markup"><pre class="code-block"><code>helm pull oci://{{.PackageRegistryHost}}/{{.PackageDescriptor.Owner.LowerName}}/{{.PackageDescriptor.Package.LowerName}} --version {{.PackageDescriptor.Version.LowerVersion}}</code></pre></div>
 				{{else}}
@@ -15,7 +15,7 @@
 				{{end}}
 			</div>
 			<div class="field">
-				<label>{{svg "octicon-code" 16 "tw-mr-2"}}{{ctx.Locale.Tr "packages.container.digest"}}</label>
+				<label>{{svg "octicon-code" 16 "tw:mr-2"}}{{ctx.Locale.Tr "packages.container.digest"}}</label>
 				<div class="markup"><pre class="code-block"><code>{{range .PackageDescriptor.Files}}{{if eq .File.LowerName "manifest.json"}}{{.Properties.GetByName "container.digest"}}{{end}}{{end}}</code></pre></div>
 			</div>
 			<div class="field">
@@ -56,7 +56,7 @@
 	{{end}}
 	{{if .PackageDescriptor.Metadata.ImageLayers}}
 		<h4 class="ui top attached header">{{ctx.Locale.Tr "packages.container.layers"}}</h4>
-		<div id="container-layers" class="ui attached segment tw-break-anywhere">
+		<div id="container-layers" class="ui attached segment tw:break-anywhere">
 			<table class="ui very basic compact table">
 				<tbody>
 					{{range .PackageDescriptor.Metadata.ImageLayers}}
@@ -82,7 +82,7 @@
 					{{range $key, $value := .PackageDescriptor.Metadata.Labels}}
 						<tr>
 							<td class="top aligned">{{$key}}</td>
-							<td class="tw-break-anywhere">{{$value}}</td>
+							<td class="tw:break-anywhere">{{$value}}</td>
 						</tr>
 					{{end}}
 				</tbody>
@@ -103,7 +103,7 @@
 					{{range $key, $value := .PackageDescriptor.Metadata.Annotations}}
 						<tr>
 							<td class="top aligned">{{$key}}</td>
-							<td class="tw-break-anywhere">{{$value}}</td>
+							<td class="tw:break-anywhere">{{$value}}</td>
 						</tr>
 					{{end}}
 				</tbody>

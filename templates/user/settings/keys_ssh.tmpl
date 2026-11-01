@@ -7,7 +7,7 @@
 	</div>
 </h4>
 <div class="ui attached segment">
-	<div class="{{if not .HasSSHError}}tw-hidden{{end}} tw-mb-4" id="add-ssh-key-panel">
+	<div class="{{if not .HasSSHError}}tw:hidden{{end}} tw:mb-4" id="add-ssh-key-panel">
 		<form class="ui form" action="{{.Link}}" method="post">
 			<div class="field {{if .Err_Title}}error{{end}}">
 				<label for="ssh-key-title">{{ctx.Locale.Tr "settings.key_name"}}</label>

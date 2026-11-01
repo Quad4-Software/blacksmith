@@ -21,7 +21,7 @@
 		{{end}}
 
 		<span class="message-wrapper">
-			<span class="commit-summary tw-font-mono gt-ellipsis" title="{{.Summary}}">
+			<span class="commit-summary tw:font-mono gt-ellipsis" title="{{.Summary}}">
 				{{- RenderCommitMessageLinkSubject $.root.Context .Message $commitLink ($.comment.Issue.PullRequest.BaseRepo.ComposeMetas ctx) -}}
 			</span>
 
@@ -35,7 +35,7 @@
 			{{end}}
 		</span>
 
-		<span class="shabox tw-flex tw-items-center tw-gap-2">
+		<span class="shabox tw:flex tw:items-center tw:gap-2">
 			{{template "repo/commit_statuses" dict "Status" .Status "Statuses" .Statuses}}
 			{{template "repo/shabox" (dict
 				"sha1" .ID.String

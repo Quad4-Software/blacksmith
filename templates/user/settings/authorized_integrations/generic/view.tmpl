@@ -11,7 +11,7 @@
 
 	<div class="field {{if .Err_ClaimRules}}error{{end}}">
 		<label for="claim_rules">{{ctx.Locale.Tr "settings.authorized_integration.field.claim_rules"}}</label>
-		<textarea id="claim_rules" name="claim_rules" class="tw-hidden">{{.Form.ClaimRules}}</textarea>
+		<textarea id="claim_rules" name="claim_rules" class="tw:hidden">{{.Form.ClaimRules}}</textarea>
 		{{template "shared/codemirror_container" .}}
 	</div>
 </div>

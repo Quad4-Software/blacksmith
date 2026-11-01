@@ -1,13 +1,13 @@
 {{template "base/head" .}}
 <div role="main" aria-label="{{.Title}}" class="page-content organization profile">
 	{{if .Flash}}
-		<div class="ui container tw-mb-8">
+		<div class="ui container tw:mb-8">
 			{{template "base/alert" .}}
 		</div>
 	{{end}}
 	{{if .Invite}}
-		<div class="ui container tw-mb-8">
-			<div class="ui info message tw-flex tw-items-center tw-justify-between">
+		<div class="ui container tw:mb-8">
+			<div class="ui info message tw:flex tw:items-center tw:justify-between">
 				<div>
 					{{if eq (len .TeamsInvitedTo) 1}}
 						{{$teamsFormatted := HTMLFormat "<b>%s</b>" (index .TeamsInvitedTo 0).Name}}
@@ -49,17 +49,17 @@
 			<div class="ui five wide column">
 				{{if .CanCreateOrgRepo}}
 					<div class="center aligned">
-						<a class="ui primary button tw-mb-1" href="{{AppSubUrl}}/repo/create?org={{.Org.ID}}">{{ctx.Locale.Tr "new_repo.link"}}</a>
+						<a class="ui primary button tw:mb-1" href="{{AppSubUrl}}/repo/create?org={{.Org.ID}}">{{ctx.Locale.Tr "new_repo.link"}}</a>
 						{{if not .DisableMigrations}}
-							<a class="ui primary button tw-mb-1" href="{{AppSubUrl}}/repo/migrate?org={{.Org.ID}}&mirror=1">{{ctx.Locale.Tr "new_migrate.link"}}</a>
+							<a class="ui primary button tw:mb-1" href="{{AppSubUrl}}/repo/migrate?org={{.Org.ID}}&mirror=1">{{ctx.Locale.Tr "new_migrate.link"}}</a>
 						{{end}}
 					</div>
 					<div class="divider"></div>
 				{{end}}
 				{{if .NumMembers}}
-					<h4 class="ui top attached header tw-flex">
-						<strong class="tw-flex-1">{{ctx.Locale.Tr "org.members"}}</strong>
-						<a class="text grey tw-flex tw-items-center" href="{{.OrgLink}}/members"><span>{{.NumMembers}}</span> {{svg "octicon-chevron-right"}}</a>
+					<h4 class="ui top attached header tw:flex">
+						<strong class="tw:flex-1">{{ctx.Locale.Tr "org.members"}}</strong>
+						<a class="text grey tw:flex tw:items-center" href="{{.OrgLink}}/members"><span>{{.NumMembers}}</span> {{svg "octicon-chevron-right"}}</a>
 					</h4>
 					<div class="ui attached segment members">
 						{{$isMember := .IsOrganizationMember}}
@@ -71,9 +71,9 @@
 					</div>
 				{{end}}
 				{{if .IsOrganizationMember}}
-					<div class="ui top attached header tw-flex">
-						<strong class="tw-flex-1">{{ctx.Locale.Tr "org.teams"}}</strong>
-						<a class="text grey tw-flex tw-items-center" href="{{.OrgLink}}/teams"><span>{{.Org.NumTeams}}</span> {{svg "octicon-chevron-right"}}</a>
+					<div class="ui top attached header tw:flex">
+						<strong class="tw:flex-1">{{ctx.Locale.Tr "org.teams"}}</strong>
+						<a class="text grey tw:flex tw:items-center" href="{{.OrgLink}}/teams"><span>{{.Org.NumTeams}}</span> {{svg "octicon-chevron-right"}}</a>
 					</div>
 					<div class="ui attached table segment teams">
 						{{range .Teams}}

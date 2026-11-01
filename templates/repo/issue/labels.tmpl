@@ -3,7 +3,7 @@
 	{{template "repo/header" .}}
 	<div class="ui container">
 		<h1>{{ctx.Locale.Tr "repo.labels"}}</h1>
-		<div class="issue-navbar tw-mb-4">
+		<div class="issue-navbar tw:mb-4">
 			{{template "repo/issue/navbar" .}}
 			{{if and (or .CanWriteIssues .CanWritePulls) (not .Repository.IsArchived)}}
 				<button class="ui small primary new-label button">{{ctx.Locale.Tr "repo.issues.new_label"}}</button>

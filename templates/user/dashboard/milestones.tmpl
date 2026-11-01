@@ -4,7 +4,7 @@
 	<div class="ui container">
 		<div class="flex-container">
 			<div class="flex-container-nav">
-				<div class="ui secondary vertical filter menu tw-bg-transparent">
+				<div class="ui secondary vertical filter menu tw:bg-transparent">
 					<div class="item">
 						{{ctx.Locale.Tr "home.issues.in_your_repos"}}
 						<strong>{{.Total}}</strong>
@@ -53,7 +53,7 @@
 						{{template "shared/search/combo" dict "Value" $.Keyword}}
 					</form>
 					<!-- Sort -->
-					<div class="ui secondary menu tw-mt-0">
+					<div class="ui secondary menu tw:mt-0">
 						<div class="list-header-sort ui dropdown type jump item">
 							<span class="text">
 								{{ctx.Locale.Tr "repo.issues.filter_sort"}}
@@ -82,8 +82,8 @@
 									{{svg "octicon-milestone" 16}}
 									<a class="muted" href="{{.Repo.Link}}/milestone/{{.ID}}">{{.Name}}</a>
 								</h3>
-								<div class="tw-flex tw-items-center">
-									<span class="tw-mr-2">{{.Completeness}}%</span>
+								<div class="tw:flex tw:items-center">
+									<span class="tw:mr-2">{{.Completeness}}%</span>
 									<progress value="{{.Completeness}}" max="100"></progress>
 								</div>
 							</div>

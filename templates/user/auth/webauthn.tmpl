@@ -10,8 +10,8 @@
 				{{template "base/alert" .}}
 				<p>{{ctx.Locale.Tr "webauthn.sign_in"}}</p>
 			</div>
-			<div class="ui attached segment tw-flex tw-items-center tw-justify-center tw-gap-1 tw-py-2">
-				<div class="is-loading tw-w-[40px] tw-h-[40px]"></div>
+			<div class="ui attached segment tw:flex tw:items-center tw:justify-center tw:gap-1 tw:py-2">
+				<div class="is-loading tw:w-[40px] tw:h-[40px]"></div>
 				{{ctx.Locale.Tr "webauthn.press_button"}}
 			</div>
 			{{if .HasTwoFactor}}

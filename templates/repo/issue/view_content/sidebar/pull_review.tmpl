@@ -1,9 +1,9 @@
 <input id="reviewer_id" name="reviewer_id" type="hidden" value="{{.reviewer_id}}">
 <div class="ui {{if or (and (not .Reviewers) (not .TeamReviewers)) (not .CanChooseReviewer) .Repository.IsArchived}}disabled{{end}} floating jump select-reviewers-modify dropdown">
-	<a class="text tw-flex tw-items-center muted">
+	<a class="text tw:flex tw:items-center muted">
 		<strong>{{ctx.Locale.Tr "repo.issues.review.reviewers"}}</strong>
 		{{if and .CanChooseReviewer (not .Repository.IsArchived)}}
-			{{svg "octicon-gear" 16 "tw-ml-1"}}
+			{{svg "octicon-gear" 16 "tw:ml-1"}}
 		{{end}}
 	</a>
 	<div class="filter menu" data-action="update" data-issue-id="{{$.Issue.ID}}" data-update-url="{{$.RepoLink}}/issues/request_review">
@@ -17,9 +17,9 @@
 			{{range .Reviewers}}
 				{{if .User}}
 					<a class="{{if not .CanChange}}ui{{end}} item {{if .Checked}}checked{{end}} {{if not .CanChange}}ban-change{{end}}" href="#" data-id="{{.ItemID}}" data-id-selector="#review_request_{{.ItemID}}" {{if not .CanChange}} data-tooltip-content="{{ctx.Locale.Tr "repo.issues.remove_request_review_block"}}"{{end}}>
-						<span class="octicon-check {{if not .Checked}}tw-invisible{{end}}">{{svg "octicon-check"}}</span>
+						<span class="octicon-check {{if not .Checked}}tw:invisible{{end}}">{{svg "octicon-check"}}</span>
 						<span class="text">
-							{{ctx.AvatarUtils.Avatar .User 28 "tw-mr-2"}}{{template "repo/search_name" .User}}
+							{{ctx.AvatarUtils.Avatar .User 28 "tw:mr-2"}}{{template "repo/search_name" .User}}
 						</span>
 					</a>
 				{{end}}
@@ -32,9 +32,9 @@
 			{{range .TeamReviewers}}
 				{{if .Team}}
 					<a class="{{if not .CanChange}}ui{{end}} item {{if .Checked}}checked{{end}} {{if not .CanChange}}ban-change{{end}}" href="#" data-id="{{.ItemID}}" data-id-selector="#review_request_team_{{.Team.ID}}" {{if not .CanChange}} data-tooltip-content="{{ctx.Locale.Tr "repo.issues.remove_request_review_block"}}"{{end}}>
-						<span class="octicon-check {{if not .Checked}}tw-invisible{{end}}">{{svg "octicon-check" 16}}</span>
+						<span class="octicon-check {{if not .Checked}}tw:invisible{{end}}">{{svg "octicon-check" 16}}</span>
 						<span class="text">
-							{{svg "octicon-people" 16 "tw-ml-4 tw-mr-1"}}{{$.Issue.Repo.OwnerName}}/{{.Team.Name}}
+							{{svg "octicon-people" 16 "tw:ml-4 tw:mr-1"}}{{$.Issue.Repo.OwnerName}}/{{.Team.Name}}
 						</span>
 					</a>
 				{{end}}

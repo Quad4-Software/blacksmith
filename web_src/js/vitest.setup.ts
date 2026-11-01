@@ -2,8 +2,6 @@ import $ from 'jquery';
 
 $.fn.dropdown = () => undefined;
 
-window.__webpack_public_path__ = '';
-
 window.config = {
   pageData: {
     PLURALSTRINGS_LANG: {},

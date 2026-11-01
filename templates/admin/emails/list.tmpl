@@ -4,12 +4,12 @@
 			{{ctx.Locale.Tr "admin.emails.email_manage_panel"}} ({{ctx.Locale.Tr "admin.total" .Total}})
 		</h4>
 		<div class="ui attached segment">
-			<div class="ui secondary filter menu tw-items-center tw-mx-0">
-				<form class="ui form ignore-dirty tw-flex-1">
+			<div class="ui secondary filter menu tw:items-center tw:mx-0">
+				<form class="ui form ignore-dirty tw:flex-1">
 					{{template "shared/search/combo" dict "Value" .Keyword}}
 				</form>
 				<!-- Sort -->
-				<div class="ui dropdown type jump item tw-mr-0">
+				<div class="ui dropdown type jump item tw:mr-0">
 					<span class="text">
 						{{ctx.Locale.Tr "repo.issues.filter_sort"}}
 					</span>
@@ -45,8 +45,8 @@
 					{{range .Emails}}
 						<tr>
 							<td><a href="{{AppSubUrl}}/{{.Name | PathEscape}}">{{.Name}}</a></td>
-							<td class="gt-ellipsis tw-max-w-48">{{.FullName}}</td>
-							<td class="gt-ellipsis tw-max-w-48">{{.Email}}</td>
+							<td class="gt-ellipsis tw:max-w-48">{{.FullName}}</td>
+							<td class="gt-ellipsis tw:max-w-48">{{.Email}}</td>
 							<td>{{if .IsPrimary}}{{svg "octicon-check"}}{{else}}{{svg "octicon-x"}}{{end}}</td>
 							<td>
 								{{if .CanChange}}
@@ -61,13 +61,13 @@
 								{{end}}
 							</td>
 							<td>
-								<div class="tw-flex tw-gap-2">
+								<div class="tw:flex tw:gap-2">
 									<a class="delete-button" href="" data-url="{{$.Link}}/delete" data-id="{{.ID}}" data-data-uid="{{.UID}}" data-modal-id="delete-email">{{svg "octicon-trash"}}</a>
 								</div>
 							</td>
 						</tr>
 					{{else}}
-						<tr><td class="tw-text-center" colspan="6">{{ctx.Locale.Tr "repo.pulls.no_results"}}</td></tr>
+						<tr><td class="tw:text-center" colspan="6">{{ctx.Locale.Tr "repo.pulls.no_results"}}</td></tr>
 					{{end}}
 				</tbody>
 			</table>

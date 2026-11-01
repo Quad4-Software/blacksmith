@@ -40,7 +40,7 @@ vscode:
     - golang.go
     - stylelint.vscode-stylelint
     - DavidAnson.vscode-markdownlint
-    - Vue.volar
+    - svelte.svelte-vscode
     - ms-azuretools.vscode-docker
     - vitest.explorer
     - cweijan.vscode-database-client2

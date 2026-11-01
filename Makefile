@@ -127,10 +127,10 @@ GO_TEST_REMOTE_CACHER_PACKAGES ?= $(addprefix forgejo.org/modules/,$(REMOTE_CACH
 
 FOMANTIC_WORK_DIR := web_src/fomantic
 
-WEBPACK_SOURCES := $(shell find web_src/js web_src/css -type f)
-WEBPACK_CONFIGS := webpack.config.ts tailwind.config.ts
-WEBPACK_DEST := public/assets/js/index.js public/assets/css/index.css
-WEBPACK_DEST_ENTRIES := public/assets/js public/assets/css public/assets/fonts
+VITE_SOURCES := $(shell find web_src/js web_src/css -type f)
+VITE_CONFIGS := vite.config.ts vite.worker.config.ts svelte.config.js
+VITE_DEST := public/assets/js/index.js public/assets/css/index.css
+VITE_DEST_ENTRIES := public/assets/js public/assets/css public/assets/fonts
 
 BINDATA_DEST := modules/migration/bindata.go modules/public/bindata.go modules/options/bindata.go modules/templates/bindata.go
 BINDATA_HASH := $(addsuffix .hash,$(BINDATA_DEST))
@@ -155,8 +155,8 @@ TAR_EXCLUDES := .git data indexers queues log node_modules $(EXECUTABLE) $(FOMAN
 GO_DIRS := build cmd models modules routers services tests
 WEB_DIRS := web_src/js web_src/css
 
-STYLELINT_FILES := web_src/css web_src/js/components/*.vue templates/**/*.tmpl
-SPELLCHECK_FILES := $(GO_DIRS) $(WEB_DIRS) docs/content templates options/locale/locale_en-US.ini .github $(wildcard *.go *.js *.ts *.vue *.md *.yml *.yaml)
+STYLELINT_FILES := web_src/css web_src/js/components/*.svelte templates/**/*.tmpl
+SPELLCHECK_FILES := $(GO_DIRS) $(WEB_DIRS) docs/content templates options/locale/locale_en-US.ini .github $(wildcard *.go *.js *.ts *.md *.yml *.yaml)
 
 GO_SOURCES := $(wildcard *.go)
 GO_SOURCES += $(shell find $(GO_DIRS) -type f -name "*.go" ! -path modules/options/bindata.go ! -path modules/public/bindata.go ! -path modules/templates/bindata.go)
@@ -244,7 +244,7 @@ help:
 	@echo " - coverage-show-html               display coverage-run results in an HTML page"
 	@echo " - coverage-show-percent            display coverage-run per package coverage percentage"
 	@echo " - test-e2e-sqlite[\#name.test.e2e] test end to end using playwright and sqlite"
-	@echo " - webpack                          build webpack files"
+	@echo " - vite                             build frontend files with vite"
 	@echo " - svg                              build svg files"
 	@echo " - fomantic                         build fomantic files"
 	@echo " - generate                         run \"go generate\""
@@ -343,7 +343,7 @@ node-check:
 
 .PHONY: clean-all
 clean-all: clean
-	rm -rf $(WEBPACK_DEST_ENTRIES) node_modules
+	rm -rf $(VITE_DEST_ENTRIES) node_modules
 
 .PHONY: clean
 clean: clean-no-bindata
@@ -406,6 +406,10 @@ forgejo-api-validate:
 .PHONY: generate-swagger
 generate-swagger: $(SWAGGER_SPEC)
 
+
+.PHONY: generate-tailwind-theme
+generate-tailwind-theme: node_modules
+	node tools/generate-tailwind-theme.ts
 $(SWAGGER_SPEC): $(GO_SOURCES_NO_BINDATA)
 	$(GO) run $(SWAGGER_PACKAGE) generate spec -x "$(SWAGGER_EXCLUDE)" -o './$(SWAGGER_SPEC)'
 	$(SED_INPLACE) '$(SWAGGER_SPEC_S_TMPL)' './$(SWAGGER_SPEC)'
@@ -428,7 +432,7 @@ swagger-validate:
 checks: checks-frontend checks-backend
 
 .PHONY: checks-frontend
-checks-frontend: lockfile-check svg-check
+checks-frontend: lockfile-check svg-check generate-tailwind-theme-check
 
 .PHONY: checks-backend
 checks-backend: tidy-check swagger-check fmt-check swagger-validate security-check
@@ -543,7 +547,7 @@ security-check:
 
 .PHONY: tsc
 tsc: node_modules
-	npx tsc --noEmit
+	npx tsc --noEmit && npx svelte-check --tsconfig ./tsconfig.json
 
 # target for PRs to be pushed. Mandatory to succeed in CI
 .PHONY: pr-go
@@ -560,8 +564,8 @@ watch:
 
 .PHONY: watch-frontend
 watch-frontend: node-check node_modules
-	@rm -rf $(WEBPACK_DEST_ENTRIES)
-	NODE_ENV=development npx webpack --watch --progress
+	@rm -rf $(VITE_DEST_ENTRIES)
+	NODE_ENV=development npx vite build --watch & NODE_ENV=development npx vite build --watch --config vite.worker.config.ts & wait
 
 .PHONY: watch-backend
 watch-backend: go-check
@@ -857,7 +861,7 @@ install: $(wildcard *.go) | verify-version
 build: frontend backend
 
 .PHONY: frontend
-frontend: $(WEBPACK_DEST)
+frontend: $(VITE_DEST)
 
 .PHONY: backend
 backend: go-check generate-backend $(EXECUTABLE)
@@ -1003,15 +1007,15 @@ fomantic:
 	$(SED_INPLACE) -e 's/\r//g' $(FOMANTIC_WORK_DIR)/build/semantic.css $(FOMANTIC_WORK_DIR)/build/semantic.js
 	rm -f $(FOMANTIC_WORK_DIR)/build/*.min.*
 
-.PHONY: webpack
-webpack: $(WEBPACK_DEST)
+.PHONY: vite
+vite: $(VITE_DEST)
 
-$(WEBPACK_DEST): $(WEBPACK_SOURCES) $(WEBPACK_CONFIGS) package-lock.json
+$(VITE_DEST): $(VITE_SOURCES) $(VITE_CONFIGS) package-lock.json
 	@$(MAKE) -s node-check node_modules
-	@rm -rf $(WEBPACK_DEST_ENTRIES)
-	@echo "Running webpack..."
-	@BROWSERSLIST_IGNORE_OLD_DATA=true npx webpack
-	@touch $(WEBPACK_DEST)
+	@rm -rf $(VITE_DEST_ENTRIES)
+	@echo "Running vite..."
+	@BROWSERSLIST_IGNORE_OLD_DATA=true npx vite build && npx vite build --config vite.worker.config.ts
+	@touch $(VITE_DEST)
 
 .PHONY: svg
 svg: node-check | node_modules
@@ -1061,3 +1065,7 @@ endif
 # specify exact dependencies like 'backend' which does currently not depend
 # on 'frontend' to enable Node.js-less builds from source tarballs.
 .NOTPARALLEL:
+
+.PHONY: generate-tailwind-theme-check
+generate-tailwind-theme-check:
+	@node tools/generate-tailwind-theme.ts && git diff --exit-code web_src/css/tailwind-theme.css || (echo "tailwind-theme.css is out of date" && exit 1)

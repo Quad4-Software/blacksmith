@@ -4,6 +4,8 @@
     "tests/e2e/**/*",
     "tools/**/*",
     "web_src/js/**/*",
+    "web_src/js/**/*.svelte",
+    "web_src/js/**/*.svelte.ts",
   ],
   "compilerOptions": {
     "target": "ESNext",

@@ -64,8 +64,8 @@
 								{{end}}
 							</td>
 							<td>{{.Package.Type.Name}}</td>
-							<td class="gt-ellipsis tw-max-w-48">{{.Package.Name}}</td>
-							<td class="gt-ellipsis tw-max-w-48"><a href="{{.VersionWebLink}}">{{.Version.Version}}</a></td>
+							<td class="gt-ellipsis tw:max-w-48">{{.Package.Name}}</td>
+							<td class="gt-ellipsis tw:max-w-48"><a href="{{.VersionWebLink}}">{{.Version.Version}}</a></td>
 							<td><a href="{{.Creator.HomeLink}}">{{.Creator.Name}}</a></td>
 							<td>
 							{{if .Repository}}
@@ -77,7 +77,7 @@
 							<td><a class="delete-button" href="" data-url="{{$.Link}}/delete?page={{$.Page.Paginater.Current}}&sort={{$.SortType}}" data-id="{{.Version.ID}}" data-name="{{.Package.Name}}" data-data-version="{{.Version.Version}}" data-modal-id="delete-package">{{svg "octicon-trash"}}</a></td>
 						</tr>
 					{{else}}
-						<tr><td class="tw-text-center" colspan="10">{{ctx.Locale.Tr "repo.pulls.no_results"}}</td></tr>
+						<tr><td class="tw:text-center" colspan="10">{{ctx.Locale.Tr "repo.pulls.no_results"}}</td></tr>
 					{{end}}
 				</tbody>
 			</table>

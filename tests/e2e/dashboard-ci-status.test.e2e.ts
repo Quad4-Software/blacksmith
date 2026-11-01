@@ -1,5 +1,5 @@
 // @watch start
-// web_src/js/components/DashboardRepoList.vue
+// web_src/js/components/DashboardRepoList.svelte
 // @watch end
 
 import {expect} from '@playwright/test';

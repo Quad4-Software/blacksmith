@@ -80,7 +80,7 @@ class ComboMarkdownEditor {
 
     const monospaceEnabled = localStorage?.getItem('markdown-editor-monospace') === 'true';
     if (monospaceEnabled) {
-      this.textarea.classList.add('tw-font-mono');
+      this.textarea.classList.add('tw:font-mono');
     }
 
     if (this.textarea.getAttribute('data-disable-autosize') !== 'true') {
@@ -187,7 +187,7 @@ class ComboMarkdownEditor {
       e.preventDefault();
       const enabled = localStorage?.getItem('markdown-editor-monospace') !== 'true';
       localStorage.setItem('markdown-editor-monospace', String(enabled));
-      this.textarea.classList.toggle('tw-font-mono', enabled);
+      this.textarea.classList.toggle('tw:font-mono', enabled);
       const text = monospaceButton.getAttribute(enabled ? 'data-disable-text' : 'data-enable-text');
       monospaceButton.setAttribute('data-tooltip-content', text);
       monospaceButton.setAttribute('aria-label', text);
@@ -399,8 +399,8 @@ class ComboMarkdownEditor {
 
   async switchToEasyMDE() {
     if (this.easyMDE) return;
-    // EasyMDE's CSS should be loaded via webpack config, otherwise our own styles can not overwrite the default styles.
-    const {default: EasyMDE} = await import(/* webpackChunkName: "easymde" */'easymde');
+    // EasyMDE's CSS is loaded in the index entry so that our own styles can overwrite the default styles.
+    const {default: EasyMDE} = await import('easymde');
     const easyMDEOpt = {
       autoDownloadFontAwesome: false,
       element: this.textarea,

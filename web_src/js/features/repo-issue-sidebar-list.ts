@@ -48,7 +48,7 @@ export function initRepoIssueSidebarList() {
             }
             filteredResponse.results.push({
               name: `#${issue.number} ${issueTitleHTML(htmlEscape(issue.title))
-              }<div class="text small tw-break-anywhere">${htmlEscape(issue.repository.full_name)}</div>`,
+              }<div class="text small tw:break-anywhere">${htmlEscape(issue.repository.full_name)}</div>`,
               value: issue.id,
             });
           }

@@ -1,9 +1,9 @@
-<div class="ui info message tw-flex tw-items-center">
+<div class="ui info message tw:flex tw:items-center">
 	<span>
 		{{ctx.Locale.Tr "actions.workflow.dispatch.trigger_found"}}
 	</span>
-	<div class="ui dropdown custom tw-ml-4" id="workflow_dispatch_dropdown">
-		<button class="ui compact small basic button tw-flex">
+	<div class="ui dropdown custom tw:ml-4" id="workflow_dispatch_dropdown">
+		<button class="ui compact small basic button tw:flex">
 			<span class="text">{{ctx.Locale.Tr "actions.workflow.dispatch.run"}}</span>
 			{{svg "octicon-triangle-down" 14 "dropdown icon"}}
 		</button>
@@ -62,7 +62,7 @@
 					{{end}}
 
 					{{if .WarnDispatchInputsLimit}}
-						<div class="text yellow tw-mb-4">
+						<div class="text yellow tw:mb-4">
 							{{svg "octicon-alert"}} {{ctx.Locale.Tr "actions.workflow.dispatch.warn_input_limit" .DispatchInputsLimit}}
 						</div>
 					{{end}}

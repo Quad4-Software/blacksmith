@@ -66,17 +66,20 @@ export async function createCodeEditor(textarea: HTMLTextAreaElement, filenameIn
 
   togglePreviewDisplay(previewable);
 
-  const editor = await createCodemirror(textarea, filename, {
+  const editorPromise = createCodemirror(textarea, filename, {
     ...getFileBasedOptions(filenameInput.value, lineWrapExts),
     ...getEditorConfigOptions(editorConfig),
   });
 
+  // listen before awaiting the editor so early input events are not lost
   filenameInput.addEventListener('input', onInputDebounce(async () => {
     const filename = filenameInput.value;
     const previewable = previewableExts.has(extname(filename));
     togglePreviewDisplay(previewable);
-    await updateEditor(editor, filename, lineWrapExts);
+    await updateEditor(await editorPromise, filename, lineWrapExts);
   }));
+
+  const editor = await editorPromise;
 
   const searchButton = document.querySelector('#editor-find');
   searchButton.addEventListener('click', () => {

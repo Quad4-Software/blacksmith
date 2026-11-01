@@ -14,7 +14,7 @@ export async function renderMermaid() {
   const els = document.querySelectorAll('.markup code.language-mermaid');
   if (!els.length) return;
 
-  const {default: mermaid} = await import(/* webpackChunkName: "mermaid" */'mermaid');
+  const {default: mermaid} = await import('mermaid');
 
   mermaid.initialize({
     startOnLoad: false,
@@ -45,11 +45,11 @@ export async function renderMermaid() {
       const {svg} = await mermaid.render('mermaid', source);
 
       const iframe = document.createElement('iframe');
-      iframe.classList.add('markup-render', 'tw-invisible');
+      iframe.classList.add('markup-render', 'tw:invisible');
       iframe.srcdoc = `<html><head><style>${iframeCss}</style></head><body>${svg}</body></html>`;
 
       const mermaidBlock = document.createElement('div');
-      mermaidBlock.classList.add('mermaid-block', 'is-loading', 'tw-hidden');
+      mermaidBlock.classList.add('mermaid-block', 'is-loading', 'tw:hidden');
       mermaidBlock.append(iframe);
 
       const btn = makeCodeCopyButton();
@@ -65,11 +65,11 @@ export async function renderMermaid() {
 
       iframe.addEventListener('load', () => {
         pre.replaceWith(mermaidBlock);
-        mermaidBlock.classList.remove('tw-hidden');
+        mermaidBlock.classList.remove('tw:hidden');
         updateIframeHeight();
         setTimeout(() => { // avoid flash of iframe background
           mermaidBlock.classList.remove('is-loading');
-          iframe.classList.remove('tw-invisible');
+          iframe.classList.remove('tw:invisible');
         }, 0);
 
         // update height when element's visibility state changes, for example when the diagram is inside

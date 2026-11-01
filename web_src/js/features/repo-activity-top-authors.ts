@@ -1,4 +1,4 @@
-import {createApp} from 'vue';
+import {mount} from 'svelte';
 
 export async function initRepoActivityTopAuthorsChart() {
   const el = document.getElementById('repo-activity-top-authors-chart');
@@ -6,11 +6,13 @@ export async function initRepoActivityTopAuthorsChart() {
     return;
   }
 
-  const {default: RepoActivityTopAuthors} = await import(/* webpackChunkName: "repo-activity-top-authors" */'../components/RepoActivityTopAuthors.vue');
-  const repoActivityTopAuthors = createApp(RepoActivityTopAuthors, {
-    locale: {
-      commitActivity: el.getAttribute('data-locale-commit-activity'),
+  const {default: RepoActivityTopAuthors} = await import('../components/RepoActivityTopAuthors.svelte');
+  mount(RepoActivityTopAuthors, {
+    target: el,
+    props: {
+      locale: {
+        commitActivity: el.getAttribute('data-locale-commit-activity'),
+      },
     },
   });
-  repoActivityTopAuthors.mount(el);
 }

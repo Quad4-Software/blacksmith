@@ -79,7 +79,7 @@ dialog.modal .content {
   color: var(--color-text);
 }
 
-dialog.modal .content:not(.tw-hidden) + form > .content {
+dialog.modal .content:not(.tw\:hidden) + form > .content {
   padding-top: 0;
 }
 

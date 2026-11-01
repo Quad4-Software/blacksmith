@@ -2,8 +2,8 @@
 <div role="main" aria-label="{{.Title}}" class="page-content repository wiki pages">
 	{{template "repo/header" .}}
 	<div class="ui container">
-		<div class="tw-flex tw-items-center tw-justify-between">
-			<h1 class="tw-m-0">{{ctx.Locale.Tr "repo.wiki.pages"}}</h1>
+		<div class="tw:flex tw:items-center tw:justify-between">
+			<h1 class="tw:m-0">{{ctx.Locale.Tr "repo.wiki.pages"}}</h1>
 			{{if and .CanWriteWiki (not .Repository.IsMirror)}}
 				<a class="ui small primary button" href="{{.RepoLink}}/wiki?action=_new">{{ctx.Locale.Tr "repo.wiki.new_page_button"}}</a>
 			{{end}}
