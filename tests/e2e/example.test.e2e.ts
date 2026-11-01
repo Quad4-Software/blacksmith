@@ -11,8 +11,19 @@ import {screenshot} from './shared/screenshots.ts';
 test('Load Homepage', async ({page}) => {
   const response = await page.goto('/');
   expect(response?.status()).toBe(200); // Status OK
-  await expect(page).toHaveTitle(/^Forgejo: Beyond coding. We Forge.\s*$/);
-  await expect(page.locator('.logo')).toHaveAttribute('src', '/assets/img/logo.svg');
+  await expect(page.locator('.blacksmith-hero .wordmark')).toHaveText('Blacksmith');
+  await expect(page.locator('.blacksmith-hero .tagline')).toBeVisible();
+  await expect(page.locator('.blacksmith-hero a[href*="/user/login"]')).toBeVisible();
+  await expect(page.locator('.blacksmith-hero a[href*="/explore/repos"]')).toBeVisible();
+  await expect(page.locator('.blacksmith-features .feature')).toHaveCount(6);
+  const repoCard = page.locator('.landing-repo-card').first();
+  if (await repoCard.count()) {
+    await expect(repoCard).toBeVisible();
+    const href = await repoCard.getAttribute('href');
+    expect(href).toBeTruthy();
+  }
+  await page.setViewportSize({width: 390, height: 844});
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
 });
 
 test('Register Form', async ({page}, workerInfo) => {

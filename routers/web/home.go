@@ -84,6 +84,10 @@ func Home(ctx *context.Context) {
 	ctx.Data["IsRepoIndexerEnabled"] = setting.Indexer.RepoIndexerEnabled
 
 	ctx.Data["OpenGraphDescription"] = setting.UI.Meta.Description
+	ctx.Data["ShowExploreLink"] = !setting.Service.RequireSignInView
+	if repos := landingRepos(ctx); len(repos) > 0 {
+		ctx.Data["LandingRepos"] = repos
+	}
 
 	ctx.HTML(http.StatusOK, tplHome)
 }
@@ -132,4 +136,25 @@ func HomeSitemap(ctx *context.Context) {
 	if _, err := m.WriteTo(ctx.Resp); err != nil {
 		log.Error("Failed writing sitemap: %v", err)
 	}
+}
+
+// landingRepos returns up to 6 recently updated public repositories for the
+// anonymous landing page. Errors are logged and treated as an empty list so
+// the page never fails because of it.
+func landingRepos(ctx *context.Context) []*repo_model.Repository {
+	if setting.Service.RequireSignInView {
+		return nil
+	}
+	repos, _, err := repo_model.SearchRepository(ctx, &repo_model.SearchRepoOptions{
+		ListOptions:      db.ListOptions{PageSize: 6},
+		Actor:            ctx.Doer,
+		AllPublic:        true,
+		OnlyShowRelevant: true,
+		OrderBy:          db.SearchOrderByRecentUpdated,
+	})
+	if err != nil {
+		log.Error("landingRepos: %v", err)
+		return nil
+	}
+	return repos
 }

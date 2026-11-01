@@ -4,13 +4,50 @@
 		<img class="mark" width="96" height="96" src="{{AssetUrlPrefix}}/img/logo.svg" alt="{{ctx.Locale.Tr "logo"}}">
 		<div class="wordmark">Blacksmith</div>
 		<p class="tagline">{{ctx.Locale.Tr "startpage.app_desc"}}</p>
+		<p class="sub-tagline">{{ctx.Locale.Tr "startpage.hero_subtitle"}}</p>
 		<div class="actions">
 			<a class="ui primary button" href="{{AppSubUrl}}/user/login">{{ctx.Locale.Tr "sign_in"}}</a>
 			{{if .ShowRegistrationButton}}
 				<a class="ui basic button" href="{{AppSubUrl}}/user/sign_up">{{ctx.Locale.Tr "register"}}</a>
 			{{end}}
+			{{if .ShowExploreLink}}
+				<a class="ui basic button" href="{{AppSubUrl}}/explore/repos">{{ctx.Locale.Tr "explore"}}</a>
+			{{end}}
+		</div>
+		<div class="clone-card">
+			<code>git clone {{AppUrl}}owner/repo.git</code>
+			<button type="button" class="ui basic icon button" data-clipboard-text="git clone {{AppUrl}}owner/repo.git" aria-label="{{ctx.Locale.Tr "copy_content"}}">
+				{{svg "octicon-copy" 16}}
+			</button>
 		</div>
 	</div>
 	{{template "home_blacksmith" .}}
+	{{if .LandingRepos}}
+		<div class="landing-section">
+			<div class="landing-section-head">
+				<h2>{{ctx.Locale.Tr "startpage.recent_repos"}}</h2>
+				{{if .ShowExploreLink}}<a href="{{AppSubUrl}}/explore/repos">{{ctx.Locale.Tr "startpage.explore_all"}}</a>{{end}}
+			</div>
+			<div class="landing-repo-grid">
+				{{range .LandingRepos}}
+					<a class="landing-repo-card" href="{{.Link}}">
+						<div class="landing-repo-name"><img class="ui avatar" src="{{.Owner.AvatarLink $.Context}}" alt="" width="24" height="24" loading="lazy"><span>{{HTMLFormat "%s/%s" .OwnerName .Name}}</span></div>
+						{{if .Description}}<div class="landing-repo-desc">{{.Description}}</div>{{end}}
+						<div class="landing-repo-meta">
+							{{if .PrimaryLanguage}}<span class="repo-language"><span class="repo-language-color" style="background-color: {{.PrimaryLanguage.Color}}"></span>{{.PrimaryLanguage.Language}}</span>{{end}}
+							<span class="repo-stars">{{svg "octicon-star" 12}} {{.NumStars}}</span>
+						</div>
+					</a>
+				{{end}}
+			</div>
+		</div>
+	{{end}}
+	<div class="landing-cta">
+		<h2>{{ctx.Locale.Tr "startpage.cta_title"}}</h2>
+		<div class="actions">
+			<a class="ui primary button" href="{{AppSubUrl}}/user/login">{{ctx.Locale.Tr "sign_in"}}</a>
+			{{if .ShowRegistrationButton}}<a class="ui basic button" href="{{AppSubUrl}}/user/sign_up">{{ctx.Locale.Tr "register"}}</a>{{end}}
+		</div>
+	</div>
 </div>
 {{template "base/footer" .}}
